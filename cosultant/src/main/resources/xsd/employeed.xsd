@@ -1,0 +1,174 @@
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" attributeFormDefault="unqualified">
+	<!-- XML Schema Generated from XML Document on Thu Jan 17 2019 00:05:28 
+		GMT-0600 (Central Standard Time) -->
+	<!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
+
+
+	<xs:complexType name="searchRequest">
+		<xs:sequence>
+			<xs:element name="employee_id" type="xs:string"></xs:element>
+			<xs:element name="firstName" type="xs:string"></xs:element>
+			<xs:element name="middleName" type="xs:string"></xs:element>
+			<xs:element name="lastName" type="xs:string"></xs:element>
+			<xs:element name="dob" type="xs:string"></xs:element>
+			<xs:element name="country" type="xs:string"></xs:element>
+			<xs:element name="visaStatus" type="xs:string"></xs:element>
+			<xs:element name="email" type="xs:string"></xs:element>
+			<xs:element name="phone" type="xs:string"></xs:element>
+			<xs:element name="secondEmail" type="xs:string"></xs:element>
+			<xs:element name="secondPhone" type="xs:string"></xs:element>
+			<xs:element name="joinedOn" type="xs:string"></xs:element>
+			<xs:element name="hiredOn" type="xs:string"></xs:element>
+			<xs:element name="manager" type="xs:string"></xs:element>
+			<xs:element name="recruiter" type="xs:string"></xs:element>
+			<xs:element name="ssn" type="xs:string"></xs:element>
+			<xs:element name="lastUpdated" type="xs:string"></xs:element>
+			<xs:element name="addressId" type="xs:string"></xs:element>
+			<xs:element name="docId" type="xs:string"></xs:element>
+			<xs:element name="fileName" type="xs:string"></xs:element>
+			<xs:element name="fileType" type="xs:string"></xs:element>
+			<xs:element name="fileSize" type="xs:string"></xs:element>
+			<xs:element name="employmentId" type="xs:string"></xs:element>
+			<xs:element name="clientId" type="xs:string"></xs:element>
+			<xs:element name="workId" type="xs:string"></xs:element>
+			<xs:element name="searchType" type="xs:string"></xs:element>
+
+		</xs:sequence>
+	</xs:complexType>
+	
+ <xs:simpleType name="searchType" final="restriction" >
+    <xs:restriction base="xs:string">
+        <xs:enumeration value="DOCUMENT" />
+        <xs:enumeration value="EMPLOYMENT" />
+        <xs:enumeration value="EMPLOYEE" />
+    </xs:restriction>
+</xs:simpleType>
+	
+	<xs:complexType name="address">
+		<xs:sequence>
+			<xs:element name="addressId" type="xs:string"></xs:element>
+			<xs:element name="addressLine1" type="xs:string"></xs:element>
+			<xs:element name="addressLine2" type="xs:string"></xs:element>
+			<xs:element name="city" type="xs:string"></xs:element>
+			<xs:element name="state" type="xs:string"></xs:element>
+			<xs:element name="zipCode" type="xs:string"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="documentObj">
+		<xs:sequence>
+			<xs:element name="docId" type="xs:string"></xs:element>
+			<xs:element name="employeeId" type="xs:string"></xs:element>
+			<xs:element name="fileName" type="xs:string"></xs:element>
+			<xs:element name="fileType" type="xs:string"></xs:element>
+			<xs:element name="fileSize" type="xs:string"></xs:element>
+			<xs:element name="lastUpdated" type="xs:string"></xs:element>
+			<xs:element name="docDesc" type="xs:string"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="employmentObj">
+		<xs:sequence>
+			<xs:element name="employmentId" type="xs:string"></xs:element>
+			<xs:element name="employeeId" type="xs:string"></xs:element>
+			<xs:element name="status" type="xs:string"></xs:element>
+			<xs:element name="startDate" type="xs:string"></xs:element>
+			<xs:element name="endDate" type="xs:string"></xs:element>
+			<xs:element name="hourlyWageRecv" type="xs:string"></xs:element>
+			<xs:element name="hourlyWagePay" type="xs:string"></xs:element>
+			<xs:element name="termntnReason" type="xs:string"></xs:element>
+			<xs:element name="jobTitle" type="xs:string"></xs:element>
+			<xs:element name="technology" type="xs:string"></xs:element>
+			<xs:element name="jobDesc" type="xs:string"></xs:element>
+			<xs:element name="empAuthStatus" type="xs:string"></xs:element>
+			<xs:element name="empAuthStart" type="xs:string"></xs:element>
+			<xs:element name="empAuthEnd" type="xs:string"></xs:element>
+			<xs:element name="vendor">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="vendorId" type="xs:string"></xs:element>
+						<xs:element name="vendorName" type="xs:string"></xs:element>
+						<xs:element name="vendorHrName" type="xs:string"></xs:element>
+						<xs:element name="vendorHrEmail" type="xs:string"></xs:element>
+						<xs:element name="vendorHrPhone" type="xs:string"></xs:element>
+						<xs:element name="vendorContactName" type="xs:string"></xs:element>
+						<xs:element name="vendorContactEmail" type="xs:string"></xs:element>
+						<xs:element name="vendorContactPhone" type="xs:string"></xs:element>
+						<xs:element name="vendorAddress" type="address"></xs:element>
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+			<xs:element name="client">
+				<xs:complexType>
+					<xs:sequence>
+						<xs:element name="clientId" type="xs:string"></xs:element>
+						<xs:element name="clientName" type="xs:string"></xs:element>
+						<xs:element name="clientHrName" type="xs:string"></xs:element>
+						<xs:element name="clientHrPhone" type="xs:string"></xs:element>
+						<xs:element name="clientHrEmail" type="xs:string"></xs:element>
+						<xs:element name="clientContactName" type="xs:string"></xs:element>
+						<xs:element name="clientContactPhone" type="xs:string"></xs:element>
+						<xs:element name="clientContactEmail" type="xs:string"></xs:element>
+						<xs:element name="clientAddress" type="address"></xs:element>
+
+					</xs:sequence>
+				</xs:complexType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:element name="PersonalInfo">
+
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="employee_id" type="xs:string"></xs:element>
+				<xs:element name="firstName" type="xs:string"></xs:element>
+				<xs:element name="middleName" type="xs:string"></xs:element>
+				<xs:element name="lastName" type="xs:string"></xs:element>
+				<xs:element name="dob" type="xs:string"></xs:element>
+				<xs:element name="country" type="xs:string"></xs:element>
+				<xs:element name="visaStatus" type="xs:string"></xs:element>
+				<xs:element name="email" type="xs:string"></xs:element>
+				<xs:element name="phone" type="xs:string"></xs:element>
+				<xs:element name="secondEmail" type="xs:string"></xs:element>
+				<xs:element name="secondPhone" type="xs:string"></xs:element>
+				<xs:element name="joinedOn" type="xs:string"></xs:element>
+				<xs:element name="hiredOn" type="xs:string"></xs:element>
+				<xs:element name="manager" type="xs:string"></xs:element>
+				<xs:element name="recruiter" type="xs:string"></xs:element>
+				<xs:element name="ssn" type="xs:string"></xs:element>
+				<xs:element name="lastUpdated" type="xs:string"></xs:element>
+				<xs:element name="address" type="address"></xs:element>
+				<xs:element name="documnetObj" type="documentObj"
+					minOccurs="0" maxOccurs="unbounded"></xs:element>
+				<xs:element name="employmentObj" type="employmentObj"
+					minOccurs="0" maxOccurs="unbounded"></xs:element>
+				<xs:element name="education">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="educationId" type="xs:string"></xs:element>
+							<xs:element name="highestDegree" type="xs:string"></xs:element>
+							<xs:element name="gradYear" type="xs:string"></xs:element>
+							<xs:element name="collegeDegree" type="xs:string"></xs:element>
+							<xs:element name="lastColName" type="xs:string"></xs:element>
+							<xs:element name="lastColCountry" type="xs:string"></xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+				<xs:element name="work">
+					<xs:complexType>
+						<xs:sequence>
+							<xs:element name="workId" type="xs:string"></xs:element>
+							<xs:element name="workExpInYear" type="xs:string"></xs:element>
+							<xs:element name="isCurrEmployed" type="xs:string"></xs:element>
+							<xs:element name="lastEmployer" type="xs:string"></xs:element>
+							<xs:element name="areaOfWork" type="xs:string"></xs:element>
+						</xs:sequence>
+					</xs:complexType>
+				</xs:element>
+
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+</xs:schema>

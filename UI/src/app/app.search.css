@@ -1,0 +1,53 @@
+#searchWrapper{
+    width: 100%;
+}
+
+#search-result-list{
+display: inline-block;
+border: 1px solid red;
+width:100%;
+padding: 10px;
+
+}
+
+h3{
+    margin: 5px;
+}
+#search-result-list > .card{
+    width: 28%;
+    margin: 5px;
+}
+
+#profile-pic {
+    width: 60%;
+    padding: 15px;
+}
+
+.card{
+    width: 100%;
+}
+
+#search-result-info1{
+float: left;
+border: 0px solid red;
+width: 43%;
+
+}
+
+#search-result-info2{
+padding-top: 10%;
+float: left;
+border: 0px solid red;
+width: 45%;
+
+}
+#search-result-header{
+    display: inline-block;
+    width: 100%;
+    border: 1px solid rgb(212, 198, 198);
+
+}
+#search-result-body{
+    border: 1px solid rgb(212, 198, 198);
+
+}

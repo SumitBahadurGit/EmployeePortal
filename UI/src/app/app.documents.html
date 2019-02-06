@@ -1,0 +1,67 @@
+<form>
+
+<form (ngSubmit)="upload($event)">
+
+    <div class="shadow-lg p-3 mb-5 bg-light rounded">
+
+        <h5 class="card-title">Documents</h5>
+
+        <div id="upload-container">
+            <div *ngIf="employee">
+                <div *ngFor = "let document of employee.documnetObj">
+                    <div class="upload-wrapper">
+                        <div id="test" class="border rounded">
+                        </div>
+                        <a href="http://localhost:8080/files/{{document.fileName}}" class="upload-text">{{document.fileName}}</a>
+                    </div>        
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+    <div class="shadow-lg p-3 mb-5 bg-muted rounded">
+
+        <div id="upload-m-container">
+
+            <div id="upload-m-wrapper">
+                <div id="upload-m-files" class="border">
+                    <button *ngIf="filesUploaded == false" type="button" id="content" onclick="document.getElementById('files-uploader').click()">Upload
+                        Files</button>
+                    <input id="files-uploader" (change)="fileChange($event)" type="file" name="img" multiple style="display:none">
+                </div>
+                <br>
+                <div id="upload-files-list" *ngIf="filesUploaded">
+                       
+     
+                    <div  *ngFor="let file of files; let index = index;">
+                        <div class="uploaded-files-wrapper">
+                        <p *ngIf="index==0">{{files.length}} files selected</p> 
+                        <button class="uploaded-files-del" (click)="removeFile(file)">X</button>
+                        <input class="uploaded-files" type="text" name="name_{{index}}" [(ngModel)]="file.name" disabled>
+                        <span class="uploaded-files-size">                  {{fileSIze(file.size)}}</span> 
+                        <br>
+                    </div>
+                    </div>
+                    <div id="upload-files-submit">
+                            <button type="button" onclick="document.getElementById('files-uploader').click()">Browse</button>
+                            <button type="submit" >Upload</button>        
+                    </div>
+
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+
+
+
+
+
+
+
+    
+
+
+</form>

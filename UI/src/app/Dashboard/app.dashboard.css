@@ -1,0 +1,152 @@
+.main-page{
+    z-index:4;
+}
+.container-fluid{
+    padding: 0;
+    margin: 0;
+}
+.container-fluid > .row {
+    margin:0;
+}
+
+#db-navbar{
+    position: fixed;    
+    width: 100%;
+    top: 0;
+    left: 0;
+    right : 0;
+    border: 0px solid red;
+    padding-bottom: 5px;
+    background-color: white;
+
+}
+
+#side-panel-support{
+    overflow: hidden;
+    border: 0px solid green;
+    position: relative;
+
+}
+#side-panel{
+    margin: 0;
+    min-height: 100vh;
+    height: 100%;
+    border-radius: 10px;
+    -webkit-box-shadow: 15px 3px 30px -1px rgba(1, 87, 155, 1);
+    -moz-box-shadow:    15px 3px 30px -1px rgba(1, 87, 155, 1);
+    box-shadow:         15px 3px 30px -1px rgba(1, 87, 155, 1);
+    font-weight: bolder;
+    border: 0px solid red;
+}
+
+#side-panel-header{
+    padding: 10px;
+}
+
+
+#db-content{
+    padding: 1%;
+    position: relative;
+    display: inline-block;
+    min-height: 100vh;   
+    border: 0px solid red;
+    margin-bottom: 25px;
+    max-height: 110vh;
+}
+
+.left{
+    float: left;
+}
+.right{
+    float: right;
+}
+
+li {
+    width: 100%;
+    border: 0px solid red;
+    margin-top: 12px;
+   
+}
+li > a{
+    width: 100%;
+    height: 100%;
+    border: 0px solid red;
+}
+
+.nested-tab > ul {
+    margin-top:6px;
+    margin-left: 25px;
+    margin-bottom:6px;
+}
+
+.left-icon{
+    margin-right: 6px;
+}
+.right-icon{
+    float: right;
+}
+
+.nav-link {
+
+    border-radius: 20px;
+    border-radius: 20px;
+}
+
+
+#v-pills-tab > li > .nav-link.active {
+    background-color:#0277bd;
+    font-weight: bolder;
+
+}
+
+#v-pills-tab-inner > li > .nav-link.active {
+    background-color:#0277bd;
+    opacity: 0.4;
+}
+.col-md-3 {
+    flex-grow: 1;
+}
+
+.form-wrapper{
+    border: 1px solid gray;
+    border-radius: 6px;
+}
+
+.items{
+    float: right;
+}
+
+.no-bd{
+    border: none !important;
+}
+
+.no-bg {
+    background: none !important;
+}
+
+.gray{
+    color: rgb(83, 81, 81);
+    font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+.bold{
+    font-weight: bold;
+}
+
+.green{
+    color: green;
+}
+.blue{
+    color: rgb(64, 120, 206);
+}
+.hidden{
+    display: none;
+}
+
+.space{
+    padding-left:5em
+}
+
+.red{
+    color: red;
+}
+

@@ -1,0 +1,15 @@
+.generatorWrapper{
+    border-radius: 15px;
+    border: 0px solid gray;
+    background-color: rgba(136, 135, 135,0.2);
+    width: 100%;
+    min-height: 50vh;
+	display: inline-block;
+    position: relative;
+    padding: 0;
+    margin: 0;
+}
+
+.gen-formWrapper{
+    padding: 3%;
+}

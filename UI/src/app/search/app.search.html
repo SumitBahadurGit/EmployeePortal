@@ -1,0 +1,105 @@
+<div id="searchWrapper">
+
+  <div *ngIf="noMatches" class="alert alert-danger">
+    <strong>No matching records found!</strong>
+  </div>
+
+  <div id="search-result-list" *ngIf="searchResultsLoaded">
+    <div class="alert alert-success">
+      <strong>Possible matches.</strong>
+    </div>
+    <div class="row justify-content-start">
+
+      <div id="sea-res" class="card col-3" *ngFor="let personalInfo of dataList">
+        <img class="card-img-top" src="../assets/img/img_male_avatar.png" alt="Card image">
+        <div class="card-body">
+          <h6 class="card-title">{{personalInfo.firstName}} {{personalInfo.middleName ? personalInfo.middleName : ""}}
+            {{personalInfo.lastName}}</h6>
+          <button (click)="seeProfile($event, personalInfo.employeeId)" class="btn btn-primary">See Profile</button>
+        </div>
+      </div>
+
+    </div>
+  </div>
+  <div id="search-result" *ngIf="dataLoaded">
+
+    <div id="search-result-header" class="card bg-light">
+      <div class="row justify-content-start">
+          <div id="search-result-info1" class="col-6">
+
+              <img id="profile-pic" src="assets/img/img_male_avatar.png" alt="Card image">
+              <h3 class="card-text"> {{personalInfo.firstName}} {{personalInfo.middleName ? personalInfo.middleName : ""}}
+                {{personalInfo.lastName}}</h3>
+      
+            </div>
+            <div id="search-result-info2" class="col-6">
+                <p *ngIf="personalInfo.joinedOn" class="card-text"><b>Joined:</b> {{personalInfo.joinedOn}}</p>
+                <p class="card-text"><b>Hired:</b> Marketting</p>
+                <p class="card-text"><b>Current Status:</b> Marketting</p>
+                <div class="btn-group">
+                  <button type="button" class="btn btn-primary">Send Email</button>
+                  <button type="button" class="btn btn-primary">Send Text</button>
+                </div>
+            </div>
+      
+      
+      </div>
+
+    </div>
+
+    <div id="search-result-body">
+      <div class="card">
+        <div class="card-body">
+
+          <h4 class="card-title">Personal Info</h4>
+          <p class="card-text"><b>Date of Birth:</b> {{personalInfo.dob}}</p>
+          <p class="card-text"><b>Country:</b> {{personalInfo.country}}</p>
+          <p class="card-text"><b>VISA status:</b> {{personalInfo.visaStatus}}</p>
+          <p class="card-text"><b>Phone:</b> {{personalInfo.phone}}</p>
+          <p class="card-text"><b>Second Phone:</b> {{personalInfo.secondPhone}}</p>
+          <p class="card-text"><b>Email:</b> {{personalInfo.email}}</p>
+          <p class="card-text"><b>Second Phone:</b> {{personalInfo.secondEmail}}</p>
+          <p class="card-text"><b>Phone:</b> {{personalInfo.recruiter}}</p>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">
+            <Address></Address>Address Info
+          </h4>
+          <p class="card-text"><b>Address Line 1:</b> {{personalInfo.address.addressLine1}} </p>
+          <p class="card-text"><b>Address Line 2:</b> {{personalInfo.address.addressLine2}} </p>
+          <p class="card-text"><b>City:</b> {{personalInfo.address.city}} </p>
+          <p class="card-text"><b>State:</b> {{personalInfo.address.state}} </p>
+          <p class="card-text"><b>Postal Code:</b> {{personalInfo.address.zipCode}} </p>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Education Info</h4>
+          <p class="card-text"><b>Highest Degree:</b> {{personalInfo.education.highestDegree}} </p>
+          <p class="card-text"><b>Graduation Year:</b> {{personalInfo.education.gradYear}} </p>
+          <p class="card-text"><b>Major:</b> {{personalInfo.education.collegeDegree}} </p>
+          <p class="card-text"><b>Last Attended College:</b> {{personalInfo.education.lastColName}} </p>
+          <p class="card-text"><b>Last Attended College Country:</b> {{personalInfo.education.lastColCountry}} </p>
+
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-body">
+          <h4 class="card-title">Work Info</h4>
+          <p class="card-text"><b>Years of Experience:</b> {{personalInfo.work.workExpInYear}}</p>
+          <p class="card-text"><b>Currently Employed?:</b> {{personalInfo.work.isCurrEmployed}}</p>
+          <p class="card-text"><b>Last Employer:</b> {{personalInfo.work.lastEmployer}}</p>
+          <p class="card-text"><b>Area of work:</b> {{personalInfo.work.areaOfWork}}</p>
+        </div>
+      </div>
+    </div>
+
+
+  </div>
+</div>

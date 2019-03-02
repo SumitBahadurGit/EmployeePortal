@@ -1,0 +1,30 @@
+#chartWrapper{
+    border-radius: 15px;
+    border: 0px solid gray;
+	background-color: rgba(136, 135, 135,0.2);
+	width: 100%;
+}
+
+#todaysOverview{
+	width:100%;
+	color: whitesmoke;
+	height: 5%;
+	background-color: rgb(47, 49, 48);	
+	margin-bottom: 10px;
+	padding: 1%;
+	text-align: center;
+	border-radius: 1%;
+
+}
+
+#charts{
+	padding: 1%;
+	width: 100%;
+
+}
+
+.my-chart{
+	padding: 3px;
+	min-height: 250px;	
+	border: 1px solid whitesmoke;	
+}

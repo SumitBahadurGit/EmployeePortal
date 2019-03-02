@@ -1,0 +1,164 @@
+<div *ngIf="!isLoadingComplete()">
+  <div class="spinner-grow text-success middle"    
+  role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+
+<div id = "main-page" *ngIf="isLoadingComplete()">
+ 
+  <div *ngIf="isLoggedIn" class="container-fluid">
+     
+    <div class="row" >      
+      <div *ngIf="showThis()" id="side-panel-support">
+      </div>
+  
+      <div id="db-content" >       
+          <ul class="bd">
+            <li *ngFor="let route of getRoutes()">
+                <a [routerLink]="route.url">{{route.label}}</a>              
+            </li>
+            </ul>
+        <router-outlet></router-outlet>
+  
+      </div>
+    </div>
+
+  <div id="side-panel"  *ngIf="showThis()">
+        <div id = "side-panel-header">
+          <div class="row" >
+              <div class="col" style="background: none; border: 0px;">
+                  <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4vjYZy3QrcBTYMBeKCI51TKwPwEGFFPSBtsaFW_Zhrx9NDGcz"
+                    width="45" height="45" style="border-radius: 50%;" alt="">
+            </div>
+            <div class="ml-auto" style="margin-right:15px;">
+                <select
+                 class="badge badge-pill badge-success"
+                  id="db-status-id" 
+                  style="outline: none; border:none;">
+                    <option *ngFor = "let s of getLogInStatus()" no-bg no-bd>
+                        <span class="badge badge-primary">{{s}}</span>  
+                    </option>
+                  </select>
+            </div>
+          </div>
+          <div class ="row">
+            <div class="col" >
+                <p class="blue bold" style="margin-bottom:0 !important;">
+                    {{getUser().firstName}}  {{getUser().lastName}}                                                                
+                </p>
+                <span class="gray small">Position: Employee </span> 
+                <br>                                                               
+                <span class="gray small">Eid: {{getUser().employeeId}}</span> 
+            </div>
+          </div>
+      </div>
+      <hr>
+        <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+          <li  [routerLink]="['chart']" >
+            <a class="nav-link active" id="v-pills-profile-tab" data-toggle="pill" href=""  role="tab"
+            aria-controls="v-pills-profile" aria-selected="false" ><i class="fas fa-user left-icon"></i> 
+            Monitoring</a>
+          </li>
+          <li  [routerLink]="['explorer']" >
+            <a class="nav-link" id="v-pills-exploer-tab" data-toggle="pill" href=""  role="tab"
+            aria-controls="v-pills-explorer" aria-selected="false" ><i class="fas fa-folder left-icon"></i>
+            Explorer</a>
+          </li>
+          <li [routerLink]="['chart']" >
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+            aria-controls="v-pills-messages" aria-selected="false"><i class="fas fa-envelope left-icon"></i> Messages</a>
+          </li>
+          <li>
+            <a class="nav-link" id="v-pills-employees-tab" data-toggle="pill" aria-controls="collapseExample"
+            href="#Emplloyees" role="tab" aria-selected="false"><i class="fas fa-layer-group left-icon"></i> Manage<i class="fas fa-chevron-circle-down right-icon"></i></a>                
+          </li>
+            <div class="collapse nested-tab" id="Employees-h">
+              <ul class="nav flex-column nav-pills" id="v-pills-tab-inner" role="tablist" aria-orientation="vertical">
+                <li [routerLink]="['register']">
+                  <a class="nav-link active" id="v-pills-emp-new" data-toggle="pill"  
+                  href=""            
+                  role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="fas fa-plus-square left-icon"></i> Add</a>  
+                </li>
+                <li [routerLink]="['employees']">
+                  <a class="nav-link" id="v-pills-emp-edit" data-toggle="pill" href="#v-pills-profile" role="tab"
+                  aria-controls="v-pills-profile" aria-selected="false"  ><i class="far fa-edit left-icon"></i> Edit</a>                      
+                </li>
+                <li [routerLink]="['listEmployees']">
+                  <a class="nav-link" id="v-pills-emp-all" data-toggle="pill" href="#v-pills-profile" role="tab"
+                  aria-controls="v-pills-profile" aria-selected="false"  ><i class="fas fa-list left-icon"></i> All</a>                      
+                </li>
+              </ul>
+            </div>                
+
+          <li  [routerLink]="['calendar']" >
+            <a class="nav-link" id="v-pills-profile-tab" data-toggle="pill" href="#v-pills-profile" role="tab"
+            aria-controls="v-pills-profile" aria-selected="false"><i class="far fa-calendar-alt left-icon"></i> Calendar</a>                
+          </li>
+          <li [routerLink]="['contact']">
+            <a class="nav-link" id="v-pills-messages-tab" data-toggle="pill" href="#v-pills-messages" role="tab"
+            aria-controls="v-pills-messages" aria-selected="false" ><i class="fas fa-comments left-icon"></i> Contact</a>
+          </li>
+          <li>
+            <a class="nav-link" id="v-pills-tools-tab" data-toggle="pill" aria-controls="collapseExample"
+            href="#Tools" role="tab" aria-selected="false"><i class="fas fa-toolbox left-icon"></i> Tools<i class="fas fa-chevron-circle-down right-icon"></i></a>                
+          </li>
+            <div class="collapse nested-tab" id="Tools-h">
+              <ul class="nav flex-column nav-pills" id="v-pills-tab-inner" role="tablist" aria-orientation="vertical">
+                <li [routerLink]="['generator']">
+                  <a class="nav-link active" id="v-pills-eid-new" data-toggle="pill"  
+                  href=""            
+                  role="tab" aria-controls="v-pills-home" aria-selected="true"><i class="far fa-id-badge left-icon"></i>Id Generator</a>  
+                </li>
+              </ul>
+            </div> 
+
+        </ul>
+  </div>
+  </div>
+
+<nav id="db-navbar" class="navbar navbar-dark shadow-lg p-3 mb-5 rounded">
+<div class="navbar-brand" style="background: none; border: 0px solid red;">
+<button id="navbar-toggler" style="background: none; border: 0px;" type="button"
+  aria-controls="navbarToggleExternalContent" aria-expanded="false" aria-label="Toggle navigation">
+  <i style="color: #0277bd;" class="fa fa-list-ul"></i>
+</button>
+<img src="https://jooinn.com/images/rainbow-logo.png" style="width:45px; height:40px;padding:0;margin:0;">
+<span style="font-weight: bold; color:green;">GREEN SOLUTIONS</span>
+</div>
+
+<div class="form-inline ml-auto" style="background: none; border: 0px; margin-right: 9px;">
+<div style="background: none; border: 1px; padding: 0px; margin: 0;">
+  <input id="nav-search" style=" border: 1px solid #86A8DF; margin: 0; height: 100%;" class="form-control"
+    type="text" placeholder="Search" aria-label="Search">
+  <button id = "com-search" class="btn" type="submit" style="border: 0px; margin: 0; height: 100%;"
+    data-target="#navbarTogglerDemo01" (click)="search($event)" aria-controls="navbarTogglerDemo01">
+    <i class="fas fa-search"></i>
+  </button>
+  <button id= "com-search-toggle" class="btn" type="submit" style="border: 0px; margin: 0; height: 100%;" data-toggle="collapse"
+  data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01">
+  <i class="fa fa-search"></i>
+</button>
+</div>
+<button class="no-bg no-bd red" (click)="signOut()">
+    <i class="fas fa-power-off"></i>
+</button>
+
+</div>
+<div class="collapse navbar-collapse" style="margin-top: 5px;" id="navbarTogglerDemo01">
+
+<div class="form-inline ml-auto" style="background: white; border: 1px; padding: 0px; margin: 0;">
+  <input id="nav-search-coll" style="width:90%; border: 1px solid #86A8DF;  margin: 0; height: 100%;" class="form-control"
+    type="text" placeholder="Search" aria-label="Search">
+  <button class="btn" type="submit" style="border: 0px; margin: 0; width:10%; height: 100%;" data-toggle="collapse"
+    data-target="#navbarTogglerDemo01" aria-controls="navbarTogglerDemo01">
+    <i class="fas fa-search"></i>
+  </button>
+</div>
+
+</div>
+</nav>
+<chat></chat>
+{{initJS()}}
+
+</div>

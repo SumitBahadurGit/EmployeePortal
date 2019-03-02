@@ -1,0 +1,381 @@
+ <div id="homeWrapper">
+    <div id="navbar">
+        <div class="navbar-logo" onclick="location.href='#carousal';" style="cursor: pointer;">
+            <img src="https://jooinn.com/images/rainbow-logo.png">
+            <span>GREEN SOLUTIONS</span>
+        </div>
+        <div class="navbar-mid-content">
+            <p><a href="#services">Services</a></p>
+            <p><a href="#careers">Careers</a></p>
+            <p><a href="#achievments">Achievements</a></p>
+            <p> <a href="#contact">Contact Us</a></p>
+        </div>
+        <div class="navbar-right-content">
+            <div id="navbar-login-wrapper">
+                <div style="text-align:right; padding: 4px;">
+                    <button class="btn btn-sm btn-primary" type="button" data-toggle="collapse"
+                        data-target="#navbar-login" aria-expanded="false" aria-controls="collapseExample">
+                        Log In
+                    </button>
+                </div>
+                <div id="navbar-login" class="collapse">
+                    <form>
+                        <div class="form-group">
+                            <label for="eidInput">Employee ID:</label>
+                            <input type="email" 
+                            name="un"
+                            [(ngModel)]="userName"
+                            class="form-control" id="eidInput" placeholder="Enter eid">
+                        </div>
+                        <div class="form-group">
+                            <label for="pwInput">Password</label>
+                            <input type="password"
+                            name="psw"
+                            [(ngModel)]="password"
+                             class="form-control" id="pwInput" placeholder="Password">
+                        </div>
+                        <button type="submit" (click)="tryLogIn()" class="btn btn-primary">Submit</button>
+                        <br>
+                        <div *ngIf="errorMessage != null" class="alert alert-danger bg-round">
+                                <strong>{{errorMessage}}</strong>
+                        </div>
+                    </form>
+                </div>
+
+            </div>
+
+
+        </div>
+    </div>
+
+    <div id="contentWrapper">
+        <div id="carousal" class="carousel slide home-item" data-ride="carousel">
+
+            <!-- The slideshow -->
+            <div class="carousel-inner">
+                <div class="carousel-item active">
+                    <div id="item-1">
+                        <div class="carousel-content">
+                            <h4>WHO ARE WE?</h4>
+                            <div class="row">
+                                <div class="col">
+                                    <p>
+                                        Welcome to Our Company!
+                                        <br>
+                                        We are an IT & Technology Consulting firm providing a diverse range of services
+                                        including Application Development & Maintenance, Staff Augmentation, Application
+                                        Outsourcing & Migration, Mobile Application Development and many more. <br>We
+                                        maintain a
+                                        dedicated team of professionals that support the critical business needs of
+                                        organizations, including prompt sourcing, screening and staffing of qualified
+                                        candidates.
+                                    </p>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+                <div class="carousel-item">
+                    <div id="item-2">
+                        <div class="carousel-content">
+                            <h4>WHO ARE WE?</h4>
+                            <div class="row">
+                                <div class="col">
+                                    <p>
+                                        IT Staffing
+                                        <br>
+                                        Navigating the field of IT consulting effortlessly through our highly motivated
+                                        workforce, we furnish onsite and virtual IT staffing solutions which help
+                                        organizations leverage their resources. We base our services and solutions upon
+                                        the
+                                        latest technology that reflects the modern candidate sourcing techniques.
+
+                                        <br>Below are some of the best reasons to use our Staff Augmentation services.
+
+                                        <br> • Skilled manpower to accomplish crucial tasks
+                                        <br> • Increased profits with decreased costs
+                                        <br> • Flexible work management services
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        Customer Service
+                                        <br>
+                                        Cubic Technologies uses innovative approaches to customer service that allow
+                                        businesses the ability to create a sustainable platform to achieve end
+                                        results.<br>
+                                        Here are the features reflecting world class customer service standards.<br>
+                                        • Streamlining multiple processes for handling complex client requirements<br>
+                                        • Identifying definite areas of improvement.<br>
+                                        • Conducting customer satisfaction programs via regular feedback.<br>
+                                    </p>
+                                </div>
+                                <div class="col">
+                                    <p>
+                                        IT Consulting Services
+                                        <br>
+                                        Strategic methodologies and comprehensive frameworks form the major part of our
+                                        promising IT consulting services. We adhere to the application development life
+                                        cycle including various phases such as support and deployment resulting in
+                                        maximum
+                                        customer benefits.
+                                        <br>
+                                        We undertake complex business challenges with the provision of several services
+                                        that
+                                        result in more value for the organization.
+                                        <br>
+                                        Seasoned IT consultants at Cubic Technologies elevate your reputation by:
+                                        <br>
+                                        • Developing crucial applications with custom features
+                                        <br>
+
+                                        • Enhancing the performance of existing and newly developed applications
+                                        <br>
+
+                                        • Migrating applications dynamically as per the varying requirements of
+                                        customers
+                                        <br>
+
+                                        • Outsourcing different applications based upon their priority
+                                        <br>
+
+                                        Our diverse array of technologies include C#, VB.NET, ASP.NET, Visual Basic,
+                                        Java/J2EE, and Oracle, which allows resolving multiple client issues in tandem.
+                                    </p>
+                                </div>
+                            </div>
+
+
+                        </div>
+
+                    </div>
+                </div>
+
+            </div>
+            <!-- Indicators -->
+            <ul class="carousel-indicators">
+                <li data-target="#demo" data-slide-to="0" class="active"></li>
+                <li data-target="#demo" data-slide-to="1"></li>
+                <li data-target="#demo" data-slide-to="2"></li>
+            </ul>
+
+            <!-- Left and right controls -->
+            <a class="carousel-control-prev" href="#carousal" data-slide="prev">
+                <span class="carousel-control-prev-icon"></span>
+            </a>
+            <a class="carousel-control-next" href="#carousal" data-slide="next">
+                <span class="carousel-control-next-icon"></span>
+            </a>
+        </div>
+        <div id="services" class="row">
+            <div class="col-12">
+                <h4>SERVICES</h4>
+                <h5>We expertise in providing a variety of services that is required for your IT business</h5>
+            </div>
+            <div class="images col-12">
+                <div>
+                    <img src="https://zealcon.com/images/home/Icons/ApplicationDesign.png">
+                    <p> Application Design</p>
+                </div>
+                <div>
+                    <img src="https://zealcon.com/images/home/Icons/IntegrationServices.png">
+                    <p> Integration Services</p>
+                </div>
+                <div>
+                    <img src="https://zealcon.com/images/home/Icons/ERPSolutions.png">
+                    <p> ERP Solutions</p>
+                </div>
+                <div>
+                    <img src="https://zealcon.com/images/home/Icons/GraphicDesign.png">
+                    <p> Graphic Design</p>
+                </div>
+            </div>
+            <div class="col-4">
+                <h5>IT TRAINING</h5>
+                <ul>
+                    <li>SAP Internet Sales</li>
+                    <li> SAP EP 7 Administration</li>
+                    <li> SAP EP 7 Fundamentals</li>
+                    <li> SAP EP Development</li>
+                    <li> CRM (SAP, OpenBravo)</li>
+                    <li> Security (SAP, OpenBravo)</li>
+                    <li> BW (OpenBravo)</li>
+                    <li> BASIS (SAP, OpenBravo)</li>
+                    <li> Business Objects (SAP)</li>
+                    <li> HCM (SAP, OpenBravo)</li>
+                    <li> SCM (OpenBravo)</li>
+                </ul>
+            </div>
+            <div class="col-4">
+                <h5>IT STAFFING</h5>
+                <p>
+                    Navigating the field of IT consulting effortlessly through our highly motivated workforce, we
+                    furnish
+                    onsite
+                    and virtual IT staffing solutions which help organizations leverage their resources. We base our
+                    services
+                    and solutions upon the latest technology that reflects the modern candidate sourcing techniques.
+                    <br>
+                    Below are some of the best reasons to use our Staff Augmentation services.
+                    <br>
+                    • Skilled manpower to accomplish crucial tasks
+                    <br>
+                    • Increased profits with decreased costs
+                    <br>
+                    • Flexible work management services
+                </p>
+            </div>
+            <div class="col-4">
+                <h5>IT CONSULTING SERVICES</h5>
+                <p>
+                    Strategic methodologies and comprehensive frameworks form the major part of our promising IT
+                    consulting
+                    services. We adhere to the application development life cycle including various phases such as
+                    support
+                    and deployment resulting in maximum customer benefits.
+                    <br>
+                    We undertake complex business challenges with the provision of several services that result in more
+                    value for the organization.
+                    <br>
+                    Seasoned IT consultants at Cubic Technologies elevate your reputation by:
+                    <br>
+                    • Developing crucial applications with custom features
+                    <br>
+                    • Enhancing the performance of existing and newly developed applications
+                    <br>
+                    • Migrating applications dynamically as per the varying requirements of customers
+                    <br>
+                    • Outsourcing different applications based upon their priority
+                    <br>
+                    Our diverse array of technologies include C#, VB.NET, ASP.NET, Visual Basic, Java/J2EE, and Oracle,
+                    which allows resolving multiple client issues in tandem.
+                </p>
+
+            </div>
+        </div>
+
+        <div id="careers" class="row">
+            <div class="col-12">
+                <h4>CAREERS AND OPPORTUNITIES</h4>
+                <p>
+                    Cubic Technologies offers an ideal work environment with perfect work-to-life balance allowing
+                    professionals share their knowledge and carve their career. By reflecting the long-time
+                    prospects of the organization, we focus upon multiple aspects from an employee’s perspective
+                    above all.
+                    <br>
+                    As a Cubic employee, you enjoy being an inseparable part of a motivating workforce and fast
+                    paced environment offering you tremendous opportunities to explore and excel.
+                    <br>
+                    With maximized self-improvement in a renewed manner, it is possible for every employee to reach
+                    career goals and utilize more resources with optimum flexibility.
+                    <br>
+                    As a Cubic employee, you're encouraged to be creative, think outside the box, and work with some of
+                    the industry's most innovative minds on high-impact projects. No matter what you do at ZEALCON,
+                    you'll play a part in shaping the future of ERP and UX experiences.
+                    <br> Interested?
+                </p>
+                <ul>
+                    <li>Business Project Manager</li>
+                    <li>Data Scientist II</li>
+                    <li>DevOps Engineer II</li>
+                    <li>Software Developer III</li>
+                    <li>Financial Specialist</li>
+                    <li>Full Stack Software Engineer</li>
+                    <li>GIS Technician I</li>
+                    <li>Human Resources Assistant III</li>
+                    <li>IT Help Desk</li>
+                    <li>IT Security Architect III</li>
+                    <li>Java Developer II</li>
+                    <li>Network Security Engineer</li>
+                    <li>Network Security Engineer III</li>
+                    <li>Program Manager</li>
+                    <li>Senior Program Manager</li>
+                </ul>
+            </div>
+        </div>
+        <div id="achievments" class="row home-item justify-content-center">
+
+            <div class="col-12 images">
+                <h4>HEAR WHAT OUR CLIENTS HAVE TO SAY</h4>
+                <img src="https://zealcon.com/images/logo-final-web-black-zealcon.png">
+                <img src="https://www.wipro.com/content/dam/nexus/en/brand/Wipro-Logo-w88X70h-Px.png">
+                <img
+                    src="data:image/png;base64,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">
+                <img
+                    src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAJcAAABxCAMAAADvXMHUAAAAllBMVEX///8AAAAqJicabrfs7OwnIyQ6ODkrJybg3+AmISLBwMDMzMy+vb309PQNAgZPTU0AZbRgXV6fn5/t8/pXicPF0+bV1dUfGxwWEBIrcrWQs9SLiImhu9cTCws9ebmamJgAW7F/fX1DP0BYVVamveA1MTKAocyZvNxrmMVzcnLg6e9qaGhSgrlikL62tLWwx97O3OkAWqmGx9ZdAAADO0lEQVR4nO2W6W7iMBCA40mcEEIOUsDhKmfY0oOW93+5HZ8JFK2C2l11pfl+INmxyRfPeGzPIwiCIAiCIAiCIAiCIAiCIAiCIAjiZ/F+eNS83TkxaJGqpnuUqp6mEbTnpS2Cq/9pRs5Gh8JXFE+p153JcRs6oPQmdVj37cNjHeZOIw/DOmnm7fKG7RA7IGxRr/SwxXl08H0r1l2rZII7Ygi8AeOstE95zFkzknMR2lZvKWKHED1PTmzB9BfMzn7j5RevXbWSJQCvLKwv/x4y5wUxWK8gjAGA2aU8VgBLZhlgT59FEXc9c62FIXRxlGJdc2xeAa83c4N86YBFN71K/AKIxNA0dzFUq8TQ85QXcN6zOC3jVfjFPTk2FJFbAs2lF3deqCgELljivOLexURcrzi86PlYS5XR81jzvpB8dPa62GSXcax5ZLxOGVRlwkDsnFf12au+6BmrJRrZ5uJcFMV61tUru1xZ9IpzG1gRWa8tRjRIc7RJrJd4KQ39VHtF8XCjKW95qXh+wQtiuxEi64XJU20wyTIwGbbBvBeZgeWB9gKh4y3z9KtecMMLzGbHF5n82sUcMGypwISbyI5e5uoEx515VOr4RaZw/B0vvg23ElkamFkungdY8IcyfGpcb+iKqlCjpFe8Gyp2qkx8t1e1Ss2pZPfjDl/NpWsMETCT7+4MwlxjqXKvbacaMD5/b359ql9JBRhSLJsqsuJ49Scvwnpd1onxuihaNf5OL3b6g5fOe7lc1VJRYTZVk9te0ZXX8+wXsnjQpHfGkUflpFW3b3hNGG60+UpTc6jUgiUTQ59z4xWJgT0CVFE8TOX9ZmqQXsXooZPXieGrM3eqJZ/qvfQ6ikhsWjNAHtMrN0nmO+g6Ebk+fQ15a45G39+j1uNzJy2sQ0wex4Y4TG+cQxN88dKFLsXcx1KWMGjNkwd33/SoTIRM33OeGrHp3i+m3W9gZZg14A0nYVmTcTljAlcmY61UP2FTeEPWmpbLIzZhyzbmnGjEpvvitVsQNUGvBX6P/nXPAi+11wODui5czzL9Lbwrsem+cxD/CW9ryfl8fv9RWgRBEARBEARBEARBEARBEARBEATxn/AbAu5HV6MDzGAAAAAASUVORK5CYII=">
+            </div>
+        </div>
+
+
+        <div id="contact" class="row">
+            <div class="col-12">
+                <h4>CONTACT US</h4>
+            </div>
+            <div class="col-12" id="mapsWrapper">
+                <iframe
+                    src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3350.933340256324!2d-96.98543758493304!3d32.873483080943!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x864e82728572860b%3A0xd7e7c0a9ee1d6a04!2s3001+Skyway+Cir+N%2C+Irving%2C+TX+75038!5e0!3m2!1sen!2sus!4v1550011660791"
+                    width="600" height="450" frameborder="0" style="border:0" allowfullscreen></iframe>
+            </div>
+            <div class="col-12" style="margin-top: 6px;">
+                <p>Please feel free to drop us any questions.</p>
+                <form id="formWrapper" class="form--inline row">
+                    <div class="form-group col-3">
+                        <label for="inputFullName">Name</label>
+                        <input type="email" class="form-control" id="inputFullName" placeholder="Enter fullname">
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="inputEmail">Email address</label>
+                        <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp"
+                            placeholder="Enter email">
+                        <small id="emailHelp" class="form-text text-muted">We'll never share your email with anyone
+                            else.</small>
+                    </div>
+                    <div class="form-group col-3">
+                        <label for="inputPhone">Phone</label>
+                        <input type="number" class="form-control" id="inputPhone" placeholder="Enter phone number">
+                        <small id="phoneHelp" class="form-text text-muted">This is an optional field</small>
+                    </div>
+                    <div class="form-group col-7">
+                        <label for="inputText">Please drop us your question.</label>
+                        <textarea class="form-control" id="inputText" rows="3"></textarea>
+                    </div>
+                    <div class="form-group col-6">
+                        <button type="submit" class="btn btn-primary">Submit</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <!-- Footer -->
+    <div id="footerWrapper" class="row">
+        <div class="col-12">
+            <h4>ABOUT US</h4>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-6">
+                <p>Green Solutions Pvt Ltd</p>
+                <p>This is a privately owned company and any distribution of its contents is subjected to licence.</p>
+            </div>
+
+            <div class="col-6">
+                <h6>Contact</h6>
+                <p>
+                    <i class="fas fa-home mr-3"></i> New York, NY 10012, US</p>
+                <p>
+                    <i class="fas fa-envelope mr-3"></i> info@gmail.com</p>
+                <p>
+                    <i class="fas fa-phone mr-3"></i> + 01 234 567 88</p>
+                <p>
+                    <i class="fas fa-print mr-3"></i> + 01 234 567 89</p>
+            </div>
+        </div>
+        <div class="col-12">
+                <p>© 2018 Copyright: GreenSolutions.com</p>
+            </div>
+    </div>
+
+    <chat></chat>
+</div>

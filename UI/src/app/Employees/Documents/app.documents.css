@@ -1,0 +1,135 @@
+.shadow-lg{
+    width: 100%;
+    display: inline-block;
+}
+
+
+.card {
+    background: none !important;
+}
+
+#uploaded-doc-toolbar{
+   
+}
+
+#ml-a
+.fas{
+    font-size: 1.1em;
+}
+
+#uploaded-doc-toolbar img{
+    width: 20px;
+    height: 20px;
+}
+
+#uploaded-docs-container{
+    background: rgba(136, 135, 135,0.5) !important;
+    min-height: 500px;
+}
+
+#uploaded-doc-content{
+    min-height: 200px;
+    padding: 6px;
+}
+
+#upload-docs-container{
+    position: relative; 
+    width: 100%;    
+    min-height:300px;   
+    background-repeat: no-repeat;
+    background-position: center;
+    border: dotted 1px gray;
+   
+
+}
+
+.uploaded-files{
+    margin-left: 10px;
+    margin-right: 10px;
+    margin-bottom: 3px;
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.uploaded-files-del{
+    margin-bottom: 3px;
+    color:red;
+    padding: 0;
+    border: none;
+    background: none;
+}
+
+.uploaded-files-size{
+    color:gray;
+}
+
+#uploaded-docs-list{
+    margin-left: 3px;
+}
+
+#upload-docs-submit{
+    position: absolute; 
+    left: 3px; 
+    bottom: 3px; 
+    height: 30px;
+    width: 100px; /* Need a specific value to work */
+    display: flex;
+}
+
+.uploaded-files-wrapper{
+    padding: 5px;
+    border: 0px solid gray;
+}
+
+  .padding-bottom{
+      padding-bottom: 16px !important;
+
+  }
+
+#no-data{
+background-image: url('/assets/img/no-data.png');
+background-size: 50px 50px;
+width: 100%;
+min-height: 100px;
+background-position: center;
+background-repeat: no-repeat;
+}
+
+
+.border {
+    border : 1px solid blue;
+}
+
+.red {
+    color: rgb(182, 83, 83);
+}
+
+.blue{
+    color: rgb(0, 64, 160);
+}
+
+.green {
+    color: rgb(17, 126, 17);
+}
+.white{
+    color: whitesmoke;
+}
+.bold{
+    font-weight: bold;
+}
+.none{
+    background: none;
+}
+
+.no-bd{
+    border: none !important;
+}
+
+.no-bg {
+    background: none !important;
+}
+
+.no-outline {
+    outline: none !important;
+}

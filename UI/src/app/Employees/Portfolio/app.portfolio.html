@@ -1,0 +1,110 @@
+<div>
+
+        <div id="no-data" *ngIf="employee == null">
+                <p></p>
+        </div>
+
+        <div *ngIf="employee">
+                <div class="row">
+
+                        <div class="col" id="profile-pic-wrapper">
+                                <img id="profile-pic" src={{getProfilePic()}}
+                                        style=" border-radius: 50%; width: 150px; height: 150px;" alt="Card image">
+                                <button id="profile-pic-uploader-btn" class="btn"
+                                        onclick="document.getElementById('profile-pic-uploader').click()">
+                                        <i class="fa fa-edit"></i>
+                                </button>
+                                <input id="profile-pic-uploader" (change)="fileChange($event)" type="file"
+                                        name="profile-pic" style="display: none;">
+                        </div>
+                        <div class="col">
+                                <p><b>Employee Id: </b>{{employee.employeeId}}</p>
+                                
+                                <p><b>Current Status:
+                                        </b>{{curEmploymentObj ? curEmploymentObj.status : "na"}}</p>
+                                
+                                <div class="btn-group">
+                                        <button type="button" class="btn btn-primary">Send Email</button>
+                                        <button type="button" class="btn btn-primary">Send Text</button>
+                                </div>
+
+                        </div>
+
+                </div>
+
+
+                <div class="card text-dark shadow-lg p-3 mb-5 bg-muted rounded" style="margin-top: 9px;">
+                        <div class="row justify-content-start">
+                                <p class="col"><b>First Name: </b>{{employee.firstName}}</p>
+                                <p class="col"><b>Middle Name: </b>{{employee.middleName}}</p>
+                                <p class="col"><b>Last Name:</b>{{employee.lastName}}</p>
+
+                        </div>
+                        <div class="row justify-content-start">
+
+                                <p class="col"><b>DOB: </b>{{employee.dob}}</p>
+                                <p class="col"><b>Phone 1: </b>{{employee.phone}}</p>
+                                <p class="col"><b>Phone 2: </b>{{employee.phone}}</p>
+
+                        </div>
+                        <div class="row justify-content-start">
+
+                                <p class="col"><b>Email 1 </b>{{employee.email}}</p>
+                                <p class="col"><b>Email 2: </b>{{employee.email}}</p>
+
+                        </div>
+
+                </div>
+
+                <div class="card text-dark shadow-lg p-3 mb-5 bg-muted rounded">
+                        <div class="row justify-content-start">
+                                <p class="col"><b>Joined on: </b>{{employee.joinedOn}}</p>
+                                <p class="col"><b>Hired on: </b>{{employee.hiredOn}}</p>
+                        </div>
+                        <div class="row justify-content-start">
+                                <p class="col"><b>Recruier: </b>{{employee.recruiter}}</p>
+                                <p class="col"><b>Manager/HR: </b>{{employee.manager}}</p>
+
+                        </div>
+                </div>
+
+                <div class="card text-dark shadow-lg p-3 mb-5 bg-muted rounded">
+                                <div class="row justify-content-start">
+                                        <div class="col" style="min-width: 350px;">
+                                                        <p><b>Current Vendor:
+                                                                </b>{{curEmploymentObj ? curEmploymentObj.vendor.vendorName: "na"}}</p>
+                                                        <p><b>Address:
+                                                                </b>{{curEmploymentObj ? curEmploymentObj.vendor.vendorAddress.addressLine1: "na"}}</p>
+                                                        <p><b>State:
+                                                                </b>{{curEmploymentObj ? curEmploymentObj.vendor.vendorAddress.state: "na"}}</p>
+                                                        <p><b>City:
+                                                                </b>{{curEmploymentObj ? curEmploymentObj.vendor.vendorAddress.city: "na"}}</p>
+                                                        <p><b>City:
+                                                                </b>{{curEmploymentObj ? curEmploymentObj.vendor.vendorAddress.zipCode: "na"}}</p>
+                                                        <br>
+        
+                                        </div>
+                                        <div class="col">
+                                                        <p><b>Current Client:
+                                                                </b>{{curEmploymentObj ? curEmploymentObj.client.clientName: "na"}}</p>
+                                                        <p><b>Address:
+                                                                </b>{{curEmploymentObj ? curEmploymentObj.client.clientAddress.addressLine1: "na"}}</p>
+                                                        <p><b>State:
+                                                                </b>{{curEmploymentObj ? curEmploymentObj.client.clientAddress.state: "na"}}</p>
+                                                        <p><b>City:
+                                                                </b>{{curEmploymentObj ? curEmploymentObj.client.clientAddress.city: "na"}}</p>
+                                                        <p><b>City:
+                                                                </b>{{curEmploymentObj ? curEmploymentObj.client.clientAddress.zipCode: "na"}}</p>
+                
+                                                        
+                                        </div>
+        
+                                </div>
+                        </div>
+
+
+                        <p style="color:gray">Last Updated: {{employee.lastUpdated}}</p>
+
+        </div>
+
+</div>

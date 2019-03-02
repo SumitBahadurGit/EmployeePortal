@@ -1,0 +1,136 @@
+<div class="employessListWrapper">
+    <div class="empList-nav shadow-lg p-3 mb-3 bg-muted">
+        <div>
+            Displaying {{start}} to {{end}} of {{totalRecords}} records
+        </div>
+        <div>
+            <div class="emp-dropdown-wrapper">
+                <button class="btn btn-primary"
+                 type="button"
+                  data-toggle="collapse" data-target="#emp-dropdown-fields">Fields
+                    <span class="caret"></span></button>
+                <ul class="emp-fields-dropdown collapse" id="emp-dropdown-fields">
+                 
+                    <li *ngFor="let f of fieldList" (click)="toggleActive(f)" 
+                    class="{{isActive(f) == true ? 'bg-info' : ''}}">
+                    {{f}}</li>
+                </ul>
+            </div>
+            <div class="emp-dropdown-wrapper">
+                <button class="btn btn-primary"
+                 type="button"
+                 data-toggle="collapse" data-target="#emp-dropdown-sort">Sort By
+                    <span class="caret"></span></button>
+                    <ul class="emp-fields-dropdown collapse" id="emp-dropdown-sort">
+                            <li>Joined</li>
+                            <li>Started</li>
+                            <li>Salary</li>
+                            <li>Name</li>
+                            <li>Client</li>
+                    </ul>
+            </div>
+    
+            <div class="emp-dropdown-wrapper">
+                    <button class="btn btn-primary"
+                     type="button"
+                     data-toggle="collapse" data-target="#emp-dropdown-filter">Filter
+                        <span class="caret"></span></button>
+                        <ul (click)="clickEmployeeType($event)" class="emp-fields-dropdown collapse" id="emp-dropdown-filter">
+                                <li>Active</li>
+                                <li>Pending</li>
+                                <li>Enrolled</li>
+                                <li>Terminated</li>
+                                <li>Marketting</li>
+                                <li>Training</li>
+                        </ul>
+            </div>
+    
+        </div>
+
+    </div>
+        <div class="table-responsive">
+            <table class="table table-bordered table-hover table-condensed">
+                <thead>
+                    <tr >
+                        <th *ngIf="getTitle('ID') == true">ID</th>
+                        <th *ngIf="getTitle('NAME') == true">Name</th>
+                        <th *ngIf="getTitle('JOINED') == true">Joined:</th>
+                        <th *ngIf="getTitle('STARTED') == true">Started:</th>
+                        <th *ngIf="getTitle('CLIENT') == true">Client:</th>
+                        <th *ngIf="getTitle('VENDOR') == true">Vendor:</th>
+                        <th *ngIf="getTitle('WORK_STATUS') == true">Work Status:</th>
+                        <th *ngIf="getTitle('JOB_TITLE') == true">Job Title:</th>
+                        <th *ngIf="getTitle('SALARY') == true">Salary:</th>
+                        <th *ngIf="getTitle('EMAIL') == true">Email:</th>
+                        <th *ngIf="getTitle('PHONE') == true">Phone:</th>
+
+                        <th *ngIf="getTitle('MANAGER') == true">Manager:</th>
+                        <th *ngIf="getTitle('RECRUITER') == true">Recruiter:</th>
+                        <th *ngIf="getTitle('SSN') == true">SSN:</th>
+                        <div *ngIf="getTitle('ADDRESS') == true">
+                            <th>Address Line</th>
+                            <th>State</th>
+                            <th>City</th>
+                            <th>Zip</th>
+                        </div>
+                        <th *ngIf="getTitle('CLIENT DETAILS') == true">Client Details:</th>
+                        <th *ngIf="getTitle('VENDOR DETAILS') == true">Vendor Details:</th>
+                    </tr>
+                </thead>
+                <tbody class="small" *ngFor="let personalInfo of employeesList; index as i" >
+           
+                                <tr  *ngFor = "let employmentObj of personalInfo.employmentObj">
+                                        <td *ngIf="getTitle('ID') == true">{{personalInfo.employeeId}}</td>
+                                        <td *ngIf="getTitle('NAME') == true">
+                                                {{personalInfo.firstName}} {{personalInfo.middleName ? personalInfo.middleName : ""}}
+                                                {{personalInfo.lastName}}                        </td>
+                                        <td *ngIf="getTitle('JOINED') == true">{{personalInfo.joinedOn}}</td>                        
+                                        <td *ngIf="getTitle('STARTED') == true">{{employmentObj.startDate}}</td>
+                                        <td *ngIf="getTitle('CLIENT') == true">{{employmentObj.client != null ? employmentObj.client.clientName : 'n/a' }}</td>
+                                        <td *ngIf="getTitle('VENDOR') == true">{{employmentObj.vendor != null ? employmentObj.vendor.vendorName : 'n/a'}}</td>
+                                        <td *ngIf="getTitle('WORK_STATUS') == true">{{employmentObj.status}}</td>
+                                        <td *ngIf="getTitle('JOB_TITLE') == true">{{employmentObj.jobTitle}}</td>
+                                        <td *ngIf="getTitle('SALARY') == true">{{employmentObj.hourlyWagePay}}</td>
+                                        <td *ngIf="getTitle('EMAIL') == true">{{personalInfo.email}}</td>
+                                        <td *ngIf="getTitle('PHONE') == true">{{personalInfo.phone}}</td>
+                
+                                        <td *ngIf="getTitle('MANAGER') == true">{{personalInfo.manager}}</td>
+                                        <td *ngIf="getTitle('RECRUITER') == true">{{personalInfo.recruiter}}</td>
+                                        <td *ngIf="getTitle('SSN') == true">{{personalInfo.ssn}}</td>
+                                        <div *ngIf="getTitle('ADDRESS') == true">
+                                                <td>{{personalInfo.address.addressLine1}}</td>
+                                                <td>{{personalInfo.address.state}}</td>
+                                                <td>{{personalInfo.address.city}}</td>
+                                                <td>{{personalInfo.address.zipCode}}</td>
+                                            </div>
+                                        <td *ngIf="getTitle('ADDRESS') == true">{{personalInfo.recruiter}}</td>
+                                        <td *ngIf="getTitle('CLIENT DETAILS') == true">{{personalInfo.recruiter}}</td>
+                                        <td *ngIf="getTitle('VENDOR DETAILS') == true">{{personalInfo.recruiter}}</td>
+                                    </tr>
+
+                </tbody>
+
+
+
+            </table>
+        </div>        
+        <div>
+                <ul class="pagination justify-content-center">
+                        <li class="page-item" (click) = "nextPrevPage(currPage-1)">
+                          <a class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li *ngFor = "let i of pageNumbers" [ngClass]= "i == currPage ? 'page-item active': 'page-item'" 
+                            (click) = "nextPrevPage(i)">
+                            <a class="page-link">{{i}}</a></li>
+                            
+                        <li class="page-item" (click) = "nextPrevPage(currPage+1)">
+                          <a class="page-link" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+        </div>
+
+</div>

@@ -1,0 +1,42 @@
+.timeSheetsWrapper{
+    border-radius: 15px;
+    border: 0px solid gray;
+    width: 100%;
+	display: inline-block;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    border: 0px solid red;
+    font-weight: bold;
+}
+
+.bg-round {
+    border-radius: 15px !important;
+}
+
+#ts-options{
+    
+    padding: 5px;
+
+}
+
+.table{
+    background-color: rgb(255, 241, 225);
+}
+
+thead{
+    background-color: bisque;
+}
+
+.bd{
+    border: 1px solid black;
+}
+
+.no-bd{
+    border: none;
+}
+
+.no-bg {
+    background: none;
+}
+

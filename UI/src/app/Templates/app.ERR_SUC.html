@@ -1,0 +1,12 @@
+    
+    <div *ngIf="errorMessage != null" class="alert alert-danger bg-round">
+        <strong>{{errorMessage}}</strong>
+    </div>
+
+    <div *ngIf="successMessage != null" class="alert alert-success bg-round">
+        <strong>{{successMessage}}</strong>
+    </div>
+    <button *ngIf="loadingMessage != null" class="btn btn-primary bg-round" type="button" disabled>
+        <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+        {{loadingMessage}}
+    </button>

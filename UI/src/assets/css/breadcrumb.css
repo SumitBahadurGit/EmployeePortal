@@ -1,0 +1,53 @@
+ul.bd {
+    margin: 0;
+    text-align: left;
+    font-weight: small;   
+    list-style: none;
+    display: block;
+    padding: 0;
+    padding-bottom: 3px;
+    text-align: left;
+    width: 100%;
+    overflow: hidden;
+    margin: 0;
+    width: 400px;
+  }
+
+  ul.bd li {
+    display: inline;
+    font-weight: small;   
+    padding: 0px;
+    margin: 0;
+    overflow: hidden;
+  }
+
+  ul.bd li+li:before {
+    color: black;
+    content: "/\00a0";
+  }
+  ul.bd li a {
+    font-weight: small;   
+    color: #0275d8;
+    text-decoration: none;
+  }
+  ul.bd li a:hover {
+    color: #01447e;
+    text-decoration: underline;
+  }
+
+  ul.bd li p {
+    font-weight: small;   
+    color: #0275d8;
+    text-decoration: none;
+    display: inline-block;
+    cursor: pointer;
+    margin: 0;
+    padding: 0;
+    font-size: 1em;
+
+  }
+  ul.bd li p:hover {
+    color: #01447e;
+    text-decoration: underline;
+  }
+  

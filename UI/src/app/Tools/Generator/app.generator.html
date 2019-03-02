@@ -1,0 +1,29 @@
+<div class = "generatorWrapper">
+    <div class="gen-formWrapper">
+            <div *ngIf="onError != null" class="alert alert-danger">
+                    <strong>{{onError}}</strong>
+                </div>
+                
+                <div *ngIf = "onSuccess != null" class="alert alert-success">
+                    <strong>{{onSuccess}}</strong>
+                </div>
+                <div *ngIf = "progress" class="d-flex justify-content-center">
+                        <div class="spinner-border text-primary" role="status">
+                                <span class="sr-only">Loading...</span>
+                              </div>
+                </div>
+        <form (ngSubmit)="validateAndSubmit(['gen-req'])">
+                <div class="form-group">
+                        <label for="gen-inputName">Full Name</label>
+                        <input type="text" name ="name" [(ngModel)]='name' class="form-control col-md-6 gen-req" id="gen-inputName"  placeholder="Enter full name" required>
+                </div>
+                <div class="form-group">
+                  <label for="gen-inputEmail">Email address</label>
+                  <input type="email" name ="email" [(ngModel)]='email' class="form-control col-md-6 gen-req" id="gen-inputEmail"  placeholder="Enter email" required>
+                  <small  class="form-text text-muted">New ID will be sent to this address. Please use it to login.</small>
+                </div>
+                <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+    </div>
+
+</div>

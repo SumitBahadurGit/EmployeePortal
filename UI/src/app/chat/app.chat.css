@@ -1,0 +1,105 @@
+#chatWrapper{ 
+    display: none;
+    position: fixed;
+    width: 30%;
+    min-width: 350px;
+    bottom: 6px;
+    right: 60px;  
+    background-image: linear-gradient(to right bottom, #605b62, #59545c, #534d56, #4c4651, #463f4b, #443c49, #423947, #403645, #413646, #433747, #443748, #463749);
+    border-radius: 9px;
+    border:2px solid gray;
+    padding: 3px;
+}
+
+#chat-icon{
+    position: fixed;
+    bottom: 6px;
+    right: 10px;
+    border: none;
+    background-image:url('https://cdn0.iconfinder.com/data/icons/kameleon-free-pack-rounded/110/Chat-2-512.png');
+    
+    background-repeat: no-repeat;
+    background-position: center;
+    background-size: cover;
+    height: 50px;
+    width: 50px;
+}
+
+#chat-box{
+    width: 100%;
+    height: 250px;
+    border: 0px solid red;
+    margin: 0;
+    padding: 0;
+}
+
+
+#submit{
+    height: 15%;
+}
+#body{
+    height: 70%;
+    overflow: auto;
+}
+
+.speech-bubble-right{
+    padding: 3px;
+    margin: 3px;
+    border: 1px solid whitesmoke;
+    border-radius: 9px;
+
+}
+.speech-bubble-right > img{
+    width: 10%;
+    height: 10%;
+    float: right;
+    border-radius: 50%;
+}
+.speech-bubble-right > p {
+    border-radius: 3px;    
+    padding: 6px;
+    margin: 3px;
+    color: whitesmoke;
+
+}
+
+.speech-bubble-left{
+    padding: 3px;
+    margin: 3px;
+    border: 1px solid whitesmoke;
+    border-radius: 9px;
+}
+.speech-bubble-left > img{
+    width: 10%;
+    height: 10%;
+    float: left;
+    border-radius: 50%;
+}
+.speech-bubble-left > p {
+
+    border-radius: 3px;    
+    padding: 6px;
+    margin: 3px;
+    color: whitesmoke;
+
+}
+
+input, button{
+    margin: 0;    
+    margin-top: 3px;
+    border: none;
+    height: 90%;
+    border-radius: 9px;
+}
+#header{
+    height: 15%;
+    border: 0px solid whitesmoke;
+}
+
+#header  button{
+background: none;    
+}
+
+#header {
+    color: whitesmoke;
+}

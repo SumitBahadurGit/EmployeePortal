@@ -1,0 +1,193 @@
+@import "https://fonts.googleapis.com/css?family=Cardo:400,700|Oswald";
+
+p, ul ,li, span {    
+    font-weight: bold;
+}
+
+#homeWrapper{
+    width: 100%;
+    min-height: 90vh;
+	display: inline-block;
+    position: relative;
+    padding: 0;
+    margin: 0;
+    background-image: linear-gradient(to bottom, #7585ea, #1e97eb, #00a3dc, #00aac6, #3caeae, #4bb1a2, #5eb395, #72b488, #74b678, #7cb865, #88b84f, #97b736);
+
+}
+
+#navbar{
+    position: fixed;
+    left: 0;
+    top: 0;
+    width: 100%;
+    z-index: 1;
+    background: whitesmoke;
+}
+
+.navbar-logo{
+    float: left;
+    background: whitesmoke;
+}
+.navbar-mid-content{
+
+    height: 45px;
+    background: whitesmoke;
+    float: left;
+    display: flex;
+    justify-content: stretch;
+}
+.navbar-mid-content > p {
+    margin: 10px;
+
+}
+
+.navbar-right-content{
+
+    float: right;
+    background: whitesmoke;
+}
+
+
+.navbar-logo > img{
+    max-width: 150px;
+    height: 45px;
+}
+
+#navbar-login{
+    padding: 10px;
+    min-width: 350px;;
+}
+
+
+
+#contentWrapper > div{
+    border: 0px solid gray;
+    border-radius: 15px;
+    background-color: none;
+    padding: 6px;
+    margin-top: 15px;
+    position: relative;
+}
+
+#footerWrapper{
+    border: 0px solid gray;
+    border-radius: 15px;
+    background-color: none;
+    padding: 6px;
+    margin-top: 15px;
+    position: relative;
+}
+
+#footerWrapper > div{
+    border: 0px solid gray;
+    border-radius: 15px;
+    background-color: none;
+    padding: 12px;
+    margin-top: 15px;
+    position: relative;
+}
+
+#carousal{
+    border-radius: 15px;
+    background-color: none;
+    position: relative;
+    height: 90vh;
+    margin: 3px auto;
+}
+
+.carousel-inner, .carousel-item, .carousel{
+    height: 100%;
+    width: 100%;
+    padding: 0;
+    margin: 0;   
+   
+}
+
+.images {
+    display: inline-block;
+}
+
+.images > div{
+    display: inline-block;
+    padding: 6px;
+}
+
+.images img {
+    min-width: 100px; 
+    max-width: 150px;
+    width: 100px; 
+    padding: 6px;
+}
+
+.col, .col-3 {
+    min-width: 400px;
+}
+
+#item-1, #item-2{
+    background-image: url('http://www.sethnet.org/wp-content/uploads/2018/08/5485436-business-wallpaper.jpg');
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    height: 100%;
+    width: 100%;
+    position: relative;
+    opacity: 0.7;
+}
+
+.carousel-content {    
+    width: 100%;
+    height: 100%;
+    padding: 2%;
+    font-weight: bold;   
+    font-family: 'Cardo', serif;
+    background: rgba(231, 220, 220, 0.5);
+    color: black;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Oswald', sans-serif;
+    text-transform: uppercase;  
+    color: #ffce00;
+}
+.carousel-item{
+    width: 100%;
+    height: 100%;
+}
+.carousel-indicators{
+    height: 30px;
+    position: absolute;
+    bottom: 0;
+}
+.carousel-control-prev{
+    position: absolute;
+    height: 0px;
+    top:50%;
+    left: 0;
+
+}
+.carousel-control-next{
+    position: absolute;
+    top:50%;
+    right: 0;
+    height: 0px;
+}
+
+#mapsWrapper{
+    padding: 9px;
+    position: relative;
+    min-height: 300px; 
+    border: 0px solid white;
+
+}
+iframe{
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 96%;
+    height: 100%;
+    background: none;
+    border: none;
+    margin-left: 2%;
+ }
+
+ 

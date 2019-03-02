@@ -1,0 +1,235 @@
+<div class="row justify-content-center">
+  <div class="col-md-9">
+    <div id="forwWrapper">
+      <div id="stepWrapper">
+        <!-- Circles which indicates the steps of the form: -->
+        <div id="step-wrapper">
+          <span class="step"></span>
+          <span class="step"></span>
+          <span class="step"></span>
+          <span class="step"></span>
+        </div>
+        <span style="float: left;" class="badge badge-info">Personal Info: </span>
+        <br>
+        <hr>
+      </div>
+      
+      <div id="tabWrapper">
+        <form id="regForm" action="">
+
+          <div *ngIf="errorSubmit == true" class="alert alert-warning" role="alert">
+            There was an error processing the request. Please try again.
+          </div>
+
+          <div class="tab">
+            <br>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label class="control-label">First Name:</label>
+                <input class="form-control req" type="text" placeholder="Firstname" name="firstName"
+                  [(ngModel)]='personalInfo.firstName'>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label class="control-label">Middle Name:</label>
+                <input class="form-control" type="text" placeholder="Middle name" name="middleName"
+                  [(ngModel)]='personalInfo.middleName'>
+              </div>
+
+              <div class="form-group col-md-4">
+                <label class="control-label">Last Name:</label>
+                <input class="form-control req" type="text" placeholder="Lastname" name="Lastname"
+                  [(ngModel)]='personalInfo.lastName'>
+              </div>
+            </div>
+
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label class="control-label">DOB:</label>
+                <input class="form-control req" type="date" placeholder="date of birth" name="dob"
+                  [(ngModel)]='personalInfo.dob'>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="control-label">Country:</label>
+                <input class="form-control req" type="text" placeholder="Country" name="country"
+                  [(ngModel)]='personalInfo.country'>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="control-label">VISA Status:</label>
+                <input class="form-control req" type="text" placeholder="VISA Status" name="visa"
+                  [(ngModel)]='personalInfo.visaStatus'>
+              </div>
+
+            </div>
+
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="control-label">Email:</label>
+                <input class="form-control req" type="enail" placeholder="Primary email" name="email"
+                  [(ngModel)]='personalInfo.email'>
+              </div>
+              <div class="form-group col-md-6">
+                <label class="control-label">Email 2:</label>
+                <input class="form-control" type="enail" placeholder="Secondary email" name="email2"
+                  [(ngModel)]='personalInfo.secondEmail'>
+              </div>
+            </div>
+
+
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="control-label">Phone:</label>
+                <input class="form-control req" type="number" placeholder="Phone " name="phone"
+                  [(ngModel)]='personalInfo.phone'>
+              </div>
+              <div class="form-group col-md-6">
+                <label class="control-label">Phone: 2</label>
+                <input class="form-control" type="number" placeholder="Secondary Phone " name="phone2"
+                  [(ngModel)]='personalInfo.secondPhone'>
+              </div>
+            </div>
+
+
+            <div class="form-row">
+              <label class="control-label">Recruiter</label>
+              <input class="form-control" type="text" placeholder="Recruited by (if applicable)" name="recruiter"
+                [(ngModel)]='personalInfo.recruiter'>
+            </div>
+          </div>
+
+          <div class="tab">
+            <br>
+            <div class="form-row">
+              <div class="form-group col-md-8">
+                <label class="control-label">AddressLine:</label>
+                <input class="form-control req" type="text" placeholder="Full Address Line" name="addressLine1"
+                  [(ngModel)]='personalInfo.address.addressLine1'>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="control-label">AddressLine 2:</label>
+                <input class="form-control" type="text" placeholder="#apt #building #house" name="addressLine2"
+                  [(ngModel)]='personalInfo.address.addressLine2'>
+              </div>
+
+            </div>
+
+            <div class="form-row">
+
+              <div class="form-group col-md-4">
+                <label class="control-label">City:</label>
+                <input class="form-control req" type="text" placeholder="City" name="city"
+                  [(ngModel)]='personalInfo.address.city'>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="control-label">State:</label>
+                <input class="form-control req" type="text" placeholder="State" name="state"
+                  [(ngModel)]='personalInfo.address.state'>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="control-label">Zip:</label>
+                <input class="form-control req" type="number" placeholder="Zip/Postal Code" name="zipCode"
+                  [(ngModel)]='personalInfo.address.zipCode'>
+              </div>
+
+            </div>
+
+          </div>
+
+
+          <div class="tab">
+            <br>
+            <div class="form-row">
+              <div class="form-group col-md-4">
+                <label class="control-label">Highest Degree:</label>
+                <input class="form-control req" type="text" placeholder="Highest Level of Degree Acheived"
+                  name="maxDegree" [(ngModel)]='personalInfo.education.highestDegree'>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="control-label">Major:</label>
+                <input class="form-control req" type="text" placeholder="College Degree" name="collegeNajorDegree"
+                  [(ngModel)]='personalInfo.education.collegeDegree'>
+              </div>
+              <div class="form-group col-md-4">
+                <label class="control-label">Graduation Year:</label>
+                <input class="form-control req" type="number" placeholder="Graduation Year" name="gradYear"
+                  [(ngModel)]='personalInfo.education.gradYear'>
+              </div>
+
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="control-label">Last College:</label>
+                <input class="form-control req" type="text" placeholder="Last College Name" name="lastCollegeName"
+                  [(ngModel)]='personalInfo.education.lastColName'>
+              </div>
+              <div class="form-group col-md-6">
+                <label class="control-label">Last College Country:</label>
+                <input class="form-control req" type="text" placeholder="Last College Country" name="lastCollegeCountry"
+                  [(ngModel)]='personalInfo.education.lastColCountry'>
+              </div>
+            </div>
+          </div>
+
+
+          <div class="tab">
+            <br>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="control-label">Work Experience:</label>
+                <input class="form-control req" type="text" placeholder="Work Experience (years)" name="workExpInYr"
+                  [(ngModel)]='personalInfo.work.workExpInYear'>
+              </div>
+
+              <div class="form-group col-md-6">
+                <label class="control-label">Currently Employed?:</label>
+                <div class="form-check form-inline">
+                  <input class="form-check-input" type="radio" name="employed" id="radio1"
+                    [(ngModel)]="personalInfo.work.isCurrEmployed" value="Y" checked>
+                  <label class="form-check-label" for="radio1">
+                    Yes
+                  </label>
+                </div>
+                <div class="form-check form-inline">
+                  <input class="form-check-input" type="radio" name="employed" id="radio2"
+                    [(ngModel)]="personalInfo.work.isCurrEmployed" value="N">
+                  <label class="form-check-label" for="radio2">
+                    No
+                  </label>
+                </div>
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="form-group col-md-6">
+                <label class="control-label">Last Employer:</label>
+                <input class="form-control" type="text" placeholder="Last Employer" name="lastEmpr"
+                  [(ngModel)]='personalInfo.work.lastEmployer'>
+              </div>
+
+
+              <div class="form-group  col-md-6">
+                <label class="control-label">Specialty:</label>
+                <input class="form-control" type="text" placeholder="Area of work" name="areaOfWrk"
+                  [(ngModel)]='personalInfo.work.areaOfWork'>
+              </div>
+            </div>
+          </div>
+
+
+
+
+        </form>
+
+      </div>
+
+      <div id="nextWrapper">
+          <br>
+          <hr>
+        <div>
+            <button id="prevBtn" type="button" class="btn btn-primary btn-sm bg-info" (click)="nextPrev(-1)"><b>Prev</b></button>
+            <button id="nextBtn" type="button" class="btn btn-primary btn-sm bg-info" (click)="nextPrev(1)"><b>Next</b></button>  
+        </div>
+      </div>
+    </div>
+  </div>

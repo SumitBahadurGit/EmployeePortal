@@ -1,10 +1,12 @@
 package com.company.consultant.processor;
 
+import java.lang.reflect.Field;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -22,6 +24,7 @@ import com.company.consultant.dto.EmploymentHistoryDTO;
 import com.company.consultant.dto.PersonalInfoDTO;
 import com.company.consultant.models.DocumentObj;
 import com.company.consultant.models.EmploymentObj;
+import com.company.consultant.models.PaginatedWrapper;
 import com.company.consultant.models.PersonalInfo;
 import com.company.consultant.models.SearchRequest;
 import com.company.consultant.repository.PersonalInfoRepository;
@@ -36,7 +39,7 @@ public class EmployeeProcessor extends BaseProcessor implements EmployeeProcesso
 	@Override
 	public PersonalInfo processAndSave(PersonalInfo personalInfo) {
 		 PersonalInfoDTO personalInfoDTO = DtoConverter.convertToDTO(personalInfo);
-		 return DtoConverter.covertFromDTO(dao.save(personalInfoDTO));
+		 return DtoConverter.covertFromDTO((PersonalInfoDTO) dao.save(personalInfoDTO));
 	}
 		
 	@Override
@@ -71,14 +74,26 @@ public class EmployeeProcessor extends BaseProcessor implements EmployeeProcesso
 	@Override
 	public PersonalInfo processAndSearchDocs(SearchRequest searchRequest) throws Exception{
 		
-		Long employeeId = Long.valueOf(searchRequest.getEmployeeId());
-		List<DocumentsDTO> documentsDTOs = dao.searchDocumentsById(employeeId);
+		Long employeeId = null;
+		if(!StringUtils.isEmpty(searchRequest.getEmployeeId())){
+			employeeId = Long.valueOf(searchRequest.getEmployeeId());			
+		}
+		List<DocumentsDTO> documentsDTOs = null;
+		if(employeeId == null){
+			documentsDTOs = dao.getAllDocs();
+		} else {
+			documentsDTOs = dao.searchDocumentsById(employeeId);			
+		}
+
 		if(documentsDTOs != null && documentsDTOs.size() > 0){
 			List<DocumentObj> documentObjs = documentsDTOs.stream()
 					.map(x -> DtoConverter.convertFromDTO(x))
 					.collect(Collectors.toList());
 			PersonalInfo personalInfo = new PersonalInfo();
-			personalInfo.setEmployeeId(employeeId.toString());
+			if(employeeId != null){
+				personalInfo.setEmployeeId(employeeId.toString());				
+			}
+
 			personalInfo.getDocumnetObj().addAll(documentObjs);
 			return personalInfo;
 		} else {
@@ -103,7 +118,10 @@ public class EmployeeProcessor extends BaseProcessor implements EmployeeProcesso
 		String name = searchRequest.getFirstName();
 	    String employeeId = searchRequest.getEmployeeId();
 		List<PersonalInfo> result = null;				
+		String sortBy = searchRequest.getSortBy();
+		String filter = searchRequest.getFilterBy();
 		
+
 		if(!StringUtils.isEmpty(name)){
 			List<PersonalInfoDTO> personalInfoDTOs = dao.search(name);
 			if(personalInfoDTOs != null && personalInfoDTOs.size() > 0){
@@ -140,5 +158,48 @@ public class EmployeeProcessor extends BaseProcessor implements EmployeeProcesso
 	    }
 		
 	}
+
+	@Override
+	public List<PaginatedWrapper> processAndSearch(PaginatedWrapper paginatedWrapper) throws Exception {
+
+		PaginatedWrapper result = new PaginatedWrapper();
+		SearchRequest searchRequest = paginatedWrapper.getSearchRequest();
+		
+		String sortBy = searchRequest.getSortBy();
+		String filterBy = searchRequest.getFilterBy();
+		String filterByValue = searchRequest.getFilterByValue();
+
+		int count = (dao.findAllEmployeesCount(filterBy, filterByValue)).intValue();
+
+		// JPA Pageable treats page 1 as 0;
+		int pageNo = paginatedWrapper.getCurrPage() - 1;
+		int limit = paginatedWrapper.getLimit();
+		
+		if(checkIfFieldExists(new EmploymentHistoryDTO(), filterBy)){
+			List<PersonalInfoDTO> personalInfoDTOs = dao.findAllEmployees(sortBy, filterBy, filterByValue, pageNo, limit);
+			if(personalInfoDTOs != null && personalInfoDTOs.size() > 0){
+				paginatedWrapper.getPersonalInfo().addAll(DtoConverter.convertFromDTOList(personalInfoDTOs));				
+			}
+			paginatedWrapper.setTotalRecords(count);
+		}
+				
+
+		return Arrays.asList(paginatedWrapper);
+	}
+	
+	private boolean checkIfFieldExists(Object obj, String field){
+		return Arrays.stream(obj.getClass().getFields())
+	            .anyMatch(f -> f.getName().equals(field));
+	}
+
+	@Override
+	public Object processAndSave(Object obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
+								
+	
 	
 }

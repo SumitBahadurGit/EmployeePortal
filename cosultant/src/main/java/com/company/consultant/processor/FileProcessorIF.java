@@ -12,4 +12,7 @@ public interface FileProcessorIF {
 	public File download(String fileName);
 	public boolean delete(String fileName);
 	List<DocumentObj> processAndUpload(MultipartFile[] files) throws Exception;
+	DocumentObj processAndUpdate(DocumentObj documentObjs) throws Exception;
+	void processAndDelete(List<Long> ids);
+	public List<DocumentObj> processAndUpdates(List<DocumentObj> documentObjs) throws Exception;
 }

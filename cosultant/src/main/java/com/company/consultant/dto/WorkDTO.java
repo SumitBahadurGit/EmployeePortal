@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="WORK")
-public class WorkDTO {
+public class WorkDTO implements Cloneable {
 
 @Id
 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_SEQ")
@@ -81,7 +81,21 @@ public void setWorkExpInYrs(String workExpInYrs) {
 	this.workExpInYrs = workExpInYrs;
 }
 
+public Object clone() throws CloneNotSupportedException {
 
+    return super.clone();
+}
+
+
+
+/* (non-Javadoc)
+ * @see java.lang.Object#toString()
+ */
+@Override
+public String toString() {
+	return "WorkDTO [work_id=" + work_id + ", areaOfWork=" + areaOfWork + ", isCurrEmployed=" + isCurrEmployed
+			+ ", lastEmployer=" + lastEmployer + ", workExpInYrs=" + workExpInYrs + "]";
+}
 
 
 

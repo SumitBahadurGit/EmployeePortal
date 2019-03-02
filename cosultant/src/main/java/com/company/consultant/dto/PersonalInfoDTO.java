@@ -18,11 +18,11 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "PERSONAL_INFO")
-public class PersonalInfoDTO {
+public class PersonalInfoDTO implements Cloneable{
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_SEQ")
-	@SequenceGenerator(sequenceName = "EMPLOYEE_SEQ", allocationSize = 1, name = "GEN_SEQ")
+//	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_SEQ")
+//	@SequenceGenerator(sequenceName = "EMPLOYEE_SEQ", allocationSize = 1, name = "GEN_SEQ")
 	@Column(name = "EMPLOYEE_ID")
 	public Long employeeId;
 
@@ -91,6 +91,10 @@ public class PersonalInfoDTO {
 
 	@OneToMany(mappedBy = "personalInfoDTO", cascade = CascadeType.ALL)
 	public Set<DocumentsDTO> documentsDTO;
+	
+	@OneToMany(cascade = CascadeType.ALL)
+	@JoinColumn(name = "EMPLOYEE_ID")
+	public Set<TimesheetsDTO> timesheetsDTOs;
 
 	public PersonalInfoDTO() {
 		super();
@@ -296,4 +300,38 @@ public class PersonalInfoDTO {
 		this.documentsDTO = documentsDTO;
 	}
 	
+	
+    /**
+	 * @return the timesheetsDTOs
+	 */
+	public Set<TimesheetsDTO> getTimesheetsDTOs() {
+		return timesheetsDTOs;
+	}
+
+	/**
+	 * @param timesheetsDTOs the timesheetsDTOs to set
+	 */
+	public void setTimesheetsDTOs(Set<TimesheetsDTO> timesheetsDTOs) {
+		this.timesheetsDTOs = timesheetsDTOs;
+	}
+
+	public Object clone() throws CloneNotSupportedException {
+
+        return super.clone();
+    }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "PersonalInfoDTO [employeeId=" + employeeId + ", firstName=" + firstName + ", middleName=" + middleName
+				+ ", lastName=" + lastName + ", dob=" + dob + ", visaStatus=" + visaStatus + ", country=" + country
+				+ ", email=" + email + ", phone=" + phone + ", secondPhone=" + secondPhone + ", secondEmail="
+				+ secondEmail + ", joinedDate=" + joinedDate + ", hiredDate=" + hiredDate + ", managerName="
+				+ managerName + ", recruiterName=" + recruiterName + ", ssn=" + ssn + ", lastUpdated=" + lastUpdated
+				+ ", workDTO=" + workDTO + ", educationDTO=" + educationDTO + ", addressDTO=" + addressDTO
+				+ ", employmentHistoryDTO=" + employmentHistoryDTO + ", documentsDTO=" + documentsDTO + "]";
+	}
+    
 }

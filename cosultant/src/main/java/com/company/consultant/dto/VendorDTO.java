@@ -13,7 +13,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="VENDOR")
-public class VendorDTO {
+public class VendorDTO implements Cloneable{
 
 @Id
 @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_SEQ")
@@ -122,5 +122,20 @@ public void setAddressDTO(AddressDTO addressDTO) {
 	this.addressDTO = addressDTO;
 }
 	
+public Object clone() throws CloneNotSupportedException {
+
+    return super.clone();
+}
+
+/* (non-Javadoc)
+ * @see java.lang.Object#toString()
+ */
+@Override
+public String toString() {
+	return "VendorDTO [vendorId=" + vendorId + ", vendorName=" + vendorName + ", vendorHrName=" + vendorHrName
+			+ ", vendorHrEmail=" + vendorHrEmail + ", vendorHrPhone=" + vendorHrPhone + ", vendorContactName="
+			+ vendorContactName + ", vendorContactEmail=" + vendorContactEmail + ", vendorContactPhone="
+			+ vendorContactPhone + ", addressDTO=" + addressDTO + "]";
+}
 
 }

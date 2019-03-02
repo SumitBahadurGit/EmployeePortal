@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 import com.company.consultant.dao.DAO;
+import com.company.consultant.models.Login;
 
 @Component
 public abstract class BaseProcessor implements BaseProcesorIF{
@@ -14,4 +15,5 @@ public abstract class BaseProcessor implements BaseProcesorIF{
 	@Autowired
 	FileProcessorIF fileProcessor;
 
+	public abstract Object processAndSave (Object obj);
 }

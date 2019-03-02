@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="EDUCATION")
-public class EducationDTO {
+public class EducationDTO implements Cloneable{
 
 
 @Id
@@ -93,6 +93,21 @@ public void setLastCollName(String lastCollName) {
 }
 
 
+public Object clone() throws CloneNotSupportedException {
 
+    return super.clone();
+}
+
+
+
+/* (non-Javadoc)
+ * @see java.lang.Object#toString()
+ */
+@Override
+public String toString() {
+	return "EducationDTO [education_id=" + education_id + ", collegeDegree=" + collegeDegree + ", highestDegree="
+			+ highestDegree + ", gradYear=" + gradYear + ", lastCollCountry=" + lastCollCountry + ", lastCollName="
+			+ lastCollName + "]";
+}
 
 }

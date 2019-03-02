@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="DOCUMENTS")
-public class DocumentsDTO {
+public class DocumentsDTO implements Cloneable{
 
 	
 	@Id
@@ -36,7 +36,7 @@ public class DocumentsDTO {
 	public Timestamp lastUpdated;
 	
 	@Column(name = "DOC_DESC")
-	public String description;
+	public String docDesc;
 	
 	@ManyToOne
 	@JoinColumn(name="EMPLOYEE_ID")
@@ -87,11 +87,11 @@ public class DocumentsDTO {
 	}
 
 	public String getDescription() {
-		return description;
+		return docDesc;
 	}
 
 	public void setDescription(String description) {
-		this.description = description;
+		this.docDesc = description;
 	}
 
 	public PersonalInfoDTO getPersonalInfoDTO() {
@@ -103,5 +103,20 @@ public class DocumentsDTO {
 	public void setPersonalInfoDTO(PersonalInfoDTO personalInfoDTO) {
 		this.personalInfoDTO = personalInfoDTO;
 	}
-		
+    public Object clone() throws CloneNotSupportedException {
+
+        return super.clone();
+    }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "DocumentsDTO [docId=" + docId + ", fileName=" + fileName + ", fileType=" + fileType + ", fileSize="
+				+ fileSize + ", lastUpdated=" + lastUpdated + ", description=" + docDesc + ", personalInfoDTO="
+				+ personalInfoDTO + "]";
+	}
+    
+    
 }

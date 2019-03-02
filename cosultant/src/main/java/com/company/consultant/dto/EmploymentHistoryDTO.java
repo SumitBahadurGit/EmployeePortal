@@ -14,49 +14,49 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name = "EMPLOYEMNT_HIST")
-public class EmploymentHistoryDTO {
+public class EmploymentHistoryDTO implements Cloneable{
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "GEN_SEQ")
 	@SequenceGenerator(sequenceName = "EMPLOYEE_SEQ", allocationSize = 1, name = "GEN_SEQ")
 	@Column(name = "EMP_ID")
-	private Long empId;
+	public Long empId;
 
 	@Column(name = "EMP_STATUS")
-	private String empStatus;
+	public String empStatus;
 
 	@Column(name = "START_DATE")
-	private String startDate;
+	public String startDate;
 
 	@Column(name = "END_DATE")
-	private String endDate;
+	public String endDate;
 	
 	@Column(name = "JOB_TITLE")
-	private String jobTitle;
+	public String jobTitle;
 
 	@Column(name = "JOB_DESC")
-	private String jobDesc;
+	public String jobDesc;
 
 	@Column(name = "TECHNOLOGY")
-	private String tech;
+	public String tech;
 
 	@Column(name = "HOURLY_WAGE_REC")
-	private String hourlyWageRec;
+	public String hourlyWageRec;
 
 	@Column(name = "HOURLY_WAGE_PAY")
-	private String hourlyWagePay;
+	public String hourlyWagePay;
 
 	@Column(name = "TERMINATION_REASON")
-	private String tempReason;
+	public String tempReason;
 
 	@Column(name = "WORK_PERMIT_STATUS")
-	private String workPermitStatus;
+	public String workPermitStatus;
 
 	@Column(name = "WORK_PERMIT_START")
-	private String workPermitStart;
+	public String workPermitStart;
 
 	@Column(name = "WORK_PERMIT_END")
-	private String workPermitEnd;
+	public String workPermitEnd;
 
 	@OneToOne(cascade = CascadeType.ALL)
 	@JoinColumn(name = "VENDOR_ID")
@@ -202,5 +202,22 @@ public class EmploymentHistoryDTO {
 		this.personalInfoDTO = personalInfoDTO;
 	}
 
-	
+    public Object clone() throws CloneNotSupportedException {
+
+        return super.clone();
+    }
+
+	/* (non-Javadoc)
+	 * @see java.lang.Object#toString()
+	 */
+	@Override
+	public String toString() {
+		return "EmploymentHistoryDTO [empId=" + empId + ", empStatus=" + empStatus + ", startDate=" + startDate
+				+ ", endDate=" + endDate + ", jobTitle=" + jobTitle + ", jobDesc=" + jobDesc + ", tech=" + tech
+				+ ", hourlyWageRec=" + hourlyWageRec + ", hourlyWagePay=" + hourlyWagePay + ", tempReason=" + tempReason
+				+ ", workPermitStatus=" + workPermitStatus + ", workPermitStart=" + workPermitStart + ", workPermitEnd="
+				+ workPermitEnd + ", vendorDTO=" + vendorDTO + ", clientDTO=" + clientDTO + ", personalInfoDTO="
+				+ personalInfoDTO + "]";
+	}
+    
 }

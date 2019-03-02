@@ -8,6 +8,9 @@ import java.util.stream.Collectors;
 
 import javax.print.Doc;
 
+import org.springframework.beans.BeanUtils;
+import org.springframework.beans.BeanWrapper;
+import org.springframework.beans.BeanWrapperImpl;
 import org.springframework.util.StringUtils;
 
 import com.company.consultant.dto.AddressDTO;
@@ -16,6 +19,7 @@ import com.company.consultant.dto.DocumentsDTO;
 import com.company.consultant.dto.EducationDTO;
 import com.company.consultant.dto.EmploymentHistoryDTO;
 import com.company.consultant.dto.PersonalInfoDTO;
+import com.company.consultant.dto.TimesheetsDTO;
 import com.company.consultant.dto.VendorDTO;
 import com.company.consultant.dto.WorkDTO;
 import com.company.consultant.models.Address;
@@ -24,6 +28,7 @@ import com.company.consultant.models.EmploymentObj;
 import com.company.consultant.models.EmploymentObj.Client;
 import com.company.consultant.models.EmploymentObj.Vendor;
 import com.company.consultant.models.PersonalInfo;
+import com.company.consultant.models.Timesheets;
 import com.company.consultant.models.PersonalInfo.Education;
 import com.company.consultant.models.PersonalInfo.Work;
 
@@ -31,10 +36,85 @@ import com.company.consultant.models.PersonalInfo.Work;
 
 public class DtoConverter {
 
+	public static void copyProperties (Object source , Object target){
+//		BeanUtils.copyProperties(source, target);	
+		BeanUtils.copyProperties(source, target, getNullPropertyNames(source));
+	}
+	
+	public static String[] getNullPropertyNames (Object source) {
+	    final BeanWrapper src = new BeanWrapperImpl(source);
+	    java.beans.PropertyDescriptor[] pds = src.getPropertyDescriptors();
+
+	    Set<String> emptyNames = new HashSet<String>();
+	    for(java.beans.PropertyDescriptor pd : pds) {
+	        Object srcValue = src.getPropertyValue(pd.getName());
+	        if (srcValue == null) emptyNames.add(pd.getName());
+	    }
+	    String[] result = new String[emptyNames.size()];
+	    return emptyNames.toArray(result);
+	}
+	
 	public static List<PersonalInfo> convertFromDTOList(List<PersonalInfoDTO> list){
 		
 		List<PersonalInfo> result =list.stream().map(x ->  covertFromDTO(x)).collect(Collectors.toList());
 		return result;		
+	}
+
+	public static List<Timesheets> convertFromDTO(List<TimesheetsDTO> timesheetsDTOs){
+
+		return timesheetsDTOs.stream().map(x -> convertFromDTO(x)).collect(Collectors.toList());
+	}
+	
+	public static List<TimesheetsDTO> convertToDTO(List<Timesheets> timesheets){
+		return timesheets.stream().map(x -> convertToDTO(x)).collect(Collectors.toList());
+	}
+	
+	public static TimesheetsDTO convertToDTO(Timesheets timesheets){
+		TimesheetsDTO timesheetsDTO = new TimesheetsDTO();
+		if(!StringUtils.isEmpty(timesheets.getTimesheetGroupId())){
+			timesheetsDTO.setTimesheetGroupId(Long.valueOf(timesheets.getTimesheetGroupId()));
+		}
+		if(!StringUtils.isEmpty(timesheets.getTimeSheetId())){
+			timesheetsDTO.setTimeSheetId(Long.valueOf(timesheets.getTimeSheetId()));
+		}
+		timesheetsDTO.setApprovedDate(DateUtils.getDate(timesheets.getApprovedDate()));
+		timesheetsDTO.setDesc(timesheets.getDesc());
+		timesheetsDTO.setEmployeeId(Long.valueOf(timesheets.getEmployeeId()));
+		timesheetsDTO.setEndTime(timesheets.getEndTime());
+		timesheetsDTO.setIsApproved(timesheets.getIsApproved());
+		timesheetsDTO.setOverTime(Double.valueOf(timesheets.getOverTime()));
+		timesheetsDTO.setProjectDetails(timesheets.getProjectDetails());
+		timesheetsDTO.setProjectLocation(timesheets.getProjectLocation());
+		timesheetsDTO.setStartTime(timesheets.getStartTime());
+		timesheetsDTO.setStatus(timesheets.getStatus());
+		timesheetsDTO.setSubmittedDate(DateUtils.getDate(timesheets.getSubmittedDate()));
+		timesheetsDTO.setTimeSheetDate(DateUtils.getDate(timesheets.getTimesheetDate()));
+		timesheetsDTO.setTotalHours(Double.valueOf(timesheets.getTotalHours()));
+		timesheetsDTO.setApprovedBy(timesheets.getApprovedBy());
+		return timesheetsDTO;
+	}
+	
+	public static Timesheets convertFromDTO(TimesheetsDTO timesheetsDTO){
+		Timesheets timesheets = new Timesheets();
+		timesheets.setTimeSheetId(timesheetsDTO.timeSheetId.toString());
+		timesheets.setApprovedDate(timesheetsDTO.getApprovedDate() != null ? timesheetsDTO.getApprovedDate().toString() : null);
+		timesheets.setDesc(timesheetsDTO.getDesc());
+		timesheets.setEmployeeId(timesheetsDTO.getEmployeeId() != null ? String.valueOf(timesheetsDTO.getEmployeeId()) : null);
+		timesheets.setEndTime(timesheetsDTO.getEndTime());
+		timesheets.setIsApproved(timesheetsDTO.getIsApproved());
+		timesheets.setOverTime(String.valueOf(timesheetsDTO.getOverTime()));
+		timesheets.setProjectDetails(timesheetsDTO.getProjectDetails());
+		timesheets.setProjectLocation(timesheetsDTO.getProjectLocation());
+		timesheets.setStartTime(timesheetsDTO.getStartTime());
+		timesheets.setStatus(timesheetsDTO.getStatus());
+		timesheets.setSubmittedDate(timesheetsDTO.getSubmittedDate() != null ? timesheetsDTO.getSubmittedDate().toString() : null);
+		timesheets.setLastUpdated(timesheetsDTO.getLastUpdated() != null ? timesheetsDTO.getLastUpdated().toString() : null );
+		timesheets.setTimesheetDate(timesheetsDTO.getTimeSheetDate() != null ? timesheetsDTO.getTimeSheetDate().toString() : null);
+		timesheets.setTotalHours(String.valueOf(timesheetsDTO.getTotalHours()));
+		timesheets.setApprovedBy(timesheetsDTO.getApprovedBy());
+		timesheets.setTimesheetGroupId(timesheetsDTO.getTimesheetGroupId().toString());
+		timesheets.setTimeSheetId(timesheetsDTO.getTimeSheetId().toString());
+		return timesheets;
 	}
 	
 	public static PersonalInfo covertFromDTO (PersonalInfoDTO personalInfoDTO){
@@ -95,7 +175,7 @@ public class DtoConverter {
 			for(DocumentsDTO documentsDTO : personalInfoDTO.getDocumentsDTO()){
 				DocumentObj documentObj = convertFromDTO(documentsDTO);
 				if(documentObj != null){
-					documentObj.setEmployeeId(documentsDTO.getPersonalInfoDTO().getEmployeeId().toString());
+					documentObj.setEmployeeId(documentsDTO.getPersonalInfoDTO().getEmployeeId());
 					personalInfo.getDocumnetObj().add(documentObj);
 				}
 			}
@@ -180,9 +260,10 @@ public class DtoConverter {
 	public static DocumentObj convertFromDTO(DocumentsDTO documentsDTO){
 		DocumentObj documentObj = new DocumentObj();
 		if(documentsDTO.getDocId() != null){
-			documentObj.setDocId(documentsDTO.getDocId().toString());
+			documentObj.setDocId(documentsDTO.getDocId());
 		}
-
+		
+		documentObj.setEmployeeId(documentsDTO.getPersonalInfoDTO().getEmployeeId());
 		documentObj.setFileName(documentsDTO.getFileName());
 		documentObj.setFileSize(documentsDTO.getFileSize());
 		documentObj.setFileType(documentsDTO.getFileType());

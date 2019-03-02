@@ -14,7 +14,7 @@ import javax.persistence.Table;
 
 @Entity
 @Table(name="ADDRESS")
-public class AddressDTO {
+public class AddressDTO implements Cloneable{
 
 
 @Id
@@ -90,6 +90,19 @@ public void setZip(String zip) {
 	this.zip = zip;
 }
 
+public Object clone() throws CloneNotSupportedException {
+
+    return super.clone();
+}
+
+/* (non-Javadoc)
+ * @see java.lang.Object#toString()
+ */
+@Override
+public String toString() {
+	return "AddressDTO [addressId=" + addressId + ", addressLine1=" + addressLine1 + ", addressLine2=" + addressLine2
+			+ ", city=" + city + ", state=" + state + ", zip=" + zip + "]";
+}
 
 
 }

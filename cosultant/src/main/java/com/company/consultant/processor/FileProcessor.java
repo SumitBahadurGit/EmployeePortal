@@ -12,18 +12,68 @@ import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
+import com.company.consultant.dto.DocumentsDTO;
 import com.company.consultant.models.DocumentObj;
+import com.company.consultant.util.DtoConverter;
+
+import javassist.expr.NewArray;
 
 @Component
 public class FileProcessor extends BaseProcessor implements FileProcessorIF {
 
-	final private String uploadPath = "C:\\Users\\sumit_2qmnpye\\Downloads\\cosultant\\cosultant\\src\\main\\resources\\static\\files\\";
+	final private String uploadPath = "C:\\EmployeePortal\\cosultant\\src\\main\\resources\\static\\files\\";
 	
 	@Override
 	public List<DocumentObj> processAndUpload(MultipartFile[] files) throws Exception{
 		return upload(files);   
 	}
 	
+	@Override
+	public void processAndDelete(List<Long> ids){
+		if(ids != null && ids.size() > 0){
+			ids.forEach(id -> {
+				dao.deleteById(DocumentsDTO.class, id);
+			});
+		}
+	}
+	
+	@Override
+	public List<DocumentObj> processAndUpdates (List<DocumentObj> list) throws Exception {
+		List<DocumentObj> returnValues = new ArrayList<>();
+		
+		if(list != null){
+			for(DocumentObj documentObj : list){
+				returnValues.add(processAndUpdate(documentObj));
+			}
+
+		}
+
+		return returnValues;	
+	}
+	
+	
+	@Override
+	public DocumentObj processAndUpdate(DocumentObj documentObj) throws Exception{
+		DocumentObj returnValue = null;
+		if(documentObj != null){
+			DocumentsDTO documentDTO = (DocumentsDTO) dao.findById(new DocumentsDTO(), documentObj.getDocId());
+			DtoConverter.copyProperties(documentObj, documentDTO);
+			
+			documentDTO = (DocumentsDTO) dao.save(documentDTO);
+
+			if(documentDTO != null){
+				DocumentObj _temp = new DocumentObj();
+				DtoConverter.copyProperties(documentDTO, _temp);	
+				if(documentObj != null){
+					returnValue = _temp;
+				}
+			}
+		}
+		if(returnValue == null){
+			throw new Exception("Error updating documents.");
+		}
+		return returnValue;	
+	}
 	
 	private List<DocumentObj> upload(MultipartFile[] files) throws Exception {
 
@@ -32,7 +82,7 @@ public class FileProcessor extends BaseProcessor implements FileProcessorIF {
 		if(files != null){
 			for(MultipartFile file : files){
 		        try {
-			        
+			      
 		        	String fileName = StringUtils.cleanPath(file.getOriginalFilename());
 		        	String fileSize = "n/a";
 		        	if(file.getSize() != 0){
@@ -52,6 +102,11 @@ public class FileProcessor extends BaseProcessor implements FileProcessorIF {
 			        
 			        System.out.println("Processing file: " + fileName);
 			        Path path = Paths.get(getUploadPath()+fileName);
+			        File destination = new File(path.toAbsolutePath().toString());
+			        if(!destination.exists()){
+			        	destination.mkdirs();
+			        }
+			        
 					Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 				} catch (Exception e) {
 					throw new Exception("Error uploading files: " + e.getMessage());
@@ -78,7 +133,15 @@ public class FileProcessor extends BaseProcessor implements FileProcessorIF {
 	public String getUploadPath() {
 		return uploadPath;
 	}
-	
+
+
+	@Override
+	public Object processAndSave(Object obj) {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+
 	
 
 }

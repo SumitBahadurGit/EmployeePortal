@@ -4,6 +4,40 @@
 		GMT-0600 (Central Standard Time) -->
 	<!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
 
+	<xs:complexType name="timesheets">
+		<xs:sequence>
+			<xs:element name="timeSheetId" type="xs:string"></xs:element>
+			<xs:element name="timesheetGroupId" type="xs:string"></xs:element>			
+			<xs:element name="employeeId" type="xs:string"></xs:element>
+			<xs:element name="status" type="xs:string"></xs:element>			
+			<xs:element name="timesheetDate" type="xs:string"></xs:element>
+			<xs:element name="startTime" type="xs:string"></xs:element>
+			<xs:element name="endTime" type="xs:string"></xs:element>
+			<xs:element name="totalHours" type="xs:string"></xs:element>
+			<xs:element name="overTime" type="xs:string"></xs:element>
+			<xs:element name="projectDetails" type="xs:string"></xs:element>
+			<xs:element name="projectLocation" type="xs:string"></xs:element>
+			<xs:element name="isApproved" type="xs:string"></xs:element>
+			<xs:element name="lastUpdated" type="xs:string"></xs:element>
+			<xs:element name="submittedDate" type="xs:string"></xs:element>
+			<xs:element name="approvedDate" type="xs:string"></xs:element>
+			<xs:element name="desc" type="xs:string"></xs:element>
+			<xs:element name="approvedBy" type="xs:string"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+
+	<xs:complexType name="timesheetsObjWrapper">
+		<xs:sequence>
+			<xs:element name="timesheets" type="timesheets" minOccurs="0" maxOccurs="unbounded"></xs:element>
+			<xs:element name="startDate" type="xs:string"></xs:element>
+			<xs:element name="endDate" type="xs:string"></xs:element>
+			<xs:element name="employeeId" type="xs:string"></xs:element>
+			<xs:element name="submittedDate" type="xs:string"></xs:element>						
+			<xs:element name="includeTimesheets" type="xs:string"></xs:element>												
+			<xs:element name="projectLocation" type="xs:string"></xs:element>																		
+		</xs:sequence>
+	</xs:complexType>
+
 
 	<xs:complexType name="searchRequest">
 		<xs:sequence>
@@ -33,6 +67,9 @@
 			<xs:element name="clientId" type="xs:string"></xs:element>
 			<xs:element name="workId" type="xs:string"></xs:element>
 			<xs:element name="searchType" type="xs:string"></xs:element>
+			<xs:element name="sortBy" type="xs:string"></xs:element>
+			<xs:element name="filterBy" type="xs:string"></xs:element>
+			<xs:element name="filterByValue" type="xs:string"></xs:element>
 
 		</xs:sequence>
 	</xs:complexType>
@@ -55,11 +92,25 @@
 			<xs:element name="zipCode" type="xs:string"></xs:element>
 		</xs:sequence>
 	</xs:complexType>
+	
+	<xs:complexType name="login">
+		<xs:sequence>
+			<xs:element name="loginId" type="xs:long" nillable="true"></xs:element>
+			<xs:element name="userName" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="oldPw" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="pw" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="eid" type="xs:long" nillable="true"></xs:element>
+			<xs:element name="status" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="attempts" type="xs:int" nillable="true"></xs:element>
+			<xs:element name="userRole" type="xs:string" nillable="true"></xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	
 
 	<xs:complexType name="documentObj">
 		<xs:sequence>
-			<xs:element name="docId" type="xs:string"></xs:element>
-			<xs:element name="employeeId" type="xs:string"></xs:element>
+			<xs:element name="docId" type="xs:long"></xs:element>
+			<xs:element name="employeeId" type="xs:long"></xs:element>
 			<xs:element name="fileName" type="xs:string"></xs:element>
 			<xs:element name="fileType" type="xs:string"></xs:element>
 			<xs:element name="fileSize" type="xs:string"></xs:element>
@@ -118,9 +169,7 @@
 		</xs:sequence>
 	</xs:complexType>
 
-	<xs:element name="PersonalInfo">
-
-		<xs:complexType>
+	<xs:complexType name="personalInfo">
 			<xs:sequence>
 				<xs:element name="employee_id" type="xs:string"></xs:element>
 				<xs:element name="firstName" type="xs:string"></xs:element>
@@ -140,6 +189,8 @@
 				<xs:element name="ssn" type="xs:string"></xs:element>
 				<xs:element name="lastUpdated" type="xs:string"></xs:element>
 				<xs:element name="address" type="address"></xs:element>
+				<xs:element name="timesheetsObjWrapper" type="timesheetsObjWrapper"></xs:element>			
+			
 				<xs:element name="documnetObj" type="documentObj"
 					minOccurs="0" maxOccurs="unbounded"></xs:element>
 				<xs:element name="employmentObj" type="employmentObj"
@@ -170,5 +221,22 @@
 
 			</xs:sequence>
 		</xs:complexType>
-	</xs:element>
+
+	<xs:complexType name="paginatedWrapper">
+			<xs:sequence>
+			<xs:element name="personalInfo" type="personalInfo"
+				minOccurs="0" maxOccurs="unbounded"></xs:element>
+			<xs:element name="totalRecords" type="xs:int"></xs:element>
+			<xs:element name="start" type="xs:int"></xs:element>
+			<xs:element name="end" type="xs:int"></xs:element>
+			<xs:element name="limit" type="xs:int"></xs:element>			
+			<xs:element name="currPage" type="xs:int"></xs:element>			
+			<xs:element name="totalPages" type="xs:int"></xs:element>
+			<xs:element name="itemsInCurrPage" type="xs:int"></xs:element>			
+			<xs:element name="searchRequest" type="searchRequest"></xs:element>
+			
+			</xs:sequence>
+	</xs:complexType>
+
+
 </xs:schema>

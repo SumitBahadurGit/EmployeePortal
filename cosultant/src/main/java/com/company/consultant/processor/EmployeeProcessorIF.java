@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartFile;
 import com.company.consultant.dto.EmploymentHistoryDTO;
 import com.company.consultant.dto.PersonalInfoDTO;
 import com.company.consultant.models.EmploymentObj;
+import com.company.consultant.models.PaginatedWrapper;
 import com.company.consultant.models.PersonalInfo;
 import com.company.consultant.models.SearchRequest;
 
@@ -19,5 +20,6 @@ public interface EmployeeProcessorIF {
 	List<PersonalInfo> processAndSearch(SearchRequest searchRequest) throws Exception;
 	PersonalInfo processAndSearchDocs(SearchRequest searchRequest) throws Exception;
 	public void processAndDelete(SearchRequest obj);
+	public List<?> processAndSearch(PaginatedWrapper paginatedWrapper) throws Exception;
 
 }

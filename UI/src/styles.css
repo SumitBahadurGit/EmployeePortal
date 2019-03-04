@@ -53,25 +53,30 @@ body{
     #contentWrapper{
         margin-top: 95px;
     }
-        
-    #side-panel {
-        display: none;
-        width: 80%;
-        z-index: 1;
-        border-radius: 10px;
-        position: fixed;
-        left: 0;
-        padding: 5px;
-        min-height: 100vh;
-        padding-bottom: 5px;   
-        overflow: scroll;
-        background-color: white;
 
+    #side-panel-support{
+        width: 1px;
+        display: block;
+        min-height: 10vh;
+        background-color: green;        
     }
     #db-content{
+        margin-left: 0;
         width: 100%;
     }
 
+    #side-panel {
+        display: block;
+        position: fixed;
+        left: 0;
+        padding: 5px;
+        width: 80%;
+        background: whitesmoke;
+        border-radius: 10px;
+        padding: 0;      
+        padding-bottom: 5px;             
+        z-index: 1;
+    }
     #nav-search{
         display: none;
     }
@@ -94,47 +99,41 @@ body{
     #navbar{
         height: 45px;
     }
-
     #contentWrapper{
         margin-top: 45px;
+    }
+    #side-panel-support{
+        display: hidden;    
+    }
+    #db-content{
+        margin-left: 25%;
+        width: 75%;
+        overflow: hidden;
     }
 
     #side-panel {
         display: block;
         position: fixed;
         left: 0;
+        background-color:  none;
         padding: 5px;
+        width: 25%;
         border-radius: 10px;
-        padding: 0;
-    
-        padding-bottom: 5px; 
+        padding: 0;      
+        padding-bottom: 5px;             
         z-index: 1;
-        width: 30%;
-        
-    }
-
-    #side-panel-support{
-        width: 30%;
-        display: block;
-
-    }
-    #db-content{
-        width: 70%;
     }
 
 
-    #com-search-toggle{
+    #nav-search{
         display: inline;
-        z-index: 2;
-
+    }
+    #com-search-toggle{
+        display: none;
     }
 
     #com-search{
-        display: none;
-    }
-
-    #nav-search{
-        display: none;
+        display: inline;
     }
 
     #formwWrapper {
@@ -150,54 +149,13 @@ body{
         margin-top: 45px;
     }
     #side-panel-support{
-        width: 30%;
-        display: block;
-
-    }
-
-    #side-panel {
-        display: block;
-        position: fixed;
-        left: 0;
-        padding: 5px;
-        width: 30%;
-        border-radius: 10px;
-        padding: 0;
-      
-        padding-bottom: 5px;
-         z-index: 1;
-
+        width: 1px;
+        display: hidden;
     }
     #db-content{
-        width: 70%;
-    }
-
-    #nav-search{
-        display: inline;
-    }
-
-    #com-search-toggle{
-        display: none;
-    }
-
-    #com-search{
-        display: inline;
-    }
-    #formwWrapper {
-        width: 90%;
-    }
- }
-
-@media only screen and (min-width: 992px) and (max-width: 1999px){ 
-    #navbar{
-        height: 45px;
-    }
-    #contentWrapper{
-        margin-top: 45px;
-    }
-    #side-panel-support{
-        width: 25%;
-        display: block;
+        margin-left: 25%;
+        width: 75%;
+        overflow: hidden;
     }
 
     #side-panel {
@@ -213,9 +171,55 @@ body{
         z-index: 1;
 
     }
-    #db-content{
-        width: 75%;
+
+
+    #nav-search{
+        display: inline;
     }
+    #com-search-toggle{
+        display: none;
+    }
+
+    #com-search{
+        display: inline;
+    }
+
+    #formwWrapper {
+        width: 90%;
+    }
+ }
+
+@media only screen and (min-width: 992px) and (max-width: 1999px){ 
+    #navbar{
+        height: 45px;
+    }
+    #contentWrapper{
+        margin-top: 45px;
+    }
+    #side-panel-support{
+        width: 1px;
+        display: hidden;
+    }
+    #db-content{
+        margin-left: 25%;
+        width: 75%;
+        overflow: hidden;
+    }
+
+    #side-panel {
+        display: block;
+        position: fixed;
+        left: 0;
+        padding: 5px;
+        width: 25%;
+        border-radius: 10px;
+        padding: 0;
+      
+        padding-bottom: 5px;             
+        z-index: 1;
+
+    }
+
 
     #nav-search{
         display: inline;
@@ -243,8 +247,14 @@ body{
         margin-top: 45px;
     }
     #side-panel-support{
-        width: 25%;
-        display: block;
+        width: 1px;
+        display: hidden;
+    }
+    #db-content{
+        margin-left: 25%;
+        width: 75%;
+        overflow: hidden;
+        
     }
 
     #side-panel {
@@ -260,9 +270,6 @@ body{
 
     }
  
-    #db-content{
-        width: 75%;
-    }
 
     #nav-search{
         display: inline;

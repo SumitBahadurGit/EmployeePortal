@@ -1,134 +1,129 @@
-<div id="uploaded-docs-container" class="card shadow-lg p-3 mb-5 rounded padding-bottom">
+<div class ="row">
+        <div class="col-md-12">
 
-    <div id="uploaded-doc-toolbar" class="card-title">
-        <div class="row">
-
-            <div class="mr-auto">
-                <button *ngIf="!isProcessing" (click)="openPrevious()" class="btn left">
-                    <i class="fas fa-arrow-left black"></i>
-                </button>
-
-            </div>
-            <div class="ml-auto">
-                <button class="btn right" [ngClass]="{'btn right' : true, 'border' : toggler.DELETE}"
-                    (click)="deleteAction()">
-                    <i class="fas fa-trash-alt red"></i>
-                </button>
-                <button (click)="createNewFolder()" class="btn right">
-                    <i class="fas fa-folder-plus green"></i>
-                </button>
-                <button (click)="createNewFile()" class="btn right">
-                    <i class="fas fa-file-upload green"></i>
-                </button>
-
-                <button class="btn right" id="upload-docs-button"
-                    onclick="document.getElementById('docs-uploader').click()">
-                    <i class="fas fa-cloud-upload-alt green"></i>
-                </button>
-
-                <input id="docs-uploader" (change)="fileReadyToUpload($event)" type="file" name="img" multiple
-                    style="display:none">
-
-                <button [ngClass]="{'btn right' : true, 'border' : toggler.SELECT}"
-                    (click)="toggleValue(toggler.SELECT_STR)">
-                    <i class="fas fa-check-square green"></i>
-                </button>
-                <button (click)="refresh()" *ngIf="!isProcessing" class="btn right">
-                    <i class="fas fa-sync-alt green"></i>
-                </button>
-                <button *ngIf="isProcessing" class="btn right none spinner-border text-primary" role="status">
-                    <span class="sr-only"></span>
-                </button>
-                <button class="btn right">
-                    <i class="fas fa-lock-open"></i>
-                </button>
-                <button class="btn right">
-                    <i class="fas fa-lock"></i>
-                </button>
-               
-                
-
-            </div>
-        </div>
-        <hr>
-        <div class="row">
-            <ul class="bd bo-bg no-bd" *ngIf='folderTreeTracker != null'>
-                <li *ngFor="let folder of getLastThreeFolders();">
-                    <p (click)="openFolder(folder, folder)">
-                        {{folder.getFolderName()}}
-                    </p>
-                </li>
-            </ul>
-        </div>
-    </div>
-
-    <div id="uploaded-doc-content">
-
-        <div id="no-data" *ngIf="nodata == true">
-            <p></p>
-        </div>
-
-        <div class="folders row">
-            <div *ngIf="selectedFolder != null">
-                <div [ngClass]="{'folder hover': true,
-                 'select' : toggler.SELECT,
-                 'selected' : isThisSelected(folder),
-                  'delete' : toggler.DELETE}" *ngFor="let folder of selectedFolder.getSubFolders()">
-                    <p *ngIf="toggler.DELETE" class="folder-delete-icon">X</p>
-                    <div (click)="fileAction(folder)">
-                        <img class="folder-icon"
-                            src="http://icons.iconarchive.com/icons/dtafalonso/yosemite-flat/256/Folder-icon.png">
-                    </div>
-                    <input class="folder-name" 
-                    (change)="updateFolderName($event.target.value, folder)"
-                        [value]="folder.getFolderName()">
+                <div class="mr-auto">
+                    <button *ngIf="!isProcessing" (click)="openPrevious()" class="btn left">
+                        <i class="fas fa-arrow-left black"></i>
+                    </button>
+    
                 </div>
-            </div>
-
-            <div *ngIf="toggler.FOLDER_ADD">
-                <div class="new-folder">
-                    <div>
-                        <img class="new-folder-icon"
-                            src="http://icons.iconarchive.com/icons/dtafalonso/yosemite-flat/256/Folder-icon.png">
-                    </div>
-                    <input (focusout)="addNewFolder($event.target.value)" [value]="getValidNewFolderName(null)"
-                        id="new-folder-name" class="new-folder-name" type="text">
-                    {{focusThis("new-folder-name")}}
+                <div class="ml-auto">
+                    <button class="btn right" [ngClass]="{'btn right' : true, 'border' : toggler.DELETE}"
+                        (click)="deleteAction()">
+                        <i class="fas fa-trash-alt red"></i>
+                    </button>
+                    <button (click)="createNewFolder()" class="btn right">
+                        <i class="fas fa-folder-plus green"></i>
+                    </button>
+                    <button (click)="createNewFile()" class="btn right">
+                        <i class="fas fa-file-upload green"></i>
+                    </button>
+    
+                    <button class="btn right" id="upload-docs-button"
+                        onclick="document.getElementById('docs-uploader').click()">
+                        <i class="fas fa-cloud-upload-alt green"></i>
+                    </button>
+    
+                    <input id="docs-uploader" (change)="fileReadyToUpload($event)" type="file" name="img" multiple
+                        style="display:none">
+    
+                    <button [ngClass]="{'btn right' : true, 'border' : toggler.SELECT}"
+                        (click)="toggleValue(toggler.SELECT_STR)">
+                        <i class="fas fa-check-square green"></i>
+                    </button>
+                    <button (click)="refresh()" *ngIf="!isProcessing" class="btn right">
+                        <i class="fas fa-sync-alt green"></i>
+                    </button>
+                    <button *ngIf="isProcessing" class="btn right none spinner-border text-primary" role="status">
+                        <span class="sr-only"></span>
+                    </button>
+                    <button class="btn right">
+                        <i class="fas fa-lock-open"></i>
+                    </button>
+                    <button class="btn right">
+                        <i class="fas fa-lock"></i>
+                    </button>
+                   
+                    
+    
                 </div>
-            </div>
-
-            <div *ngIf="selectedFolder != null">
-                <div [ngClass]="{'file hover': true,
-                    'select' : toggler.SELECT,
-                    'selected' : isThisSelected(file),
-                    'delete' : toggler.DELETE}" *ngFor="let file of selectedFolder.getFiles()">
-                    <p *ngIf="toggler.DELETE" class="file-delete-icon">X</p>
-                    <div (click)="fileAction(file)">
-                        <img class="file-icon" src="assets/img/icons/{{getFileType(file.getFileName())}}.png">
-                    </div>
-                    <input class="file-name"
-                     (change)="updateFileName($event.target.value, file)" type="text"
-                        [value]="file.getFileName()">
-                </div>
-            </div>
-
-            <div *ngIf="toggler.FILE_ADD">
-                <div class="new-file">
-                    <div>
-                        <img class="new-file-icon" src="assets/img/icons/txt.png">
-                    </div>
-                    <input (focusout)="addNewFile($event.target.value)" [value]="getValidNewFileName(null)"
-                        id="new-file-name" class="new-file-name" type="text">
-                    {{focusThis("new-file-name")}}
-                </div>
-
-            </div>
-
         </div>
-
-    </div>
-
-    <hr>
-    <err-succ (handleStatusMessage)='handleStatusMessage($event)'></err-succ>
-
+            <hr>
+        <div class="col-md-12">
+                <ul class="bd bo-bg no-bd" *ngIf='folderTreeTracker != null'>
+                    <li *ngFor="let folder of getLastThreeFolders();">
+                        <p (click)="openFolder(folder, folder)">
+                            {{folder.getFolderName()}}
+                        </p>
+                    </li>
+                </ul>
+        </div>        
 </div>
+
+<div  class="row">
+           
+        <div [ngClass]="{'folders col-12' : true,
+                        'no-data' : nodata}">
+            <div class="row">            
+                <ng-container *ngIf="selectedFolder != null">
+                    <div [ngClass]="{'folder hover': true,
+                    'select' : toggler.SELECT,
+                    'selected' : isThisSelected(folder),
+                    'delete' : toggler.DELETE}" *ngFor="let folder of selectedFolder.getSubFolders()">
+                        <p *ngIf="toggler.DELETE" class="folder-delete-icon">X</p>
+                        <div (click)="fileAction(folder)">
+                            <img class="folder-icon"
+                                src="http://icons.iconarchive.com/icons/dtafalonso/yosemite-flat/256/Folder-icon.png">
+                        </div>
+                        <input class="folder-name" 
+                        (change)="updateFolderName($event.target.value, folder)"
+                            [value]="folder.getFolderName()">
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="toggler.FOLDER_ADD">
+                    <div class="new-folder">
+                        <div>
+                            <img class="new-folder-icon"
+                                src="http://icons.iconarchive.com/icons/dtafalonso/yosemite-flat/256/Folder-icon.png">
+                        </div>
+                        <input (focusout)="addNewFolder($event.target.value)" [value]="getValidNewFolderName(null)"
+                            id="new-folder-name" class="new-folder-name" type="text">
+                        {{focusThis("new-folder-name")}}
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="selectedFolder != null">
+                    <div [ngClass]="{'file hover': true,
+                        'select' : toggler.SELECT,
+                        'selected' : isThisSelected(file),
+                        'delete' : toggler.DELETE}" *ngFor="let file of selectedFolder.getFiles()">
+                        <p *ngIf="toggler.DELETE" class="file-delete-icon">X</p>
+                        <div (click)="fileAction(file)">
+                            <img class="file-icon" src="assets/img/icons/{{getFileType(file.getFileName())}}.png">
+                        </div>
+                        <input class="file-name"
+                        (change)="updateFileName($event.target.value, file)" type="text"
+                            [value]="file.getFileName()">
+                    </div>
+                </ng-container>
+
+                <ng-container *ngIf="toggler.FILE_ADD">
+                    <div class="new-file">
+                        <div>
+                            <img class="new-file-icon" src="assets/img/icons/txt.png">
+                        </div>
+                        <input (focusout)="addNewFile($event.target.value)" [value]="getValidNewFileName(null)"
+                            id="new-file-name" class="new-file-name" type="text">
+                        {{focusThis("new-file-name")}}
+                    </div>
+
+                </ng-container>
+            </div>
+        </div>            
+</div>
+
+
+
+<hr>
+<err-succ (handleStatusMessage)='handleStatusMessage($event)'></err-succ>

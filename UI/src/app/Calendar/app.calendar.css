@@ -1,13 +1,13 @@
 #calendarWrapper {
     border-radius: 15px;
     border: 0px solid gray;
-    background-color: rgba(136, 135, 135,0.2);
+    background-color: none;
     width: 100%;
-    min-height: 80vh;
-    padding: 5px;
+	display: inline-block;
+    position: relative;
+    padding: 0;
     margin: 0;
-    
-
+    border: 0px solid red;
 }
 
 #responsiveCal{   

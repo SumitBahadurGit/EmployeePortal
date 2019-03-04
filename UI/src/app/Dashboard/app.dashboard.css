@@ -1,13 +1,10 @@
 .main-page{
     z-index:4;
-}
-.container-fluid{
+    width: 1000%;
     padding: 0;
     margin: 0;
 }
-.container-fluid > .row {
-    margin:0;
-}
+
 
 #db-navbar{
     position: fixed;    
@@ -43,16 +40,30 @@
     padding: 10px;
 }
 
+#side-panel-support{
+    display: block;
+    float: left;  
+}
 
 #db-content{
-    padding: 1%;
-    position: relative;
-    display: inline-block;
-    min-height: 100vh;   
+    padding: 10px;
+    min-height: 50vh;   
     border: 0px solid red;
     margin-bottom: 25px;
-    max-height: 110vh;
+    position: relative;
+    background-color: rgba(136, 135, 135,0.2);	
+    border-radius: 12px;
+
 }
+
+.content-wrapper{
+    border-radius: 15px;
+    border: 0px solid green;
+    background-color: rgba(136, 135, 135,0.2);	
+    height: 100%;
+}
+
+
 
 .left{
     float: left;

@@ -1,10 +1,4 @@
-<div>
-
-        <div id="no-data" *ngIf="employee == null">
-                <p></p>
-        </div>
-
-        <div *ngIf="employee">
+        <ng-container *ngIf="employee">
                 <div class="row">
 
                         <div class="col" id="profile-pic-wrapper">
@@ -31,7 +25,6 @@
                         </div>
 
                 </div>
-
 
                 <div class="card text-dark shadow-lg p-3 mb-5 bg-muted rounded" style="margin-top: 9px;">
                         <div class="row justify-content-start">
@@ -100,11 +93,14 @@
                                         </div>
         
                                 </div>
-                        </div>
+                </div>
 
 
-                        <p style="color:gray">Last Updated: {{employee.lastUpdated}}</p>
+                <p style="color:gray">Last Updated: {{employee.lastUpdated}}</p>
 
+        </ng-container>
+
+        
+        <div id="no-data" *ngIf="employee == null">
+                <p></p>
         </div>
-
-</div>

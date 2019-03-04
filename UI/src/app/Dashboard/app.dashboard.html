@@ -7,21 +7,22 @@
 
 <div id = "main-page" *ngIf="isLoadingComplete()">
  
-  <div *ngIf="isLoggedIn" class="container-fluid">
+  <ng-container *ngIf="isLoggedIn">
      
-    <div class="row" >      
-      <div *ngIf="showThis()" id="side-panel-support">
+
+      <div *ngIf="showThis()" id="side-panel-support" >
       </div>
   
-      <div id="db-content" >       
-          <ul class="bd">
-            <li *ngFor="let route of getRoutes()">
-                <a [routerLink]="route.url">{{route.label}}</a>              
-            </li>
+        <div id="db-content" class="container-fluid">
+            <ul class="bd">
+                <li *ngFor="let route of getRoutes()">
+                    <a [routerLink]="route.url">{{route.label}}</a>              
+                </li>
             </ul>
-        <router-outlet></router-outlet>
-  
-      </div>
+            <div style=padding:15px;>
+              <router-outlet></router-outlet>
+            </div>
+
     </div>
 
   <div id="side-panel"  *ngIf="showThis()">
@@ -115,7 +116,7 @@
 
         </ul>
   </div>
-  </div>
+  </ng-container>
 
 <nav id="db-navbar" class="navbar navbar-dark shadow-lg p-3 mb-5 rounded">
 <div class="navbar-brand" style="background: none; border: 0px solid red;">

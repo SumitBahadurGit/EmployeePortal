@@ -40,7 +40,7 @@ export class DocumentsComponent implements OnInit {
   //Flags 
   isNewFileCreate: boolean = false;
   isNewFolderCreate: boolean = false;
-  nodata: boolean = false;
+  nodata: boolean = true;
   filesUploaded: boolean = false;
   filesDetelePrompt: boolean = false;
   isSelectPrompt: boolean = false;
@@ -87,6 +87,7 @@ export class DocumentsComponent implements OnInit {
       this.selectedFolders = null;
     }
   }
+
 
   getLastThreeFolders() {
     if (this.folderTreeTracker != null) {

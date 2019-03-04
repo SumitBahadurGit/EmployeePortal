@@ -1,21 +1,3 @@
-
-.employessListWrapper{
-    border-radius: 15px;
-    border: 0px solid gray;
-    background-color: rgba(136, 135, 135,0.2);
-    width: 100%;
-	display: inline-block;
-    position: relative;
-    padding: 0;
-    margin: 0;
-    border: 0px solid red;
-}
-
-.empList-nav{
-    display: inline-block;
-    width: 100%;
-}
-
 .emp-dropdown-wrapper{
     position: relative;
     margin-left: 3px;
@@ -45,7 +27,6 @@ thead {
     
   }
 
-
   .emp-fields-dropdown > li {
      
       padding: 5px;
@@ -63,4 +44,8 @@ thead {
 
 .page-item{
     width: 50px;
+}
+
+.card{
+    background: none !important;
 }

@@ -22,6 +22,7 @@ export class DashboardComponent implements OnInit {
     private userRole : string;
     private isLoggedIn : boolean = false;
     private isReady : boolean = false;
+    private isJsInit : boolean = false;
 
   constructor(private router: Router,
     private dataService: WebService,
@@ -88,7 +89,11 @@ export class DashboardComponent implements OnInit {
   }
 
   initJS(){
-    dashBoardFunctions();
+    if(!this.isJsInit){
+      dashBoardFunctions();
+      this.isJsInit = true;
+    }
+
   }
 
   ngOnInit() {

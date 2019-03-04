@@ -1,22 +1,23 @@
-<div id="search-wrapper" *ngIf="employee == null" class="col-md-3" style="margin-left: 6px;margin-top: 6px; padding: 6px;">
-  <form id="search-form-wrapper" autocomplete="off" action="">
-    <div class="autocomplete"
-      style="background: white; padding: 10px; border: 2px solid rgba(139,0,0,0.5); border-radius: 20px; min-width: 300px;">
-      <input id="myInput" style=" width: 85%; background: white; border:0px; border-bottom: 1PX SOLID gray;" type="text"
-        name="myCountry" placeholder="Employee Name">
-      <button id="emp-search" class="btn" type="submit" style="border: 0px; margin: 0; height: 100%;"
-        data-target="#navbarTogglerDemo01" (click)="search($event)" aria-controls="navbarTogglerDemo01">
-        <i class="fas fa-search"></i>
-      </button>
-    </div>
-  </form>
-</div>
 
-<div class="employeesWrapper">
   <div class="row">
+      <div id="search-wrapper" *ngIf="employee == null" 
+      class="col-2"
+       style="margin-left: 6px;margin-top: 6px; padding: 6px;">
+        <form id="search-form-wrapper" autocomplete="off" action="">
+          <div class="autocomplete"
+            style="background: white; padding: 10px; border: 2px solid rgba(139,0,0,0.5); border-radius: 20px; min-width: 300px;">
+            <input id="myInput" style=" width: 85%; background: white; border:0px; border-bottom: 1PX SOLID gray;" type="text"
+              name="myCountry" placeholder="Employee Name">
+            <button id="emp-search" class="btn" type="submit" style="border: 0px; margin: 0; height: 100%;"
+              data-target="#navbarTogglerDemo01" (click)="search($event)" aria-controls="navbarTogglerDemo01">
+              <i class="fas fa-search"></i>
+            </button>
+          </div>
+        </form>
+      </div>
 
-    <div *ngIf="employee != null" class="col">
-      <div id="nav-wrapper">
+    <ng-container *ngIf="employee != null" >
+      <div class="col" id="nav-wrapper">
         <ul class="bg-info">
           <li><a [routerLink]="['portfolio']"><b>Portfolio</b></a></li>
           <li><a [routerLink]="['experience']"><b>Employment</b></a></li>
@@ -28,8 +29,6 @@
         <router-outlet></router-outlet>
       </div>
 
-    </div>
-
+    </ng-container>
 
   </div>
-</div>

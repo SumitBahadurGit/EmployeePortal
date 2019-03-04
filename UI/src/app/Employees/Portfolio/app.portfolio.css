@@ -1,7 +1,4 @@
 
-p{
-    color: gray;
-}
 
 #no-data{
  background-image: url('/assets/img/no-data.png');
@@ -34,6 +31,7 @@ p{
     left:120px;    
     display: none;
 }
+
 .card{
     background: none !important;
 }

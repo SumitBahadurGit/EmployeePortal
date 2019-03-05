@@ -19,21 +19,23 @@ export class ErrorSuccessComponent{
     constructor(){
     }
 
-    handleStatusMessage(errSuc : Message){
+    handleStatusMessage(errSuc : Message, timeout?: number){
+        if(timeout == null){
+            timeout = 2000;
+        }
         this.errSuc = errSuc;
                 
         if(this.errSuc.loadingMessage != null){
 
-            this.setLoadingMessage(this.errSuc.loadingMessage, 1000);
+            this.setLoadingMessage(this.errSuc.loadingMessage, timeout);
         } else {
             if(this.errSuc.errorMessage != null){
-                this.setErrorMessgae(this.errSuc.errorMessage, 1000);
+                this.setErrorMessgae(this.errSuc.errorMessage, timeout);
 
             } else if(this.errSuc.successMessage != null){
-                this.setSuccessMessage(this.errSuc.successMessage, 1000);            
+                this.setSuccessMessage(this.errSuc.successMessage, timeout);            
             }
         }
-
     }
 
     setErrorMessgae(message : string, timeout : number){

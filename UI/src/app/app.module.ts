@@ -26,6 +26,7 @@ import { EmployeesListComponent } from './EmployeesList/app.employeesList';
 import { TimeSheetComponent } from './Employees/Timesheeets/app.timesheets';
 import { TimesheetsService } from './Service/app.timesheetService';
 import { ErrorSuccessComponent } from './Templates/app.ERR_SUC';
+import { UpdateProfileComponent } from './profile/update/app.update-profile';
 
 const routes: Routes = [
  {
@@ -36,6 +37,10 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     children: [
+      {
+        path : 'update-profile',
+        component: UpdateProfileComponent
+      },
       {
         path: 'register',
         component: RegisterComponent
@@ -114,7 +119,8 @@ const routes: Routes = [
     GeneratorComponent,
     EmployeesListComponent,
     TimeSheetComponent,
-    ErrorSuccessComponent
+    ErrorSuccessComponent,
+    UpdateProfileComponent
   ],
   imports: [
     BrowserModule,

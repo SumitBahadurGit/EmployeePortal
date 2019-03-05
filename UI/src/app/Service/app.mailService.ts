@@ -7,7 +7,7 @@ export class MailService {
 
 
     private server = 'http://localhost:8080/';
-    private baseResoucce = "employee/";
+    private baseResoucce = "login/";
     private getResource = "generateId";
 
     constructor(private http: HttpClient){

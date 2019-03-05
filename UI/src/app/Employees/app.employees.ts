@@ -102,7 +102,8 @@ export class EmployeesComponent implements OnInit {
 
                                     var q = (<HTMLInputElement>document.getElementById("myInput")).value;
                                     if(q != null && q.length > 0 && q.includes("(")){
-                                        q = q.substring(q.length - 6,q.length-1);
+                                        q = q.split("(")[1];
+                                        q = q.split(")")[0];
                                         this.getEmployeeDetails(q);
                                     }
 

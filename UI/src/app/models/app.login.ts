@@ -1,39 +1,39 @@
 export class Login {
     
-    private loginId: string;
-    private userName: string;
-    private oldPw: string;
-    private pw: string;
-    private eid: string;        
-    private status: string;
-    private attempts: string; 
+    public loginId: string;
+    public userName: string;
+    public oldPw: string;
+    public pw: string;
+    public eid: string;        
+    public status: string;
+    public attempts: string; 
     public userRole : string;
 
     constructor(){
 
     }  
 
-    getUserName(){
+    public getUserName(){
         return this.userName;
     }
 
-    getPassWord(){
+    public getPassWord(){
         return this.pw;
     }
 
-    getEid(){
+    public getEid(){
         return this.getEid;
     }
 
-    setUserName(val : string){
+    public setUserName(val : string){
         this.userName = val;
     }
 
-    setPassWord(val : string){
+    public setPassWord(val : string){
         this.pw = val;
     }
 
-    setEid(val : string){
+    public setEid(val : string){
         this.eid = val;
     }
 

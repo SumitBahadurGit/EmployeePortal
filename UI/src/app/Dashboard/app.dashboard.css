@@ -5,6 +5,28 @@
     margin: 0;
 }
 
+#profile-edit-button{
+    position: relative;
+    cursor: pointer;
+}
+
+.profile-edit-dropdown {
+    list-style-type: none;
+    position: absolute; /* Sit on top of the page content */
+    top: 45px; 
+    left: 45px;
+    background-color:white; /* Black background with opacity */
+    z-index: 7; /* Specify a stack order in case you're using a different order for other elements */
+    cursor: pointer; /* Add a pointer on hover */
+    min-width: 130px;
+    padding: 0;
+    margin: 0;
+    border: 1px solid gray;
+    border-radius: 6px;    
+  }
+  .profile-edit-dropdown > li:hover {
+      text-decoration: underline;
+  }
 
 #db-navbar{
     position: fixed;    

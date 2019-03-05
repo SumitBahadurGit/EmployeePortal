@@ -12,7 +12,7 @@ export class PersonalInfo{
         public firstName: string,
         public middleName: string,
         public lastName: string,
-        public dob: string,
+        public dob: Date,
         public country: string,
         public visaStatus: string,
         public email: string,

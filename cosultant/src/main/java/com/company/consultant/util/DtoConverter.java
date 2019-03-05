@@ -155,7 +155,7 @@ public class DtoConverter {
 			personalInfo.getEducation().setGradYear(personalInfoDTO.getEducationDTO().getGradYear());
 			personalInfo.getEducation().setHighestDegree(personalInfoDTO.getEducationDTO().getHighestDegree());
 			personalInfo.getEducation().setLastColCountry(personalInfoDTO.getEducationDTO().getLastCollCountry());
-			personalInfo.getEducation().setLastColName(personalInfo.getEducation().getLastColName());			
+			personalInfo.getEducation().setLastColName(personalInfoDTO.getEducationDTO().getLastCollName());			
 			personalInfo.getEducation().setEducationId(String.valueOf(personalInfoDTO.getEducationDTO().getEducation_id()));
 		}
 

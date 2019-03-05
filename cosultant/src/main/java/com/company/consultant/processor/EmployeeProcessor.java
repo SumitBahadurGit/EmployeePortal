@@ -39,6 +39,7 @@ public class EmployeeProcessor extends BaseProcessor implements EmployeeProcesso
 	@Override
 	public PersonalInfo processAndSave(PersonalInfo personalInfo) {
 		 PersonalInfoDTO personalInfoDTO = DtoConverter.convertToDTO(personalInfo);
+		 personalInfoDTO.setEmployeeId(Long.valueOf(personalInfo.getEmployeeId()));
 		 return DtoConverter.covertFromDTO((PersonalInfoDTO) dao.save(personalInfoDTO));
 	}
 		

@@ -1,30 +1,27 @@
 import { Component, OnChanges, OnInit, ViewChild } from '@angular/core';
-import { PersonalInfo } from '../models/app.personalInfo';
-
-import { Address } from '../models/app.address';
-import { Work } from '../models/app.work';
-import { Education } from '../models/app.education';
-import { VendorObj } from '../models/app.vendorObj';
-import { ClientObj } from '../models/app.clientObj';
-import { EmploymentObj } from '../models/app.employmentObj';
-import { UpdateBus } from '../Service/app.updateBus';
 import { ActivatedRoute, Router } from '@angular/router';
-import { WebService } from '../Service/app.webservice';
-import { MailService } from '../Service/app.mailService';
-import { template } from '@angular/core/src/render3';
-import { ErrorSuccessComponent } from '../Templates/app.ERR_SUC';
-import { Message } from '../models/app.message';
-import { Login } from '../models/app.login';
-import { states } from '../models/app.states';
+import { Education } from 'src/app/models/app.education';
+import { Work } from 'src/app/models/app.work';
+import { Address } from 'src/app/models/app.address';
+import { PersonalInfo } from 'src/app/models/app.personalInfo';
+import { VendorObj } from 'src/app/models/app.vendorObj';
+import { ClientObj } from 'src/app/models/app.clientObj';
+import { EmploymentObj } from 'src/app/models/app.employmentObj';
+import { WebService } from 'src/app/Service/app.webservice';
+import { UpdateBus } from 'src/app/Service/app.updateBus';
+import { LoggedUser } from 'src/app/Service/app.LoggedUser';
+import { ErrorSuccessComponent } from 'src/app/Templates/app.ERR_SUC';
+import { Message } from 'src/app/models/app.message';
+
 
 
 @Component({
-  selector: 'register',
-  templateUrl: './app.register.html',
-  styleUrls: ['./app.register.css'],
+  selector: 'update-profile',
+  templateUrl: './app.update-profile.html',
+  styleUrls: ['./app.update-profile.css'],
 })
 
-export class RegisterComponent implements OnInit {
+export class UpdateProfileComponent implements OnInit {
 
   @ViewChild(ErrorSuccessComponent)
   statusTemplate: ErrorSuccessComponent;
@@ -34,10 +31,6 @@ export class RegisterComponent implements OnInit {
   work: Work;
   address: Address;
   personalInfo: PersonalInfo;
-  errorSubmit: boolean = false;
-  accessLevel : string = "3";
-  userRole : string = "EMPLOYEE"
-
 
   vendor: VendorObj;
   client: ClientObj;
@@ -54,66 +47,61 @@ export class RegisterComponent implements OnInit {
     console.log(JSON.stringify(this.personalInfo));
   }
 
-  ngOnInit() {
-    this.creteEmptyObj();
-    this.showTab(this.currentTab);
+  ngOnInit() {      
+    this.retreiveProfile()
+        .subscribe((data : PersonalInfo) => {
+            this.personalInfo = data;
+            console.log(JSON.stringify(this.personalInfo));
+        },
+        (error) => {
+            this.statusTemplate.handleStatusMessage(Message.createErrorMessage("There was an error retreiving the profile."));
+        }, 
+        () => {
+            if(this.personalInfo == null || this.personalInfo.employeeId == null){
+                this.creteEmptyObj();                
+            }
+            this.showTab(this.currentTab);
+        });
+  }
+
+
+  constructor(private dataService: WebService, private updateService: UpdateBus, private route: ActivatedRoute,
+    private router: Router) {
 
   }
 
-  constructor(private dataService: WebService, 
-    private updateService: UpdateBus, 
-    private route: ActivatedRoute,
-    private router: Router,
-    private mailService : MailService) {
-
+  retreiveProfile(){
+      return  this.dataService.getSingle<PersonalInfo>(LoggedUser.getUser().employeeId);
   }
 
   submit() {
-    this.statusTemplate.loadingMessage="Creating Profile.";
-    try{
-      var query = "name="+this.personalInfo.firstName 
-      +"&email="+this.personalInfo.email
-      +"&userRole="+this.userRole;
-      this.mailService.genNewId<Login>(query).subscribe((data : Login)  => {
-        this.personalInfo.employeeId = data.eid;
-      },
-      (error) => {
-        this.statusTemplate.loadingMessage = null;
-        this.statusTemplate.handleStatusMessage(Message.createErrorMessage("There was an error creating new ID."));
-      }, 
-      () => {
-        console.log(JSON.stringify(this.personalInfo));
-        this.dataService
-          .add(this.personalInfo)
-          .subscribe(
-            (data: PersonalInfo) => {
-              this.personalInfo = data;
-              console.log(data);
-            },
-            (error: any) => {
-              this.statusTemplate.loadingMessage = null;
-              this.statusTemplate.handleStatusMessage(Message.createErrorMessage("There was an error updating."));
-            },
-            () => {
-              console.log("SUCCESSFULLY ADDED");              
-              this.statusTemplate.loadingMessage = null;
-              this.statusTemplate.handleStatusMessage(Message.createSuccessMessage("Successfully updated. New #ID: " + this.personalInfo.employeeId),10000);
-            }
-          );
-      });
-    } catch(error){
-      this.statusTemplate.loadingMessage = null;
-        throw ({error : "Error creting profile."});
-    } finally{
+    try {
+      console.log(JSON.stringify(this.personalInfo));
       this.currentTab = 0;
       this.showTab(this.currentTab);
+      this.dataService
+        .updateEmployee(this.personalInfo)
+        .subscribe(
+          (data: PersonalInfo) => {
+            this.personalInfo = data;
+            console.log(data);
+          },
+          (error: any) => {
+            console.log("ERROR ADDING:" + error);
+            this.statusTemplate.handleStatusMessage(Message.createErrorMessage("There was an error updating the info."));
+          },
+          () => {
+            console.log("SUCCESSFULLY ADDED");
+            this.statusTemplate.handleStatusMessage(Message.createSuccessMessage("Successfully Updated."));
+          }
+        );
+    } catch (error){
+      console.log("ERROR SUBMITTING:" + error);
+
     }
 
   }
 
-  getStates(){
-    return states;
-  }
   showTab(n) {
     // This function will display the specified tab of the form ...
     var x = document.getElementsByClassName("tab");
@@ -138,7 +126,6 @@ export class RegisterComponent implements OnInit {
   }
 
   nextPrev(n) {
-    this.errorSubmit = false;
     var formValid = true;
 
     // This function will figure out which tab to display
@@ -161,7 +148,6 @@ export class RegisterComponent implements OnInit {
     // Otherwise, display the correct tab:
     this.showTab(this.currentTab);
   }
-
 
   validateForm() {
     // This function deals with validation of the form fields

@@ -1,0 +1,116 @@
+
+#stepWrapper{
+    text-align:center;
+    padding: 10px;
+    }
+  
+    #tabWrapper::-webkit-scrollbar { /* WebKit */
+      width: 0px;
+  }
+   
+   #tabWrapper{
+    padding: 5px;
+    overflow-y: auto;
+    scrollbar-width: none;
+  }
+  
+   #nextWrapper{
+     padding: px;
+     text-align: center;
+   }
+   
+   /* Style the form */
+   #regForm {
+     position: relative;
+     padding: 3px;
+   }
+  
+  #submit-response{
+    position: absolute;
+    top:40%;
+    left: 45%;
+  }
+  
+  
+  label{
+    padding-top: 10px;  
+  }
+  
+  /* Style the input fields */
+  input {
+    background-color: #f8e3e3;
+  }
+  
+  
+  /* Hide all steps by default: */
+  .tab {
+    display: none;
+  }
+  
+  /* Make circles that indicate the steps of the form: */
+  .step {
+    height: 20px;
+    width: 20px;
+    margin: 0 2px;
+    background-color: #bbbbbb;
+    border: none; 
+    border-radius: 50%;
+    display: inline-block;
+    opacity: 0.5;
+    margin-right: 5px;
+  }
+  
+  /* Mark the active step: */
+  .step.active {
+    opacity: 1;
+    background-color: #4CAF50;
+  
+  }
+  
+  /* Mark the steps that are finished and valid: */
+  .step.finish {
+    background-color: #4CAF50;
+  }
+  
+  /* Style the input container */
+  .input-containere {
+    display: flex;
+    width: 100%;
+    margin-bottom: 15px;
+  }
+  
+  /* Style the form icons */
+  .icon {
+    padding: 10px;
+    background: dodgerblue;
+    color: white;
+    min-width: 50px;
+    text-align: center;
+  }
+  
+  /* Style the input fields */
+  .input-field {
+    width: 100%;
+    padding: 10px;
+    outline: none;
+  }
+  
+  .input-field:focus {
+    border: 2px solid dodgerblue;
+  }
+  
+  /* Set a style for the submit button */
+  .btn {
+    opacity: 0.5;
+  }
+  
+  .btn:hover {
+    opacity: 1;
+  }
+  
+  .radio-inline{
+    border: 0px solid dodgerblue;
+  }
+  
+  
+  

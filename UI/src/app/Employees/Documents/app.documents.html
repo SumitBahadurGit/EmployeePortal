@@ -1,11 +1,10 @@
 <div class ="row">
         <div class="col-md-12">
-
+            <hr>
                 <div class="mr-auto">
                     <button *ngIf="!isProcessing" (click)="openPrevious()" class="btn left">
                         <i class="fas fa-arrow-left black"></i>
                     </button>
-    
                 </div>
                 <div class="ml-auto">
                     <button class="btn right" [ngClass]="{'btn right' : true, 'border' : toggler.DELETE}"
@@ -42,14 +41,13 @@
                     </button>
                     <button class="btn right">
                         <i class="fas fa-lock"></i>
-                    </button>
-                   
-                    
-    
+                    </button>    
                 </div>
+           
         </div>
-            <hr>
+
         <div class="col-md-12">
+                <hr>
                 <ul class="bd bo-bg no-bd" *ngIf='folderTreeTracker != null'>
                     <li *ngFor="let folder of getLastThreeFolders();">
                         <p (click)="openFolder(folder, folder)">
@@ -57,11 +55,13 @@
                         </p>
                     </li>
                 </ul>
-        </div>        
+                <br>
+        </div>       
+
 </div>
 
 <div  class="row">
-           
+        <hr>
         <div [ngClass]="{'folders col-12' : true,
                         'no-data' : nodata}">
             <div class="row">            

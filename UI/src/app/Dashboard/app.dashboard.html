@@ -28,10 +28,23 @@
   <div id="side-panel"  *ngIf="showThis()">
         <div id = "side-panel-header">
           <div class="row" >
-              <div class="col" style="background: none; border: 0px;">
+              <div class="col" 
+              id="profile-edit-button"
+              data-toggle="collapse"
+              data-target="#profile-edit"
+              style="background: none; border: 0px;">
                   <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT4vjYZy3QrcBTYMBeKCI51TKwPwEGFFPSBtsaFW_Zhrx9NDGcz"
                     width="45" height="45" style="border-radius: 50%;" alt="">
-            </div>
+
+                    <ul class="profile-edit-dropdown collapse" 
+                      id="profile-edit">                 
+                        <li [routerLink]="['update-profile']">Update Info</li>
+                        <li>Settings</li>
+                    </ul>
+
+               </div>
+
+
             <div class="ml-auto" style="margin-right:15px;">
                 <select
                  class="badge badge-pill badge-success"

@@ -22,8 +22,6 @@ export class HomeComponent implements  OnInit {
     }
 
     ngOnInit(){
-        this.userName = "97651";
-        this.password = "97651";
         this.tryLogIn();
     }
     tryLogIn() {

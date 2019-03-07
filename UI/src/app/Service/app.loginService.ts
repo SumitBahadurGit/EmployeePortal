@@ -16,12 +16,10 @@ export class LogInService{
     private userRole : string;
  
     constructor(private http : HttpClient){
-        var serverAddress =  window.location.origin;
-        if(serverAddress != null){
-            var ip = serverAddress.split("4200")[0];
-            this.server = ip + "8080/";
+
+            this.server = "http://" + window.location.host + ":8080";
            
-        }
+        
     }
 
     getEid(){

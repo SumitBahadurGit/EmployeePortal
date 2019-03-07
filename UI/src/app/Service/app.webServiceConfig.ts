@@ -3,7 +3,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class WebServiceConfig{
 
-    public server =  (window.location.origin).split("4200")[0] + "8080/";
+    public server = "http://" + window.location.host + ":8080/";
+
     public baseResoucce = "employee/";
     public postResource = "employee/add";
     public postUpdateResource = "employee/update";

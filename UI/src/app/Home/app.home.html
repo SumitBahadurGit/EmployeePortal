@@ -33,6 +33,11 @@
                             name="psw"
                             [(ngModel)]="password"
                              class="form-control" id="pwInput" placeholder="Password">
+                        <br>
+                        <div class="checkbox">
+                            <label><input type="checkbox" name="selected" [(ngModel)]="rememberMe"> Remember me</label>
+                        </div>
+
                         </div>
                         <button type="submit" (click)="tryLogIn()" class="btn btn-primary">Submit</button>
                         <br>

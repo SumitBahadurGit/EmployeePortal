@@ -44,6 +44,8 @@ export class DashboardComponent implements OnInit {
       } else {      
         return true;
       }
+    } else {
+      return true;
     }
   }
 

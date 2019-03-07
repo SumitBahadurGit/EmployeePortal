@@ -15,6 +15,9 @@ export class HomeComponent implements  OnInit {
     private password: string;
     private role : string;
 
+
+    private rememberMe : boolean = false;
+
     private errorMessage : string ;
     private isLoggedIn: boolean = false;
 
@@ -22,10 +25,19 @@ export class HomeComponent implements  OnInit {
     }
 
     ngOnInit(){
-        this.tryLogIn();
-    }
-    tryLogIn() {
+        
+        if(window.localStorage){
+            this.userName = localStorage.getItem("username");
+            this.password = localStorage.getItem("password");
+        }
 
+        if(this.userName != null && this.password != null){
+            this.tryLogIn();
+        }
+
+    }
+
+    tryLogIn() {
         var logInObj : Login = new Login(); 
         this.errorMessage = null;
         logInObj = new Login;
@@ -49,6 +61,14 @@ export class HomeComponent implements  OnInit {
             if(success == true){
                 if(this.userName != null && this.password != null){                       
                         this.logInService.setLoggedIn(true, this.userName, this.role);
+                        
+                        if(this.rememberMe){
+                            if(window.localStorage){
+                                localStorage.setItem("username", this.userName);
+                                localStorage.setItem("password", this.password);
+                            }
+                        }
+
                         this.userName = null;
                         this.password = null;
 

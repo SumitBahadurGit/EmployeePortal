@@ -1,9 +1,11 @@
-import { Component, OnInit } from "@angular/core";
+import { Component, OnInit, ViewChild } from "@angular/core";
 import { WebService } from '../Service/app.webservice';
 import { PersonalInfo } from '../models/app.personalInfo';
 import { map } from 'rxjs/operators';
 import { PaginatedWrapper } from '../models/app.paginatedWrapper';
 import { SearchRequest } from '../models/app.searchRequest';
+import { ErrorSuccessComponent } from '../Templates/app.ERR_SUC';
+import { Message } from '../models/app.message';
 
 @Component({
     selector: 'employees-list',
@@ -16,7 +18,9 @@ export class EmployeesListComponent implements OnInit{
     fieldList : string[] = null;
     activeFieldList : string[] = null;
  
-    
+    @ViewChild(ErrorSuccessComponent)
+    statusTemplate: ErrorSuccessComponent;
+
     employeesList : PersonalInfo[];
     paginatedSearch : PaginatedWrapper;
 
@@ -47,14 +51,13 @@ export class EmployeesListComponent implements OnInit{
             }
         }
     }
+
     nextPrevPage(pageNo : number){
         if(pageNo > 1 && pageNo <= this.totalPages){
             this.currPage = pageNo;
             this.getEmployeesListByType();
         }
     }
-
-
 
     constructor(private dataService : WebService){
         this.fieldList = [
@@ -106,9 +109,11 @@ export class EmployeesListComponent implements OnInit{
     }
 
     getEmployeesListByType(){
+        this.statusTemplate.loadingMessage = "Retreving....";
         this.paginatedSearch = new PaginatedWrapper(null,null,null,null,null,this.limit,this.currPage,new SearchRequest(this.sortBy, this.filterBy,this.filterByValue));
         this.dataService.getAllEmployessByQuery<PaginatedWrapper>(this.paginatedSearch)
         .subscribe((data : PaginatedWrapper) => {
+            this.statusTemplate.loadingMessage = null;
             this.paginatedSearch = data;
             this.employeesList = this.paginatedSearch.personalInfo;
             this.totalPages = this.paginatedSearch.totalPages;
@@ -118,19 +123,20 @@ export class EmployeesListComponent implements OnInit{
         },
         (error) => {
             console.log("ERROR getting employees list: " + error);
+            this.statusTemplate.loadingMessage = null;
+            this.statusTemplate.handleStatusMessage(Message.createErrorMessage("There was an error retreiving records"),3000);
         },
         () => {
             console.log('SUCCESS getting employees list.');
             this.getPageNumbers();
+            this.statusTemplate.loadingMessage = null;
            
          });
        
     }
 
     ngOnInit(){
-
-        this.getEmployeesListByType();
-
-    
+       
+        this.getEmployeesListByType();    
     }
 }

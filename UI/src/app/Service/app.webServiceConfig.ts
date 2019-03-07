@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class WebServiceConfig{
 
-    public server = 'http://localhost:8080/';
+    public server =  (window.location.origin).split("4200")[0] + "8080/";
     public baseResoucce = "employee/";
     public postResource = "employee/add";
     public postUpdateResource = "employee/update";
@@ -24,4 +24,8 @@ export class WebServiceConfig{
     public postUpdateUrl = this.server + this.postUpdateResource;
     public getUrl = this.server + this.getResource;
     public getAllEmployeeUrl = this.server + this.getAllEmployeesResouce;
+
+    constructor(){
+
+    }
 }

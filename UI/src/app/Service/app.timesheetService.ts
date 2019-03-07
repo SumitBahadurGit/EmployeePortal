@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class TimesheetsService {
 
-    private server = 'http://localhost:8080/';
+    private server;
     private baseResource = "timesheets/";
     private saveResource = "save";
     private getAllResource = "getAll";
@@ -16,7 +16,11 @@ export class TimesheetsService {
 
 
     constructor(private http : HttpClient){
-
+        var serverAddress =  window.location.origin;
+        if(serverAddress != null){
+            var ip = serverAddress.split("4200")[0];
+            this.server = ip + "8080/";
+        }
     }
 
     public save<T>(obj : TimesheetsObjWrapper) : Observable<T>{

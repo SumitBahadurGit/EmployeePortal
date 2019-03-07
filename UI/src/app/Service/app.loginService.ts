@@ -6,7 +6,8 @@ import { Injectable } from '@angular/core';
 @Injectable()
 export class LogInService{
 
-    private server = 'http://localhost:8080/';
+
+    private server;
     private baseResoucce = "/login";
     private loginResource = "/check";
 
@@ -15,6 +16,12 @@ export class LogInService{
     private userRole : string;
  
     constructor(private http : HttpClient){
+        var serverAddress =  window.location.origin;
+        if(serverAddress != null){
+            var ip = serverAddress.split("4200")[0];
+            this.server = ip + "8080/";
+           
+        }
     }
 
     getEid(){
@@ -22,6 +29,9 @@ export class LogInService{
     }
     
     logOut(){
+        if(window.localStorage){
+            localStorage.clear();
+        }
         this.isLoogedIn = false;
     }
 

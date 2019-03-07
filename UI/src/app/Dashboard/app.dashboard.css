@@ -42,7 +42,7 @@
 
 #side-panel-support{
     overflow: hidden;
-    border: 0px solid green;
+    border: 1px solid green;
     position: relative;
 
 }

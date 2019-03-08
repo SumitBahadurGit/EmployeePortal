@@ -6,6 +6,7 @@ import { UpdateBus } from 'src/app/Service/app.updateBus';
 import { TimesheetsService } from 'src/app/Service/app.timesheetService';
 import { Observable } from 'rxjs';
 import { validateConfig } from '@angular/router/src/config';
+import { LoggedUser } from 'src/app/Service/app.LoggedUser';
 
 @Component({
     selector: 'timesheets',
@@ -116,20 +117,30 @@ export class TimeSheetComponent implements OnInit{
         this.curTimesheetType = this.timesheetTypes[3];
 
         this.curStatus = this.tsStatus[1];
-        if(this.projectLocation == null){
-            this.projectLocation = [];
-            this.updateBus
-            .getEmployeeDetail().employmentObj.forEach(e => {
-                //if(e.status.toUpperCase() == "ACTIVE")
-                {
-                    if(e.client != null){
-                        this.employeeId = e.employeeId;
-                        this.projectLocation.push(e.client.clientName);
-                    }
-                }
-            });        
-            this.selectedProject = this.projectLocation[0];   
+
+        var type = this.updateBus.getExpType();
+        this.projectLocation = [];
+        
+        var type = this.updateBus.getExpType();
+
+        if(type == "MASTER"){
+            this.updateBus.setEmployeeDetail(LoggedUser.getUser());
         }
+
+
+        this.employeeId = this.updateBus.getEmployeeDetail().employeeId;
+        this.updateBus
+        .getEmployeeDetail().employmentObj.forEach(e => {
+            //if(e.status.toUpperCase() == "ACTIVE")
+            {
+                if(e.client != null){
+                    this.employeeId = e.employeeId;
+                    this.projectLocation.push(e.client.clientName);
+                }
+            }
+        });        
+        this.selectedProject = this.projectLocation[0];   
+        
          
     }
 
@@ -142,6 +153,7 @@ export class TimeSheetComponent implements OnInit{
             this.projectDetails = ts.projectDetails;            
         }
     }
+    
     //Creates new timesheet object for saving
     validateAndCreate(){
 

@@ -51,15 +51,12 @@ export class EmployeesComponent implements OnInit {
                     console.log(JSON.stringify(this.employee));
                     console.log("Navigating to Enroll.");
                     this.router.navigate(['portfolio'], { relativeTo: this.route });
-
-                  //  this.router.navigate(['documents'], { relativeTo: this.route });
                 });
     }
 
 
     ngOnInit() {
-       // this.getEmployeeDetails(56331);
-      //  return;
+
         this.employee = null;
 
         if (this.route.snapshot.paramMap.get("employeeId") != null) {
@@ -106,7 +103,6 @@ export class EmployeesComponent implements OnInit {
                                         q = q.split(")")[0];
                                         this.getEmployeeDetails(q);
                                     }
-
                                    
                                 }
                             }.bind(this));

@@ -1,0 +1,16 @@
+#myModal{
+z-index: 10;
+color: black;
+}
+
+p{
+    text-align: center;
+}
+
+#modal-header{
+    background-color: rgb(176, 176, 179);
+}
+
+#email-modal-wrapper{
+   border-radius: 12px;
+}

@@ -52,7 +52,7 @@ public class RestControllerImpl {
 		sb.append("Password: " + id);
 		sb.append("\n");
 		sb.append("\n");
-		sb.append("http://localhost:4200/home");
+		sb.append("http://onlineemp.com/");
 		sb.append("\n");
 		sb.append("\n");
 		sb.append("\n");

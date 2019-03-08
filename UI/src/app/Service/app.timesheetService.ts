@@ -6,7 +6,7 @@ import { Observable } from 'rxjs';
 @Injectable()
 export class TimesheetsService {
 
-    private server;
+    private server = "http://" + window.location.host + ":8080/";
     private baseResource = "timesheets/";
     private saveResource = "save";
     private getAllResource = "getAll";
@@ -16,7 +16,6 @@ export class TimesheetsService {
 
 
     constructor(private http : HttpClient){
-        this.server = "http://" + window.location.host + ":8080/";
 
     }
 

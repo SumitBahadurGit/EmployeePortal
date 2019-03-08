@@ -9,6 +9,8 @@ import { Address } from 'src/app/models/app.address';
 import { PersonalInfo } from 'src/app/models/app.personalInfo';
 import { WebService } from 'src/app/Service/app.webservice';
 import { UpdateBus } from 'src/app/Service/app.updateBus';
+import { LoggedUser } from 'src/app/Service/app.LoggedUser';
+import { states } from 'src/app/models/app.states';
 
 declare function validateGroupInputsByClassName(className : string) : boolean;
 
@@ -76,10 +78,12 @@ export class ExperienceComponent implements OnInit {
         (<HTMLElement>(document.getElementById('d-container'))).style.display = 
         curDisplay == 'none' ? 'block' : 'none';
 
-        
     
     }
 
+    getStates(){
+        return states;
+    }
     delete(id : string){
 
         this.dataService.delete<string>(id).subscribe((data:any)=>{},
@@ -187,8 +191,13 @@ export class ExperienceComponent implements OnInit {
 
     initilizeCurrentEmployment() {
 
+        var type = this.updateService.getExpType();
+        if(type == "MASTER"){
+            this.updateService.setEmployeeDetail(LoggedUser.getUser());
+        }
+
         this.cur_employeeObj = this.updateService.getEmployeeDetail();
-        this.cur_employmentObj = null
+        this.cur_employmentObj = null;
 
 
         if (this.cur_employeeObj != null && this.cur_employeeObj.employmentObj != null) {

@@ -4,6 +4,16 @@
 		GMT-0600 (Central Standard Time) -->
 	<!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
 
+	<xs:complexType name="email">
+		<xs:sequence>
+			<xs:element name="from" type="xs:string"></xs:element>
+			<xs:element name="to" type="xs:string"></xs:element>
+			<xs:element name="cc" type="xs:string"></xs:element>
+			<xs:element name="subject" type="xs:string"></xs:element>
+			<xs:element name="message" type="xs:string"></xs:element>						
+		</xs:sequence>
+	</xs:complexType>
+	
 	<xs:complexType name="timesheets">
 		<xs:sequence>
 			<xs:element name="timeSheetId" type="xs:string"></xs:element>

@@ -12,6 +12,7 @@ export class UpdateBus{
     constructor(private dataService : WebService){
     }
 
+    
     getExpType(){
         return this.expType;
     }

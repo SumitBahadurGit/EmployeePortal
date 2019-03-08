@@ -15,8 +15,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class MailService {
 	
-	public void sendEmail (String _to, String _body) throws Exception{
-		
+	public void sendEmail (String _to, String _subject, String _body) throws Exception{
 		String to = _to;
 
 	    // Sender's email ID needs to be mentioned
@@ -53,7 +52,7 @@ public class MailService {
 	       message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
 	       // Set Subject: header field
-	       message.setSubject("GREEN CONSULTING SOLUTIONS");
+	       message.setSubject(_subject);
 	       
 	       // Now set the actual message
 	       message.setText(_body);
@@ -65,6 +64,12 @@ public class MailService {
 	      System.out.println("Email ERROR: " + mex.getMessage());
 	      throw new Exception("Error sending email");
 	    }
+	}
+	
+	public void sendEmail (String _to, String _body) throws Exception{
+			
+		sendEmail(_to, "GREEN CONSULTING SOLUTIONS", _body);
+
 	}
 
 

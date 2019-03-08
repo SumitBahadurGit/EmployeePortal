@@ -162,7 +162,6 @@ export class RegisterComponent implements OnInit {
     this.showTab(this.currentTab);
   }
 
-
   validateForm() {
     // This function deals with validation of the form fields
     var x, y, i, valid = true;

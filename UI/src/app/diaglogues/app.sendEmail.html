@@ -1,0 +1,43 @@
+<div id="email-modal-wrapper" class="shadow-lg p-3 mb-5 bg-muted rounded">
+
+    <div id="modal-header" class="bg-info bold">
+        <br>
+        <p class="white">New Message </p>
+        <hr>
+    </div>
+
+    <div class="form-row justify-content-center">
+        <div class="form-group col-md-10 gray">
+            <label class="control-label">To:</label>
+            <input [(ngModel)]="to" class="form-control req" type="text" name="toE">
+            <small>Emails should be serapred using semicolon</small>
+        </div>
+    </div>
+    <div class="form-row justify-content-center">
+        <div class="form-group col-md-10 gray">
+            <label class="control-label">Cc:</label>
+            <input [(ngModel)]="cc" class="form-control" type="text" name="ccE">
+        </div>
+    </div>
+    <div class="form-row justify-content-center">
+        <div class="form-group col-md-10 gray">
+            <label class="control-label">Subject:</label>
+            <input [(ngModel)]="subject" class="form-control req" type="text" name="sub">
+        </div>
+    </div>
+    <div class="form-row justify-content-center">
+        <div class="form-group col-md-10 gray">
+            <label class="control-label">Message:</label>
+            <textarea [(ngModel)]="message" class="form-control req" type="text" name="mes"></textarea>
+        </div>
+    </div>
+    <div class="form-row justify-content-center">
+        <div class="form-group col-md-10">
+            <div>
+                <button type="submit" class="btn btn-primary btn-sm bg-info" 
+                (click)="validateAndSubmit(['req'])"><b>Send</b></button>
+            </div>
+        </div>
+    </div>
+
+</div>

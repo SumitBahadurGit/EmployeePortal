@@ -56,6 +56,13 @@
     box-shadow:         15px 3px 30px -1px rgba(1, 87, 155, 1);
     font-weight: bolder;
     border: 0px solid red;
+    overflow-y: auto;
+}
+.db-toolbar{
+    border-radius: 12px;
+    padding: 15px;
+    border: 0px solid gray;
+    padding: 0;
 }
 
 #side-panel-header{
@@ -68,24 +75,15 @@
 }
 
 #db-content{
-    padding: 10px;
+    padding: 15px !important;
     min-height: 50vh;   
     border: 0px solid red;
     margin-bottom: 25px;
     position: relative;
-    background-color: rgba(136, 135, 135,0.2);	
+
     border-radius: 12px;
 
 }
-
-.content-wrapper{
-    border-radius: 15px;
-    border: 0px solid green;
-    background-color: rgba(136, 135, 135,0.2);	
-    height: 100%;
-}
-
-
 
 .left{
     float: left;

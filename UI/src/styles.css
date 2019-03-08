@@ -25,24 +25,70 @@ html {
 .left{
     float: left;
 }
+
 .right{
     float: right;
 }
+
 .outline {
     border: 1px solid #86A8DF;
 }
+
 body{
     background: none;
     overflow-x: hidden;
     font-family: 'Open Sans', sans-serif;
     margin-bottom: 0; 
+    overflow-y: scroll;
 }
+
 .middle{
     position: fixed;
     top: 45%;
     left:45%;
     font-size: 2em;
 }
+
+.gray{
+    color: gray;
+}
+.border {
+    border : 1px solid blue;
+}
+
+.red {
+    color: rgb(182, 83, 83);
+}
+
+.blue{
+    color: rgb(0, 64, 160);
+}
+
+.green {
+    color: rgb(17, 126, 17);
+}
+.white{
+    color: whitesmoke;
+}
+.bold{
+    font-weight: bold;
+}
+.none{
+    background: none;
+}
+
+.no-bd{
+    border: none !important;
+}
+
+.no-bg {
+    background: none !important;
+}
+
+.no-outline {
+    outline: none !important;
+}
+
 
   @media only screen and (min-width: 320px) and (max-width: 550px){ 
       
@@ -70,7 +116,7 @@ body{
         position: fixed;
         left: 0;
         padding: 5px;
-        width: 80%;
+        width: 60%;
         background: whitesmoke;
         border-radius: 10px;
         padding: 0;      

@@ -27,6 +27,9 @@ import { TimeSheetComponent } from './Employees/Timesheeets/app.timesheets';
 import { TimesheetsService } from './Service/app.timesheetService';
 import { ErrorSuccessComponent } from './Templates/app.ERR_SUC';
 import { UpdateProfileComponent } from './profile/update/app.update-profile';
+import { SendEmailComponent } from './diaglogues/app.sendEmail';
+import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
+import { StatusService } from './Service/app.statusService';
 
 const routes: Routes = [
  {
@@ -57,6 +60,22 @@ const routes: Routes = [
       {
         path: 'chart',
         component: ChartComponent
+      },
+      {
+        path: 'portfolio',
+        component: PortFolioComponent
+      },
+      {
+        path: 'experience',
+        component: ExperienceComponent
+      },
+      {
+        path: 'documents',
+        component: DocumentsComponent
+      },
+      {
+        path: 'timesheets',
+        component: TimeSheetComponent
       },
       {
         path: 'employees',
@@ -120,15 +139,18 @@ const routes: Routes = [
     EmployeesListComponent,
     TimeSheetComponent,
     ErrorSuccessComponent,
-    UpdateProfileComponent
+    UpdateProfileComponent,
+    SendEmailComponent
   ],
   imports: [
     BrowserModule,
     RouterModule.forRoot(routes),
     FormsModule,
-    HttpClientModule
+    HttpClientModule,
+    NgbModalModule
   ],
-  providers: [UpdateBus, MailService, WebServiceConfig, WebService, LogInService, TimesheetsService],
+  entryComponents: [ SendEmailComponent ],
+  providers: [UpdateBus, MailService, WebServiceConfig, WebService, LogInService, TimesheetsService, StatusService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

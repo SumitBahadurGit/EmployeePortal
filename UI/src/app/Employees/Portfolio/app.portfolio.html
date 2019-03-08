@@ -1,4 +1,4 @@
-        <ng-container *ngIf="employee">
+<ng-container *ngIf="employee">
                 <div class="row">
 
                         <div class="col" id="profile-pic-wrapper">
@@ -18,14 +18,33 @@
                                         </b>{{curEmploymentObj ? curEmploymentObj.status : "na"}}</p>
                                 
                                 <div class="btn-group">
-                                        <button type="button" class="btn btn-primary">Send Email</button>
+                                        <button type="button" class="btn btn-primary"                                        
+                                        (click)="sendEmail()">Send Email</button>
                                         <button type="button" class="btn btn-primary">Send Text</button>
                                 </div>
 
                         </div>
 
                 </div>
-
+                <!-- Modal -->
+                <div class="modal fade" id="myModal" role="dialog">
+                        <div class="modal-dialog">
+                        
+                                <!-- Modal content-->
+                                <div class="modal-content">
+                                <div class="modal-header">
+                                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                                <h4 class="modal-title">Modal Header</h4>
+                                </div>
+                                <div class="modal-body">
+                                <p>Some text in the modal.</p>
+                                </div>
+                                <div class="modal-footer">
+                                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                                </div>
+                                </div>                        
+                        </div>
+              </div>
                 <div class="card text-dark shadow-lg p-3 mb-5 bg-muted rounded" style="margin-top: 9px;">
                         <div class="row justify-content-start">
                                 <p class="col"><b>First Name: </b>{{employee.firstName}}</p>

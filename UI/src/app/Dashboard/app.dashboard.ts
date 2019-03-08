@@ -7,6 +7,7 @@ import { PersonalInfo } from '../models/app.personalInfo';
 import { LoggedUser } from '../Service/app.LoggedUser';
 import { LoginStatus } from '../Constants/app.constants';
 import { RoutingService } from '../Service/app.router';
+import { StatusService } from '../Service/app.statusService';
 
 
 declare function dashBoardFunctions(): void;
@@ -28,6 +29,7 @@ export class DashboardComponent implements OnInit {
     private dataService: WebService,
     private loginService: LogInService,
     private bus: UpdateBus,
+    private statusService : StatusService,
     private cd: ChangeDetectorRef){
    
   }

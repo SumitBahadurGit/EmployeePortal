@@ -1,9 +1,12 @@
-import {Component, OnChanges, OnInit, Input } from '@angular/core';
+import {Component, OnChanges, OnInit, Input, ViewChild } from '@angular/core';
 import { WebService } from 'src/app/Service/app.webservice';
 import { UpdateBus } from 'src/app/Service/app.updateBus';
 import { PersonalInfo } from 'src/app/models/app.personalInfo';
 import { EmploymentObj } from 'src/app/models/app.employmentObj';
 import { DocumentObj } from 'src/app/models/app.documentObj';
+import { LoggedUser } from 'src/app/Service/app.LoggedUser';
+import { SendEmailComponent } from 'src/app/diaglogues/app.sendEmail';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 declare function drawBarGraph() : any;
 
@@ -15,12 +18,19 @@ declare function drawBarGraph() : any;
 
 export class PortFolioComponent implements OnInit{
 
+
     employee: PersonalInfo;
     curEmploymentObj: EmploymentObj;
 
-    constructor( private updateService : UpdateBus, private dataService : WebService){
+    constructor(private modalService: NgbModal, private updateService : UpdateBus, private dataService : WebService){
+    }
+
+    sendEmail(){
+       const ref = this.modalService.open(SendEmailComponent);
+        ref.componentInstance.to = this.employee.email;
 
     }
+
     getProfilePic(){        
         var obj  = this.searchDocs("profilePic");        
         if ( obj != null) {
@@ -82,6 +92,11 @@ export class PortFolioComponent implements OnInit{
   }
 
     ngOnInit(){
+        var type = this.updateService.getExpType();
+        if(type == "MASTER"){
+            this.updateService.setEmployeeDetail(LoggedUser.getUser());
+        }
+
         this.employee = this.updateService.getEmployeeDetail();
         if(this.employee != null && this.employee.employmentObj != null){
             for(var i = 0; i < this.employee.employmentObj.length; i++){

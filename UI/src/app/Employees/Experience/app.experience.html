@@ -1,6 +1,7 @@
 <div id="employee-container">
 
   <h2>Employment History</h2>
+
   <div class="table-responsive" style="padding:5px;">
       <table id="table-id" class="table table-hover table-bordered table-striped employee-table" >
           <thead>
@@ -35,197 +36,216 @@
   <div id="no-data" *ngIf="cur_employmentObj == null">
     <p></p>
   </div>
+
   <div id="collapsible_edit_new" style="display:none; margin-top:6px; padding:3px;">
-      <div class="alert alert-info">
-          <p><b> {{errorMessage}} </b> </p>
-      </div>
+
       <form ngNativeValidate
         (ngSubmit)="validateAndSubmit(['address-req-0','address-req-1','address-req-2'])">
+        
+        <div class="col-12">
+            <p><b> JOB INFO: </b> </p>
+        </div>
+
         <div class="form-row exp-form">
-            <div class="col-12">
-                <p><b> JOB INFO: </b> </p>
-            </div>
-            <div class="form-inline col-12">
+            <div class="form-group  col-4">
                 <label class="control-label">Status:</label>
                 <input type="text" class="form-control address-req-0" placeholder="Job Status" name="empStatus"
                   [(ngModel)]="temp_EmploymentObj.status" required>
               </div>
-      
-              <div class="form-inline col-6">
+        </div>
+        <div class="form-row exp-form">
+
+              <div class="form-group  col-6">
                 <label class="control-label">Start Date:</label>
                 <input type="date" class="form-control address-req-0" placeholder="Job start date" name="jobStart"
-                  [(ngModel)]="temp_EmploymentObj.startDate">
+                  [ngModel]="temp_EmploymentObj.startDate" (change)="temp_EmploymentObj.startDate=$event.target.value">
               </div>
       
-              <div class="form-inline col-6">
+              <div class="form-group  col-6">
                 <label class="control-label" for="pwd">End Date:</label>
                 <input type="date" class="form-control" placeholder="Job End Date" name="jobEnd"
-                  [(ngModel)]="temp_EmploymentObj.endDate">
+                  [ngModel]="temp_EmploymentObj.endDate" (change)="temp_EmploymentObj.endDate = $event.target.value">
               </div>
       
-              <div class="form-inline col-6">
+              <div class="form-group  col-6">
                 <label class="control-label" for="pwd">Hourly Wage Receive:</label>
                 <input type="text" class="form-control" placeholder="Wage Received" name="recWage"
                   [(ngModel)]="temp_EmploymentObj.hourlyWageRecv">
               </div>
       
-              <div class="form-inline col-6">
+              <div class="form-group  col-6">
                 <label class="control-label" for="pwd">Hourly Wage Pay :</label>
                 <input type="text" class="form-control" placeholder="Wage Pay" name="payWage"
                   [(ngModel)]="temp_EmploymentObj.hourlyWagePay">
               </div>
       
-              <div class="form-inline col-6">
+              <div class="form-group  col-6">
                 <label class="control-label" for="pwd">Job Title:</label>
                 <input type="text" class="form-control address-req-0" placeholder="Job title" name="jbTitle"
                   [(ngModel)]="temp_EmploymentObj.jobTitle">
               </div>
       
-              <div class="form-inline col-6">
+              <div class="form-group  col-6">
                 <label class="control-label" for="pwd">Technology:</label>
                 <input type="text" class="form-control address-req-0" placeholder="Technology used in job" name="tech"
                   [(ngModel)]="temp_EmploymentObj.technology">
               </div>
       
-              <div class="form-inline col-12">
+              <div class="form-group  col-12">
                 <label class="control-label" for="pwd">Job Description</label>
                 <input type="text" class="form-control address-req-0" placeholder="Job Description" name="jobDesc"
                   [(ngModel)]="temp_EmploymentObj.jobDesc">
               </div>
         </div>
-        <div class="form-row exp-form">
-            <div class="col-12">
-                <p> <b>VENDOR INFO: </b></p>
-            </div>
-      
-            <div class="form-inline col-12">
+
+        <div class="col-12">
+            <br>
+            <p> <b>VENDOR INFO: </b></p>
+        </div>
+
+        <div class="form-row exp-form">      
+            <div class="form-group col-12">
               <label for="pwd">Vendor Name:</label>
               <input type="text" class="form-control" placeholder="Vendor Name" name="vendorName"
                 [(ngModel)]="temp_VendorObj.vendorName">
             </div>
-            <div class="form-inline col-12">
+            <div class="form-group col-12">
               <label class="control-label" for="pwd">Address Line 1:</label>
               <input type="text" class="form-control address-req-1" placeholder="Full Address" name="vendAdd1"
                 [(ngModel)]="temp_VendorAddressObj.addressLine1">
             </div>
-            <div class="form-inline col-12">
+            <div class="form-group col-12">
               <label class="control-label" for="pwd">Address Line 2:</label>
               <input type="text" class="form-control" placeholder="eg. building, suite..." name="vendAdd2"
                 [(ngModel)]="temp_VendorAddressObj.addressLine2">
             </div>
             <br>
-            <div class="form-inline col-4">
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">City:</label>
               <input type="text" class="form-control address-req-1" placeholder="City" name="vendCity"
                 [(ngModel)]="temp_VendorAddressObj.city">
             </div>
-            <div class="form-inline col-4">
+
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">State:</label>
-              <input type="text" class="form-control address-req-1" placeholder="State" name="vendState"
-                [(ngModel)]="temp_VendorAddressObj.state">
-            </div>
-            <div class="form-inline col-4">
+              
+              <select class="form-control address-req-1" type="text" placeholder="State" name="vendState"
+              [(ngModel)]='temp_VendorAddressObj.state'>
+            <ng-container *ngFor="let state of getStates()">
+              <option>{{state.value}}</option> </ng-container>
+            </select>
+            
+              </div>
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">Zip:</label>
               <input type="text" class="form-control address-req-1" placeholder="Postal Code" name="vendZip"
                 [(ngModel)]="temp_VendorAddressObj.zipCode">
             </div>
-            <div class="form-inline col-4">
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">HR/Manager:</label>
               <input type="text" class="form-control" placeholder="HR or Manager name" name="vendMan"
                 [(ngModel)]="temp_VendorObj.vendorHrName">
             </div>
-            <div class="form-inline col-4">
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">Phone:</label>
               <input type="text" class="form-control" placeholder="HR/Manager Phone" name="vendManPhone"
                 [(ngModel)]="temp_VendorObj.vendorHrPhone">
             </div>
-            <div class="form-inline col-4">
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">Email:</label>
               <input type="text" class="form-control" placeholder="HR/Manager Email" name="vendManEmail"
                 [(ngModel)]="temp_VendorObj.vendorHrEmail">
             </div>
-            <div class="form-inline col-4">
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">Contact Name:</label>
               <input type="text" class="form-control" placeholder="Vendor Contact Name" name="vendCntName"
                 [(ngModel)]="temp_VendorObj.vendorContactName">
             </div>
-            <div class="form-inline col-4">
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">Phone:</label>
               <input type="text" class="form-control" placeholder="Vendor Contact Phone" name="vendCntOhone"
                 [(ngModel)]="temp_VendorObj.vendorContactPhone">
             </div>
-            <div class="form-inline col-4">
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">Email:</label>
               <input type="text" class="form-control" placeholder="Vendor Contact Phonetus" name="vendCntEmail"
                 [(ngModel)]="temp_VendorObj.vendorContactEmail">
             </div>
         </div>
+
+        <div class="col-12">
+            <br>
+            <p><b> CLIENT INFO:</b> </p>
+        </div>
         <div class="form-row exp-form">
-            <div class="col-12">
-                <p><b> CLIENT INFO:</b> </p>
-            </div>
-            <div class="form-inline col-6">
+
+            <div class="form-group col-6">
               <label class="control-label" for="pwd">Client Name:</label>
               <input type="text" class="form-control" placeholder="Client Name" name="clientName"
                 [(ngModel)]="temp_ClientObj.clientName">
             </div>
-            <div class="form-inline col-12">
+            <div class="form-group col-12">
               <label class="control-label" for="pwd">Address Line 1:</label>
               <input type="text" class="form-control address-req-2" placeholder="Full Address" name="clientAdd1"
                 [(ngModel)]="temp_ClientAddressObj.addressLine1">
             </div>
-            <div class="form-inline col-12">
+            <div class="form-group col-12">
               <label class="control-label" for="pwd">Address Line 2:</label>
               <input type="text" class="form-control" placeholder="eg. building, suite..." name="clientAdd2"
                 [(ngModel)]="temp_ClientAddressObj.addressLine2">
             </div>
-            <div class="form-inline col-4">
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">City:</label>
               <input type="text" class="form-control address-req-2" placeholder="City" name="clientCity"
                 [(ngModel)]="temp_ClientAddressObj.city">
             </div>
-            <div class="form-inline col-4">
-              <label class="control-label" for="pwd">State:</label>
-              <input type="text" class="form-control address-req-2" placeholder="State" name="clientState"
-                [(ngModel)]="temp_ClientAddressObj.state">
-            </div>
-            <div class="form-inline col-4">
+            <div class="form-group col-md-4">
+                <label class="control-label">State:</label>
+                <select class="form-control address-req-2" type="text" placeholder="State" name="clientState"
+                  [(ngModel)]='temp_ClientAddressObj.state'>
+                <ng-container *ngFor="let state of getStates()">
+                  <option>{{state.value}}</option> </ng-container>
+                </select>
+              </div>
+
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">Zip:</label>
               <input type="text" class="form-control address-req-2" placeholder="Postal Code" name="clientZip"
                 [(ngModel)]="temp_ClientAddressObj.zipCode">
             </div>
-            <div class="form-inline col-4">
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">HR/Manager:</label>
               <input type="text" class="form-control" placeholder="HR or Manager name" name="clientMan"
                 [(ngModel)]="temp_ClientObj.clientHrName">
             </div>
-            <div class="form-inline col-4">
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">Phone:</label>
               <input type="text" class="form-control" name="clientManPhone" placeholder="HR/Manager Phone"
                 [(ngModel)]="temp_ClientObj.clientHrPhone">
             </div>
-            <div class="form-inline col-4">
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">Email:</label>
               <input type="text" class="form-control" name="clientManEmail" placeholder="HR/Manager Email"
                 [(ngModel)]="temp_ClientObj.clientHrEmail">
             </div>
-            <div class="form-inline col-4">
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">Contact Name:</label>
               <input type="text" class="form-control" name="clientCntName" placeholder="Client Contact Name"
                 [(ngModel)]="temp_ClientObj.clientContactName">
             </div>
-            <div class="form-inline col-4">
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">Phone:</label>
               <input type="text" class="form-control" name="clientCntPhone" placeholder="Client Contact Phone"
                 [(ngModel)]="temp_ClientObj.clientContactPhone">
             </div>
-            <div class="form-inline col-4">
+            <div class="form-group col-4">
               <label class="control-label" for="pwd">Email:</label>
               <input type="text" class="form-control" name="clientCntEmail" placeholder="Client Contact Email"
                 [(ngModel)]="temp_ClientObj.clientContactEmail">
             </div>
             <br>
         </div>
+
         <div clas="col">
             <button type="submit" class="btn btn-info">Submit</button>
         </div>

@@ -39,10 +39,10 @@ public class TimesheetsDTO implements Cloneable, Comparable<TimesheetsDTO>{
 	public String endTime;
 
 	@Column(name = "TOTAL_HOURS")
-	public double totalHours;
+	public Double totalHours;
 
 	@Column(name = "OVER_TIME")
-	public double overTime;
+	public Double overTime;
 
 	@Column(name = "PROJECT_DETAILS")
 	public String projectDetails;
@@ -75,7 +75,7 @@ public class TimesheetsDTO implements Cloneable, Comparable<TimesheetsDTO>{
 
 
 	public TimesheetsDTO(Long timeSheetId, Long timesheetGroupId, Long employeeId, Date timeSheetDate, String status,
-			String startTime, String endTime, double totalHours, double overTime, String projectDetails,
+			String startTime, String endTime, Double totalHours, Double overTime, String projectDetails,
 			String projectLocation, String isApproved, Date lastUpdated, Date submittedDate, Date approvedDate,
 			String approvedBy, String desc) {
 		super();
@@ -173,28 +173,28 @@ public class TimesheetsDTO implements Cloneable, Comparable<TimesheetsDTO>{
 	/**
 	 * @return the totalHours
 	 */
-	public double getTotalHours() {
+	public Double getTotalHours() {
 		return totalHours;
 	}
 
 	/**
 	 * @param totalHours the totalHours to set
 	 */
-	public void setTotalHours(double totalHours) {
+	public void setTotalHours(Double totalHours) {
 		this.totalHours = totalHours;
 	}
 
 	/**
 	 * @return the overTime
 	 */
-	public double getOverTime() {
+	public Double getOverTime() {
 		return overTime;
 	}
 
 	/**
 	 * @param overTime the overTime to set
 	 */
-	public void setOverTime(double overTime) {
+	public void setOverTime(Double overTime) {
 		this.overTime = overTime;
 	}
 

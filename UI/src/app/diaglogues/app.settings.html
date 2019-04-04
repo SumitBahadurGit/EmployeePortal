@@ -1,0 +1,43 @@
+<div *ngIf="activeSetting"
+ id="email-modal-wrapper"
+class="shadow-lg p-3 mb-5 bg-muted rounded">
+
+  <div id="modal-header" class="bg-info bold ">
+    <br>
+    <p class="white center-text"> {{activeSetting.type}} SETTINGS </p>
+    <hr>
+  </div>
+
+<ng-container *ngIf="activeSettingType=='TIMESHEETS'">
+
+    <div class="form-group row">
+      <label for="inputEmail3" class="col-sm-2 col-form-label">Email(s)</label>
+      <div class="col-sm-10">
+        <textarea type="email" class="form-control" id="inputEmail3" name="eoa" [(ngModel)]="activeSetting.emailOnAction"
+          placeholder="Email"></textarea>
+        <small>Emails on the list will be notified via email on any updates. (**colon separated emails)</small>
+      </div>
+    </div>
+    
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <div class="form-check">
+          <input class="form-check-input" type="checkbox" id="gridCheck1" name="stxCed"
+            [checked]="activeSetting.autoApprove=='true'"
+            (change)="activeSetting.autoApprove = activeSetting.autoApprove=='true'?'false':'true'">
+          <label class="form-check-label" for="gridCheck1">
+            Auto Approve
+          </label>
+        </div>
+      </div>
+    </div>
+    
+    <div class="form-group row">
+      <div class="col-sm-10">
+        <button type="submit" (click)="updateSettings()" class="btn btn-primary">Update</button>
+      </div>
+    </div>
+
+</ng-container>
+</div>
+

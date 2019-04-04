@@ -1,5 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { MailService } from 'src/app/Service/app.mailService';
+import { Login } from 'src/app/models/app.login';
 
 declare function validateFormByClassName(className : string) : boolean;
 
@@ -14,6 +15,9 @@ export class GeneratorComponent implements OnInit{
     id : string = null;
     email : string = "";
     name : string = "";
+    accessLevel : string = "3";
+    userRole : string = "EMPLOYEE"
+
     progress : boolean = false;
 
     onSuccess : string = null;
@@ -54,9 +58,10 @@ export class GeneratorComponent implements OnInit{
 
     }
     genNewId(){
-        var query = "name="+this.name+"&email="+this.email;
-        this.mailService.genNewId(query).subscribe(
-        (data : string) => this.id = data,
+        var query = "name="+this.name+"&email="+this.email
+        +"&userRole="+this.userRole;
+        this.mailService.genNewId<Login>(query).subscribe(
+        (data : Login) => { this.id = data.userName},
         error => {
             console.log("ERROR GENERATING ID: " + error);         
             this.onSuccess = null;   

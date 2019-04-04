@@ -50,6 +50,7 @@ export class EmployeesComponent implements OnInit {
                     console.log("SUCCESS getting employee details.");
                     console.log(JSON.stringify(this.employee));
                     console.log("Navigating to Enroll.");
+  //                  this.router.navigate(['timesheets'], { relativeTo: this.route });
                     this.router.navigate(['portfolio'], { relativeTo: this.route });
                 });
     }
@@ -57,10 +58,10 @@ export class EmployeesComponent implements OnInit {
 
     ngOnInit() {
 
+        //this.getEmployeeDetails("207305");
+       // return;
         this.employee = null;
-
         if (this.route.snapshot.paramMap.get("employeeId") != null) {
-
             this.dataService
                 .getSingle<PersonalInfo>(this.route.snapshot.paramMap.get("employeeId"))
                 .subscribe((data: PersonalInfo) => this.employee = data,

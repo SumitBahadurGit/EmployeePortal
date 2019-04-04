@@ -23,7 +23,7 @@ public class LoginProcessor extends BaseProcessor{
 				
 		if(StringUtils.isEmpty(logInDTO.getUserName())){			
 			logInDTO.setUserName(eid.toString());
-			logInDTO.setEid(eid);
+//			logInDTO.setEid(eid);
 		}	
 		
 		if(StringUtils.isEmpty(logInDTO.getPw())){			

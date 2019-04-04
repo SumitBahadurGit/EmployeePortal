@@ -5,9 +5,6 @@ import { UpdateBus } from 'src/app/Service/app.updateBus';
 import { Message } from 'src/app/models/app.message';
 import { ErrorSuccessComponent } from 'src/app/Templates/app.ERR_SUC';
 import { DocumentObj } from 'src/app/models/app.documentObj';
-import { NULL_EXPR, THIS_EXPR } from '@angular/compiler/src/output/output_ast';
-import { iif } from 'rxjs';
-import { all } from 'q';
 import { ActivatedRoute, Route } from '@angular/router';
 import { LoggedUser } from 'src/app/Service/app.LoggedUser';
 
@@ -46,6 +43,16 @@ export class DocumentsComponent implements OnInit {
   isSelectPrompt: boolean = false;
   isProcessing: boolean = false;
 
+  //Button Flags
+    delDisable: boolean = false;
+    folderDisable : boolean = false;
+    fileDisable  : boolean = false;
+    uploadDisable: boolean = false;
+    checkDisable : boolean = false;
+    refreshDisable : boolean = false;
+    unlockDisable : boolean = false;
+    lockDisable : boolean = false;
+
   toggler: TogglePrompts = TogglePrompts.getTogglePrompts();
 
   defaultFolderName: string;
@@ -64,6 +71,28 @@ export class DocumentsComponent implements OnInit {
   selectedFolders: CustomFolder[];
 
   /************************ FOLDER NAVIGATION ************************************/
+
+  disableAllButton(){
+    this.delDisable = true;
+    this.folderDisable  = true;
+    this.fileDisable  = true;
+    this.uploadDisable = true;
+    this.checkDisable  = true;
+    this.refreshDisable = true;
+    this.unlockDisable = true;
+    this.lockDisable  = true;
+  }
+
+  enableAllButton(){
+    this.delDisable = false;
+    this.folderDisable  = false;
+    this.fileDisable  = false;
+    this.uploadDisable = false;
+    this.checkDisable  = false;
+    this.refreshDisable = false;
+    this.unlockDisable = false;
+    this.lockDisable  = false;
+  }
 
   disablePreviousEvents() {
     var anyPreviousPrompts = this.isSelectPrompt && this.isNewFileCreate
@@ -788,29 +817,32 @@ export class DocumentsComponent implements OnInit {
   // Downloads all files for this id
   downloadFiles() {
 
-    if(this.type == "MASTER"){
-      return this.dataService
-      .getAllFiles<PersonalInfo>();
-
-    } else if(this.type == "EMPLOYEE"){
+    if(LoggedUser.getUserRole() == "EMPLOYEE"){
       return this.dataService
       .getFilesById<PersonalInfo>(this.employeeId);
-
-    }
-    
-      
+    } else {
+      if(this.type == "MASTER"){
+        return this.dataService
+        .getAllFiles<PersonalInfo>();
+  
+      } else if(this.type == "EMPLOYEE"){
+        return this.dataService
+        .getFilesById<PersonalInfo>(this.employeeId);
+      }
+    }      
   }
 
   ngOnInit() {
 
     this.type = this.updateService.getExpType();
-
     if(this.type=="MASTER"){
+      if(LoggedUser.getUser() != null){
       //this.employeeId = this.updateService.getEmployeeDetail().employeeId;
       this.employeeId = LoggedUser.getUser().employeeId;
       this.defaultFolderName = "";
-      this.filePrefix = "";
+      this.filePrefix = LoggedUser.getUser().employeeId + "/";
       this.FolderUtils = FolderUtils.getFolderUtils(this.defaultFolderName);
+      }
       
     } else if(this.type=="EMPLOYEE"){
       this.employeeId = this.updateService.getEmployeeDetail().employeeId;
@@ -821,7 +853,8 @@ export class DocumentsComponent implements OnInit {
 
     }
 
-    this.downloadFiles()
+    if(this.employeeId != null){
+      this.downloadFiles()
       .subscribe((resp: PersonalInfo) => this.employee = resp,
         error => {
           this.downloadedFiles = [];
@@ -837,6 +870,11 @@ export class DocumentsComponent implements OnInit {
           this.isProcessing = false;
         }
       );
+
+    } else {
+      this.disableAllButton();
+    }
+
   }
 
   intitializeFolders() {
@@ -847,8 +885,10 @@ export class DocumentsComponent implements OnInit {
       // Create the main folder tree once and dont loose reference to it.
       if (this.mainFolder == null) {
         this.mainFolder = CustomFolder.createNewFolder(this.defaultFolderName, null, LoggedUser.getUser().employeeId);
-        this.selectedFolder = this.mainFolder;
-        this.setFoldersNavTracker(this.selectedFolder);
+//        this.selectedFolder = this.mainFolder;
+      //  / alert( this.FolderUtils.findFolderFromTree(this.employeeId, this.mainFolder).getFolderName())
+        //this.selectedFolder = this.FolderUtils.findFolderFromTree(this.employeeId, this.mainFolder);
+   //     this.setFoldersNavTracker(this.selectedFolder);
       }
 
       
@@ -863,6 +903,18 @@ export class DocumentsComponent implements OnInit {
 
       // Set the flag to false.
       this.nodata = false;
+
+      if(this.selectedFolder == null){
+
+        if(LoggedUser.getUserRole() == 'EMPLOYEE'){
+          this.selectedFolder = this.FolderUtils.findFolderFromTree(this.employeeId, this.mainFolder);
+
+        } else {
+          this.selectedFolder = this.mainFolder;
+        }
+        this.setFoldersNavTracker(this.selectedFolder);
+      }
+
 
     } else {
 
@@ -1147,8 +1199,8 @@ export class FolderUtils {
         }
       });
 
-      if (fileName == 'init.txt') {
-        //valid = false;
+      if (fileName.endsWith('init.readme')) {
+       // valid = false;
       }
 
       if (valid) {

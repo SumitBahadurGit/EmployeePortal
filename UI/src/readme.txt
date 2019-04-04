@@ -1,0 +1,1 @@
+npm i @ng-bootstrap/ng-bootstrap

@@ -10,6 +10,7 @@ export class WebServiceConfig{
     public postUpdateResource = "employee/update";
     public getResource = "employee/retreive";
 
+    public updateSettingsResource = "settings";
     public postUploadResource = "/upload";
     public getUploadedResource = "retreive/docs";
     public getUpdateDocsResource = "/updateDoc"

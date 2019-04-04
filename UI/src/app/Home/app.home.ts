@@ -2,6 +2,7 @@ import { Component, OnInit } from "@angular/core";
 import { Router } from '@angular/router';
 import { LogInService } from '../Service/app.loginService';
 import { Login } from '../models/app.login';
+import { LoggedUser } from '../Service/app.LoggedUser';
 
 @Component({
     selector: 'home',
@@ -14,6 +15,8 @@ export class HomeComponent implements  OnInit {
     private userName: string;
     private password: string;
     private role : string;
+    private eid : string;
+    private loginId : string;
 
 
     private rememberMe : boolean = false;
@@ -51,6 +54,9 @@ export class HomeComponent implements  OnInit {
              if(data != null){
                 success = true;
                 this.role = data.userRole;
+                this.eid = data.eid;
+                this.userName = data.userName;
+                this.loginId = data.loginId;
             }
         },
         (error) => {
@@ -60,7 +66,7 @@ export class HomeComponent implements  OnInit {
 
             if(success == true){
                 if(this.userName != null && this.password != null){                       
-                        this.logInService.setLoggedIn(true, this.userName, this.role);
+                        this.logInService.setLoggedIn(this.loginId, true, this.eid, this.role);
                         
                         if(this.rememberMe){
                             if(window.localStorage){
@@ -71,7 +77,6 @@ export class HomeComponent implements  OnInit {
 
                         this.userName = null;
                         this.password = null;
-
                         this.logIn();
                 }
             } else {

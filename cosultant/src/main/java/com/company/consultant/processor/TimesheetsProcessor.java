@@ -14,6 +14,8 @@ import org.springframework.util.StringUtils;
 
 import com.company.consultant.dto.PersonalInfoDTO;
 import com.company.consultant.dto.TimesheetsDTO;
+import com.company.consultant.exceptions.ErrorCodes;
+import com.company.consultant.exceptions.GcsException;
 import com.company.consultant.models.Timesheets;
 import com.company.consultant.models.TimesheetsObjWrapper;
 import com.company.consultant.util.DateUtils;
@@ -26,17 +28,40 @@ import javafx.util.Pair;
 public class TimesheetsProcessor extends BaseProcessor implements TimesheetsProcessorIf {
 	
 	@Override
-	public List<TimesheetsObjWrapper> getAllTimesSheetsByEmpId(TimesheetsObjWrapper t){
+	public List<TimesheetsObjWrapper> getAllTimesSheetsByEmpId(TimesheetsObjWrapper t) throws GcsException{
+		Long eid = null;
+		Long groupId = null;
+		
+		if(t.getEmployeeId() != null){
+			eid = Long.valueOf(t.getEmployeeId());			
+		}
 
-		Long eid = Long.valueOf(t.getEmployeeId());
+		if(t.getTimesheetsGroupId() != null){
+			groupId = Long.valueOf(t.getTimesheetsGroupId());			
+		}
+
+		if(eid == null ){
+			throw new GcsException("Employee Id is required to fetch timesheets", ErrorCodes.MISSING_ATTRIBUTE);
+		}
 		Date startDate = !StringUtils.isEmpty(t.getStartDate()) ? DateUtils.getDate(t.getStartDate()) : null;
 		Date endDate = !StringUtils.isEmpty(t.getEndDate()) ? DateUtils.getDate(t.getEndDate()) : null;
 		boolean includeDetails = "Y".equalsIgnoreCase(t.getIncludeTimesheets());
 		String projectLocation = t.getProjectLocation();
-
-		TimesheetsObjWrapper resp = new TimesheetsObjWrapper();
+	
 		
-		List<TimesheetsDTO> timesheetsDTOs = dao.getAllTimesheets(eid, startDate, endDate, projectLocation);
+		TimesheetsDTO timesheetsDTO = new TimesheetsDTO();
+		if(eid != null){
+			timesheetsDTO.setEmployeeId(eid);
+		}
+		if(groupId != null){
+			timesheetsDTO.setTimesheetGroupId(groupId);			
+		}
+		if(!StringUtils.isEmpty(projectLocation)){
+			timesheetsDTO.setProjectLocation(projectLocation);
+		}
+		
+		List<TimesheetsDTO> timesheetsDTOs = (List<TimesheetsDTO>) dao.findByEntity(timesheetsDTO);
+//		List<TimesheetsDTO> timesheetsDTOs = dao.getAllTimesheets(eid, startDate, endDate, projectLocation);
 		Collections.sort(timesheetsDTOs);
 		List<Timesheets> timesheets =  DtoConverter.convertFromDTO(timesheetsDTOs);
 
@@ -62,6 +87,15 @@ public class TimesheetsProcessor extends BaseProcessor implements TimesheetsProc
 				obj.setEndDate((map.get(key)).get((map.get(key)).size() - 1).getTimesheetDate().toString());
 				obj.setSubmittedDate(key);
 				obj.setEmployeeId(t.getEmployeeId());
+				obj.setTimesheetsGroupId(Long.valueOf(map.get(key).get(0).getTimesheetGroupId()));
+				double totalHours = obj.getTimesheets().stream()
+						.filter(f -> f.getTotalHours() != 0)
+						.mapToDouble(f -> f.getTotalHours()).sum();
+				double totalOvertime = obj.getTimesheets().stream()
+						.filter(f -> f.getOverTime() != 0)
+						.mapToDouble(f -> f.getOverTime()).sum();
+				obj.setTotalHours(totalHours);
+				obj.setOverTime(totalOvertime);
 				objWrappers.add(obj);
 			});
 
@@ -91,8 +125,9 @@ public class TimesheetsProcessor extends BaseProcessor implements TimesheetsProc
 			resp.getTimesheets().addAll(DtoConverter.convertFromDTO(dtos));		
 			resp.setStartDate(resp.getTimesheets().get(0).getTimesheetDate().toString());
 			resp.setEndDate(resp.getTimesheets().get(resp.getTimesheets().size() - 1).getTimesheetDate().toString());
-			
+			resp.setTimesheetsGroupId(Long.valueOf(resp.getTimesheets().get(0).getTimesheetGroupId()));
 		}
+		
 		return resp;
 
 	}

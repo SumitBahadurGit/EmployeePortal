@@ -20,20 +20,29 @@ export class RoutingService{
     }
 
     static setRoutes(routeString : string){       
+
       this.routeObjs = [];
       if(routeString != null && routeString.length > 0 && routeString.includes("/")){
         var routesStrings = routeString.split("/");
+
         for(var i = 0; i < routesStrings.length; i++){            
             var temp = routesStrings[i];
+
             if(temp.length > 0){                
-                if(temp=="dashboard"){
-                    // The home should redirect to home.
-                    // Change the url to blank
-                    this.routeObjs.push(new RouteObj("chart", temp.toUpperCase()));   
-                                     
-                } else {
-                    this.routeObjs.push(new RouteObj(temp, temp.toUpperCase()));    
-                }
+
+                    var url = null;
+
+                    if(this.routeObjs != null && this.routeObjs.length > 0){
+                        url = this.routeObjs[this.routeObjs.length-1].url;
+                    }
+                    if(url != null){
+                        url = url + "/" + temp;
+                    } else {
+                        url = temp;
+                    }
+
+                    this.routeObjs.push(new RouteObj(url, temp.toUpperCase()));    
+                
             } 
         }
       }

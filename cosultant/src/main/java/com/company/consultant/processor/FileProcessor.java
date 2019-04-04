@@ -13,6 +13,8 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.company.consultant.dto.DocumentsDTO;
+import com.company.consultant.exceptions.ErrorCodes;
+import com.company.consultant.exceptions.GcsException;
 import com.company.consultant.models.DocumentObj;
 import com.company.consultant.util.DtoConverter;
 
@@ -21,10 +23,11 @@ import javassist.expr.NewArray;
 @Component
 public class FileProcessor extends BaseProcessor implements FileProcessorIF {
 
-	final private String uploadPath = "C:\\EmployeePortal\\cosultant\\src\\main\\resources\\static\\files\\";
+	final private String base = System.getProperty("user.dir");
+	final private String uploadPath = base + "static\\files\\";
 	
 	@Override
-	public List<DocumentObj> processAndUpload(MultipartFile[] files) throws Exception{
+	public List<DocumentObj> processAndUpload(MultipartFile[] files) throws GcsException{
 		return upload(files);   
 	}
 	
@@ -38,7 +41,7 @@ public class FileProcessor extends BaseProcessor implements FileProcessorIF {
 	}
 	
 	@Override
-	public List<DocumentObj> processAndUpdates (List<DocumentObj> list) throws Exception {
+	public List<DocumentObj> processAndUpdates (List<DocumentObj> list) throws GcsException {
 		List<DocumentObj> returnValues = new ArrayList<>();
 		
 		if(list != null){
@@ -53,7 +56,7 @@ public class FileProcessor extends BaseProcessor implements FileProcessorIF {
 	
 	
 	@Override
-	public DocumentObj processAndUpdate(DocumentObj documentObj) throws Exception{
+	public DocumentObj processAndUpdate(DocumentObj documentObj) throws GcsException{
 		DocumentObj returnValue = null;
 		if(documentObj != null){
 			DocumentsDTO documentDTO = (DocumentsDTO) dao.findById(new DocumentsDTO(), documentObj.getDocId());
@@ -70,15 +73,15 @@ public class FileProcessor extends BaseProcessor implements FileProcessorIF {
 			}
 		}
 		if(returnValue == null){
-			throw new Exception("Error updating documents.");
+			throw new GcsException("Error updating documents.", ErrorCodes.DOCS_UPDATE_ERROR);
 		}
 		return returnValue;	
 	}
 	
-	private List<DocumentObj> upload(MultipartFile[] files) throws Exception {
+	private List<DocumentObj> upload(MultipartFile[] files) throws GcsException {
 
 		List<DocumentObj> documentObjs = new ArrayList<>();
-
+		
 		if(files != null){
 			for(MultipartFile file : files){
 		        try {
@@ -109,7 +112,7 @@ public class FileProcessor extends BaseProcessor implements FileProcessorIF {
 			        
 					Files.copy(file.getInputStream(), path, StandardCopyOption.REPLACE_EXISTING);
 				} catch (Exception e) {
-					throw new Exception("Error uploading files: " + e.getMessage());
+					throw new GcsException("Error uploading files: " , ErrorCodes.UPLOAD_ERROR);
 				}
 
 			}

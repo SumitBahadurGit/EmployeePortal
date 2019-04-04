@@ -137,7 +137,7 @@ export class ExperienceComponent implements OnInit {
         }
 
         //New Employee Obj for submit
-        this.temp_EmployeeObj = new PersonalInfo(this.cur_employeeObj.employeeId, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+        this.temp_EmployeeObj = new PersonalInfo(null,this.cur_employeeObj.employeeId, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
             null, null, null, [this.temp_EmploymentObj], null);
 
         console.log("New Employee" + JSON.stringify(this.temp_EmployeeObj));

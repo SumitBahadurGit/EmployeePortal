@@ -1,4 +1,4 @@
-import { Component, OnInit, AfterViewInit, ChangeDetectorRef } from "@angular/core";
+import { Component, OnInit, AfterViewInit, ChangeDetectorRef, ViewChild } from "@angular/core";
 import { Router } from '@angular/router';
 import { WebService } from '../Service/app.webservice';
 import { LogInService } from '../Service/app.loginService';
@@ -8,6 +8,10 @@ import { LoggedUser } from '../Service/app.LoggedUser';
 import { LoginStatus } from '../Constants/app.constants';
 import { RoutingService } from '../Service/app.router';
 import { StatusService } from '../Service/app.statusService';
+import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { SettingsDialogue } from '../diaglogues/app.settings';
+import { GlobalSettingsService } from '../Service/app.globalSettings';
+import { ErrorSuccessComponent } from '../Templates/app.ERR_SUC';
 
 
 declare function dashBoardFunctions(): void;
@@ -20,6 +24,9 @@ declare function dashBoardFunctions(): void;
 
 export class DashboardComponent implements OnInit {
 
+    @ViewChild(ErrorSuccessComponent)
+    statusTemplate : ErrorSuccessComponent;
+
     private userRole : string;
     private isLoggedIn : boolean = false;
     private isReady : boolean = false;
@@ -29,9 +36,24 @@ export class DashboardComponent implements OnInit {
     private dataService: WebService,
     private loginService: LogInService,
     private bus: UpdateBus,
+    private globalSetting:GlobalSettingsService,
     private statusService : StatusService,
-    private cd: ChangeDetectorRef){
+    private modal : NgbModal){
    
+  }
+
+  getSettingsType(){
+    return this.globalSetting.settingType;
+  }
+  
+  navigate(url : any){
+
+    this.router.navigateByUrl(url);
+  }
+
+  openSettings(){
+    const ref = this.modal.open(SettingsDialogue);
+
   }
 
   isLoadingComplete(){
@@ -60,6 +82,10 @@ export class DashboardComponent implements OnInit {
     return LoggedUser.getUser();
   }
 
+  getUserRole(){
+    return this.loginService.getUserRole();
+  }
+  
   signOut(){
     LoggedUser.clearUser();
     this.loginService.logOut();
@@ -106,29 +132,39 @@ export class DashboardComponent implements OnInit {
     this.isLoggedIn = false;
     if(this.checkIfLoggedIn()){
       this.userRole = this.loginService.getUserRole();
-      if(this.userRole != null){
+      var eid : string = this.loginService.getEid();
+      if(eid == null){
+        // The user is logging for the first time or the user has not updated PersonalInfo
+        this.isLoggedIn = true;
+        this.isReady = true;   
+        this.router.navigate(['dashboard/update-profile']);
+      } else {
+        if(this.userRole != null){
 
-        setTimeout(() => {
-          this.dataService.getSingle<PersonalInfo>(this.loginService.getEid())
-          .subscribe((data: PersonalInfo) => {
-            LoggedUser.createNew(data);
-            console.log("******************* LOGGED USER **********************");
-            console.log(JSON.stringify(LoggedUser.getUser()))
-            console.log("******************* LOGGED USER END **********************");        
-
-          },
-            (error) => {
-    
+          setTimeout(() => {
+            this.dataService.getSingle<PersonalInfo>(this.loginService.getEid())
+            .subscribe((data: PersonalInfo) => {
+              LoggedUser.createNew(data);
+              LoggedUser.setUserRole(this.loginService.getUserRole());
+              console.log("******************* LOGGED USER **********************");
+              console.log(JSON.stringify(LoggedUser.getUser()))
+              console.log("******************* LOGGED USER END **********************");        
             },
-            () => {
-              this.isLoggedIn = true;
-              this.isReady = true;   
-            });
-
-        }, 500);
-
-       
+              (error) => {
+                this.isReady = true;
+                this.isLoggedIn = false;
+                this.statusTemplate.errorMessage = "Sorry, the user does not exist in the system";
+              },
+              () => {
+                this.isLoggedIn = true;
+                this.isReady = true;   
+               // this.router.navigate(['dashboard/employees/timesheets']);
+                
+              });  
+          }, 500);           
+        }
       }
+     
     } else{
       this.isLoggedIn = false;
     }

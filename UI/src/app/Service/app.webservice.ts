@@ -6,6 +6,7 @@ import {WebServiceConfig} from './app.webServiceConfig';
 import { PersonalInfo } from '../models/app.personalInfo';
 import { PaginatedWrapper } from '../models/app.paginatedWrapper';
 import { DocumentObj } from '../models/app.documentObj';
+import { Settings } from './app.globalSettings';
 
 @Injectable()
 export class WebService {
@@ -25,6 +26,8 @@ export class WebService {
 
     public getDeleteIdResource: string;
     public getDeleteDocsIdResource : string;
+    public updateSettingsResource = "settings";
+    public getSettingsResource = "retreive/settings"
 
     constructor(private http: HttpClient, private configuration: WebServiceConfig) {
         this.postActionUrl = configuration.postUrl;
@@ -90,6 +93,16 @@ export class WebService {
     public update<T>(id: number, itemToUpdate: any): Observable<T> {
         return this.http
             .put<T>(this.postActionUrl + id, itemToUpdate);
+    }
+
+    public getSettings<T>(itemToSearch: Settings): Observable<T> {
+        return this.http
+            .post<T>(this.server + this.baseResoucce  + this.getSettingsResource, itemToSearch);
+    }
+
+    public updateSettings<T>(id: number, itemToUpdate: Settings): Observable<T> {
+        return this.http
+            .post<T>(this.server + this.baseResoucce  + id + "/" + this.updateSettingsResource, itemToUpdate);
     }
 
     public delete<T>(id: string): Observable<T> {

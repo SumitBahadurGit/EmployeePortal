@@ -18,7 +18,9 @@ export class AppComponent implements OnInit{
     return this.logInService.getLoggedIn();    
   }
 
-  constructor(private router : Router, private route : ActivatedRoute, private logInService: LogInService, private bus: UpdateBus){
+  constructor(private router : Router,
+     private route : ActivatedRoute,
+    private logInService: LogInService, private bus: UpdateBus){
     this.router.events.subscribe((data : any) => {
       this.processRoutes(data);
     });

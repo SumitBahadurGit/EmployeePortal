@@ -11,8 +11,13 @@ public class DateUtils {
 
 	public static String getCurrentDate(){
 		
-		String timeStamp = new SimpleDateFormat("mm/dd/yyyy").format(Calendar.getInstance().getTime());
+		String timeStamp = new SimpleDateFormat("MM/dd/yyyy").format(Calendar.getInstance().getTime());
 		return timeStamp;
+	}
+	
+	public static String getDateString(){
+		java.sql.Date date = new java.sql.Date(System.currentTimeMillis());
+		return date.toString();
 	}
 	
 	public static java.sql.Date getDate(String _date){

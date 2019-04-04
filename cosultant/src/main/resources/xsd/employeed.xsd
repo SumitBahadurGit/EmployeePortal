@@ -4,6 +4,23 @@
 		GMT-0600 (Central Standard Time) -->
 	<!-- with XmlGrid.net Free Online Service http://xmlgrid.net -->
 
+
+
+
+
+
+	<xs:complexType name="settings">
+		<xs:sequence>
+			<xs:element name="settingId" type="xs:long" nillable="true"></xs:element>
+			<xs:element name="type" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="autoApprove" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="emailOnAction" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="employeeId" type="xs:long" nillable="true"></xs:element>						
+		</xs:sequence>
+	</xs:complexType>
+	
+	
+	
 	<xs:complexType name="email">
 		<xs:sequence>
 			<xs:element name="from" type="xs:string"></xs:element>
@@ -16,35 +33,38 @@
 	
 	<xs:complexType name="timesheets">
 		<xs:sequence>
-			<xs:element name="timeSheetId" type="xs:string"></xs:element>
-			<xs:element name="timesheetGroupId" type="xs:string"></xs:element>			
-			<xs:element name="employeeId" type="xs:string"></xs:element>
-			<xs:element name="status" type="xs:string"></xs:element>			
-			<xs:element name="timesheetDate" type="xs:string"></xs:element>
-			<xs:element name="startTime" type="xs:string"></xs:element>
-			<xs:element name="endTime" type="xs:string"></xs:element>
-			<xs:element name="totalHours" type="xs:string"></xs:element>
-			<xs:element name="overTime" type="xs:string"></xs:element>
-			<xs:element name="projectDetails" type="xs:string"></xs:element>
-			<xs:element name="projectLocation" type="xs:string"></xs:element>
-			<xs:element name="isApproved" type="xs:string"></xs:element>
-			<xs:element name="lastUpdated" type="xs:string"></xs:element>
-			<xs:element name="submittedDate" type="xs:string"></xs:element>
-			<xs:element name="approvedDate" type="xs:string"></xs:element>
-			<xs:element name="desc" type="xs:string"></xs:element>
-			<xs:element name="approvedBy" type="xs:string"></xs:element>
+			<xs:element name="timeSheetId" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="timesheetGroupId" type="xs:string" nillable="true"></xs:element>			
+			<xs:element name="employeeId" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="status" type="xs:string" nillable="true"></xs:element>			
+			<xs:element name="timesheetDate" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="startTime" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="endTime" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="totalHours" type="xs:double" nillable="true"></xs:element>
+			<xs:element name="overTime" type="xs:double" nillable="true"></xs:element>
+			<xs:element name="projectDetails" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="projectLocation" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="isApproved" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="lastUpdated" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="submittedDate" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="approvedDate" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="desc" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="approvedBy" type="xs:string" nillable="true"></xs:element>
 		</xs:sequence>
 	</xs:complexType>
 
 	<xs:complexType name="timesheetsObjWrapper">
 		<xs:sequence>
+			<xs:element name="timesheetsGroupId" type="xs:long" nillable="true" ></xs:element>		
 			<xs:element name="timesheets" type="timesheets" minOccurs="0" maxOccurs="unbounded"></xs:element>
-			<xs:element name="startDate" type="xs:string"></xs:element>
-			<xs:element name="endDate" type="xs:string"></xs:element>
-			<xs:element name="employeeId" type="xs:string"></xs:element>
-			<xs:element name="submittedDate" type="xs:string"></xs:element>						
-			<xs:element name="includeTimesheets" type="xs:string"></xs:element>												
-			<xs:element name="projectLocation" type="xs:string"></xs:element>																		
+			<xs:element name="startDate" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="endDate" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="employeeId" type="xs:string" nillable="true"></xs:element>
+			<xs:element name="submittedDate" type="xs:string" nillable="true"></xs:element>						
+			<xs:element name="includeTimesheets" type="xs:string" nillable="true"></xs:element>												
+			<xs:element name="projectLocation" type="xs:string" nillable="true"></xs:element>																		
+			<xs:element name="totalHours" type="xs:double" nillable="true"></xs:element>
+			<xs:element name="overTime" type="xs:double" nillable="true"></xs:element>
 		</xs:sequence>
 	</xs:complexType>
 
@@ -181,6 +201,7 @@
 
 	<xs:complexType name="personalInfo">
 			<xs:sequence>
+				<xs:element name="loginId" type="xs:long" nillable="true"></xs:element>			
 				<xs:element name="employee_id" type="xs:string"></xs:element>
 				<xs:element name="firstName" type="xs:string"></xs:element>
 				<xs:element name="middleName" type="xs:string"></xs:element>

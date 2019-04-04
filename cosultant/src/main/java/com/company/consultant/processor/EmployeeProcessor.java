@@ -21,7 +21,10 @@ import org.springframework.web.multipart.MultipartFile;
 import com.company.consultant.dao.DAO;
 import com.company.consultant.dto.DocumentsDTO;
 import com.company.consultant.dto.EmploymentHistoryDTO;
+import com.company.consultant.dto.LogInDTO;
 import com.company.consultant.dto.PersonalInfoDTO;
+import com.company.consultant.exceptions.ErrorCodes;
+import com.company.consultant.exceptions.GcsException;
 import com.company.consultant.models.DocumentObj;
 import com.company.consultant.models.EmploymentObj;
 import com.company.consultant.models.PaginatedWrapper;
@@ -37,33 +40,53 @@ public class EmployeeProcessor extends BaseProcessor implements EmployeeProcesso
 
 		
 	@Override
-	public PersonalInfo processAndSave(PersonalInfo personalInfo) {
-		 PersonalInfoDTO personalInfoDTO = DtoConverter.convertToDTO(personalInfo);
-		 personalInfoDTO.setEmployeeId(Long.valueOf(personalInfo.getEmployeeId()));
-		 return DtoConverter.covertFromDTO((PersonalInfoDTO) dao.save(personalInfoDTO));
+	public PersonalInfo processAndSave(PersonalInfo personalInfo) throws GcsException {
+		try{
+			 PersonalInfoDTO personalInfoDTO = DtoConverter.convertToDTO(personalInfo);
+			 
+			 if(personalInfoDTO.getEmployeeId() == null){
+				 Long id = dao.getNextSeq();
+				 LogInDTO logInDTO = (LogInDTO) dao.findById(new LogInDTO(), personalInfo.getLoginId());				 
+				 if (logInDTO == null){
+					 throw new GcsException("Error retreving login info", ErrorCodes.ENTITY_NOT_FOUND);
+				 } else {
+					logInDTO.setEid(id);
+					logInDTO = (LogInDTO) dao.save(logInDTO);
+				 }
+				 personalInfoDTO.setEmployeeId(logInDTO.getEid());
+			 }
+
+			 return DtoConverter.covertFromDTO((PersonalInfoDTO) dao.save(personalInfoDTO));			
+		} catch (Exception e) {
+			throw new GcsException("Error Saving", ErrorCodes.CONVERSION_ERROR);
+		}
+
 	}
 		
 	@Override
-	public EmploymentHistoryDTO processAndSave(EmploymentObj employmentObj) {
-		 EmploymentHistoryDTO employmentHistoryDTO = DtoConverter.convertToDTO(employmentObj);
+	public EmploymentHistoryDTO processAndSave(EmploymentObj employmentObj) throws GcsException {
+		
+		EmploymentHistoryDTO employmentHistoryDTO = DtoConverter.convertToDTO(employmentObj);
 		 PersonalInfoDTO personalInfoDTO = dao.searchById(Long.valueOf(employmentObj.getEmployeeId()));
-			if(personalInfoDTO != null){
-				personalInfoDTO.getEmploymentHistoryDTO().add(employmentHistoryDTO);
-				employmentHistoryDTO.setPersonalInfoDTO(personalInfoDTO);
-				 dao.save(personalInfoDTO);
-			}	
+		 if(personalInfoDTO == null){
+			 throw new GcsException("Entity not found", ErrorCodes.ENTITY_NOT_FOUND);
+		 }
+
+		personalInfoDTO.getEmploymentHistoryDTO().add(employmentHistoryDTO);
+		employmentHistoryDTO.setPersonalInfoDTO(personalInfoDTO);
+		dao.save(personalInfoDTO);
 		return employmentHistoryDTO;
 	}
 	
 	@Override
-	public PersonalInfo processAndUpdate(PersonalInfo personalInfo) throws Exception {
+	public PersonalInfo processAndUpdate(PersonalInfo personalInfo) throws GcsException {
 		if(StringUtils.isEmpty(personalInfo.getEmployeeId())){
-			throw new Exception("Identifier not present.");
+			 throw new GcsException("Entity not found", ErrorCodes.ENTITY_NOT_FOUND);
 		}
 		Long id = Long.valueOf(personalInfo.getEmployeeId());
 		PersonalInfoDTO personalInfoDTO = dao.searchById(id);
 		if(personalInfoDTO == null){
-			throw new Exception("No records found for the idenifier : " + id);
+			 throw new GcsException("Entity not found", ErrorCodes.ENTITY_NOT_FOUND);
 		}
 		personalInfoDTO = DtoComparator.compareDTO(personalInfoDTO, personalInfo);
 
@@ -73,7 +96,7 @@ public class EmployeeProcessor extends BaseProcessor implements EmployeeProcesso
 	}
 	
 	@Override
-	public PersonalInfo processAndSearchDocs(SearchRequest searchRequest) throws Exception{
+	public PersonalInfo processAndSearchDocs(SearchRequest searchRequest) throws GcsException{
 		
 		Long employeeId = null;
 		if(!StringUtils.isEmpty(searchRequest.getEmployeeId())){
@@ -98,23 +121,23 @@ public class EmployeeProcessor extends BaseProcessor implements EmployeeProcesso
 			personalInfo.getDocumnetObj().addAll(documentObjs);
 			return personalInfo;
 		} else {
-			throw new Exception("No records found.");
+			 throw new GcsException("Entity not found", ErrorCodes.ENTITY_NOT_FOUND);
 		}
 	}
 	
 	@Override
-	public List<PersonalInfo> processAndSearch() throws Exception {
+	public List<PersonalInfo> processAndSearch() throws GcsException {
 		
 		List<PersonalInfoDTO> allNames = dao.getFullNameAndId();
 		if(allNames == null || allNames.size() == 0){
-			throw new Exception("No records found");
+			 throw new GcsException("Entity not found", ErrorCodes.ENTITY_NOT_FOUND);
 		}
 		
 		return DtoConverter.convertFromDTOList(allNames);
 	}
 	
 	@Override
-	public List<PersonalInfo> processAndSearch(SearchRequest searchRequest) throws Exception {
+	public List<PersonalInfo> processAndSearch(SearchRequest searchRequest) throws GcsException {
 		
 		String name = searchRequest.getFirstName();
 	    String employeeId = searchRequest.getEmployeeId();
@@ -143,7 +166,7 @@ public class EmployeeProcessor extends BaseProcessor implements EmployeeProcesso
 					
 			} catch(Exception ex){
 				System.out.println("Error: " + ex.getMessage());
-				throw new Exception("No records found.");
+				 throw new GcsException("Entity not found", ErrorCodes.ENTITY_NOT_FOUND);
 			}									
 		}		
 		return result;
@@ -161,7 +184,7 @@ public class EmployeeProcessor extends BaseProcessor implements EmployeeProcesso
 	}
 
 	@Override
-	public List<PaginatedWrapper> processAndSearch(PaginatedWrapper paginatedWrapper) throws Exception {
+	public List<PaginatedWrapper> processAndSearch(PaginatedWrapper paginatedWrapper) throws GcsException {
 
 		PaginatedWrapper result = new PaginatedWrapper();
 		SearchRequest searchRequest = paginatedWrapper.getSearchRequest();
@@ -175,9 +198,14 @@ public class EmployeeProcessor extends BaseProcessor implements EmployeeProcesso
 		// JPA Pageable treats page 1 as 0;
 		int pageNo = paginatedWrapper.getCurrPage() - 1;
 		int limit = paginatedWrapper.getLimit();
-		
+		List<PersonalInfoDTO> personalInfoDTOs = null;
 		if(checkIfFieldExists(new EmploymentHistoryDTO(), filterBy)){
-			List<PersonalInfoDTO> personalInfoDTOs = dao.findAllEmployees(sortBy, filterBy, filterByValue, pageNo, limit);
+			try{
+				personalInfoDTOs = dao.findAllEmployees(sortBy, filterBy, filterByValue, pageNo, limit);				
+			}catch(CloneNotSupportedException ex){
+				throw new GcsException("Error cloning the object", ErrorCodes.CLONE_ERROR);
+			}
+
 			if(personalInfoDTOs != null && personalInfoDTOs.size() > 0){
 				paginatedWrapper.getPersonalInfo().addAll(DtoConverter.convertFromDTOList(personalInfoDTOs));				
 			}

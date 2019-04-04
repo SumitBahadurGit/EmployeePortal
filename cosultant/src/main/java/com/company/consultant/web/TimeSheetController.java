@@ -12,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.company.consultant.exceptions.GcsException;
+import com.company.consultant.interceptors.ApplySettings;
 import com.company.consultant.models.TimesheetsObjWrapper;
 
 @CrossOrigin(origins = "*")
@@ -23,7 +25,13 @@ public class TimeSheetController extends RestControllerImpl{
 	@ResponseBody
 	public TimesheetsObjWrapper getTimeSheets(@RequestBody TimesheetsObjWrapper objWrapper){
 		
-		return (TimesheetsObjWrapper) manager.manageSave(objWrapper);		
+		try {
+			return (TimesheetsObjWrapper) manager.manageSave(objWrapper);
+		} catch (GcsException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		return objWrapper;		
 	}
 	
 	@RequestMapping("/{employeeId}/getAll")

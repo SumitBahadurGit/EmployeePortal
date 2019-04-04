@@ -82,14 +82,14 @@ public class DtoConverter {
 		timesheetsDTO.setEmployeeId(Long.valueOf(timesheets.getEmployeeId()));
 		timesheetsDTO.setEndTime(timesheets.getEndTime());
 		timesheetsDTO.setIsApproved(timesheets.getIsApproved());
-		timesheetsDTO.setOverTime(Double.valueOf(timesheets.getOverTime()));
+		timesheetsDTO.setOverTime(timesheets.getOverTime());
 		timesheetsDTO.setProjectDetails(timesheets.getProjectDetails());
 		timesheetsDTO.setProjectLocation(timesheets.getProjectLocation());
 		timesheetsDTO.setStartTime(timesheets.getStartTime());
 		timesheetsDTO.setStatus(timesheets.getStatus());
 		timesheetsDTO.setSubmittedDate(DateUtils.getDate(timesheets.getSubmittedDate()));
 		timesheetsDTO.setTimeSheetDate(DateUtils.getDate(timesheets.getTimesheetDate()));
-		timesheetsDTO.setTotalHours(Double.valueOf(timesheets.getTotalHours()));
+		timesheetsDTO.setTotalHours(timesheets.getTotalHours());
 		timesheetsDTO.setApprovedBy(timesheets.getApprovedBy());
 		return timesheetsDTO;
 	}
@@ -97,12 +97,13 @@ public class DtoConverter {
 	public static Timesheets convertFromDTO(TimesheetsDTO timesheetsDTO){
 		Timesheets timesheets = new Timesheets();
 		timesheets.setTimeSheetId(timesheetsDTO.timeSheetId.toString());
+		timesheets.setTimesheetGroupId(timesheetsDTO.getTimesheetGroupId().toString());
 		timesheets.setApprovedDate(timesheetsDTO.getApprovedDate() != null ? timesheetsDTO.getApprovedDate().toString() : null);
 		timesheets.setDesc(timesheetsDTO.getDesc());
 		timesheets.setEmployeeId(timesheetsDTO.getEmployeeId() != null ? String.valueOf(timesheetsDTO.getEmployeeId()) : null);
 		timesheets.setEndTime(timesheetsDTO.getEndTime());
 		timesheets.setIsApproved(timesheetsDTO.getIsApproved());
-		timesheets.setOverTime(String.valueOf(timesheetsDTO.getOverTime()));
+		timesheets.setOverTime(timesheetsDTO.getOverTime());
 		timesheets.setProjectDetails(timesheetsDTO.getProjectDetails());
 		timesheets.setProjectLocation(timesheetsDTO.getProjectLocation());
 		timesheets.setStartTime(timesheetsDTO.getStartTime());
@@ -110,7 +111,7 @@ public class DtoConverter {
 		timesheets.setSubmittedDate(timesheetsDTO.getSubmittedDate() != null ? timesheetsDTO.getSubmittedDate().toString() : null);
 		timesheets.setLastUpdated(timesheetsDTO.getLastUpdated() != null ? timesheetsDTO.getLastUpdated().toString() : null );
 		timesheets.setTimesheetDate(timesheetsDTO.getTimeSheetDate() != null ? timesheetsDTO.getTimeSheetDate().toString() : null);
-		timesheets.setTotalHours(String.valueOf(timesheetsDTO.getTotalHours()));
+		timesheets.setTotalHours(timesheetsDTO.getTotalHours());
 		timesheets.setApprovedBy(timesheetsDTO.getApprovedBy());
 		timesheets.setTimesheetGroupId(timesheetsDTO.getTimesheetGroupId().toString());
 		timesheets.setTimeSheetId(timesheetsDTO.getTimeSheetId().toString());
@@ -353,6 +354,9 @@ public class DtoConverter {
 	public static PersonalInfoDTO convertToDTO(PersonalInfo personalInfo) {
 
 		PersonalInfoDTO personalInfoDTO = new PersonalInfoDTO();
+		if(!StringUtils.isEmpty(personalInfo.getEmployeeId())){
+			personalInfoDTO.setEmployeeId(Long.valueOf(personalInfo.getEmployeeId()));
+		}
 		personalInfoDTO.setFirstName(personalInfo.getFirstName());
 		personalInfoDTO.setMiddleName(personalInfo.getMiddleName());
 		personalInfoDTO.setLastName(personalInfo.getLastName());

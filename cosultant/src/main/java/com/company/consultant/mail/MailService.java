@@ -49,7 +49,7 @@ public class MailService {
 	       message.setFrom(new InternetAddress(from));
 
 	       // Set To: header field of the header.
-	       message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+	       message.addRecipients(Message.RecipientType.TO, InternetAddress.parse(to));
 
 	       // Set Subject: header field
 	       message.setSubject(_subject);

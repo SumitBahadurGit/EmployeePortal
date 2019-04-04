@@ -32,11 +32,6 @@
           </tbody>
         </table>
   </div>
-
-  <div id="no-data" *ngIf="cur_employmentObj == null">
-    <p></p>
-  </div>
-
   <div id="collapsible_edit_new" style="display:none; margin-top:6px; padding:3px;">
 
       <form ngNativeValidate
@@ -251,7 +246,9 @@
         </div>
       </form>
   </div>
-
+  <div id="no-data" *ngIf="cur_employmentObj == null">
+      <p></p>
+    </div>
   <div id="d-container" *ngIf="cur_employmentObj">
     <br>
     <div class="card  text-dark shadow-lg p-3 mb-5 bg-muted rounded">

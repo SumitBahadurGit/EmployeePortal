@@ -1,0 +1,100 @@
+<ng-container *ngIf="cur_employmentObj">
+<div id="employee-container">
+        <h2>Employment History</h2>
+      
+        <div class="table-responsive" style="padding:5px;">
+            <table id="table-id" class="table table-hover table-bordered table-striped employee-table" >
+                <thead>
+                  <tr class="bg-default">
+                    <th>Job Title</th>
+                    <th>Start Date</th>
+                    <th>End Date</th>
+                    <th>Company</th>
+                    <th>Active</th>
+                    <th>Salary</th>
+                    <th>Work Status</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr *ngFor="let employmentObj of cur_employeeObj.employmentObj" (click)="showDetails(employmentObj)">
+                    <td>{{employmentObj.jobTitle}}</td>
+                    <td>{{employmentObj.startDate}}</td>
+                    <td>{{employmentObj.endDate}}</td>
+                    <td>{{employmentObj.client != null ? employmentObj.client.clientName : ""}}</td>
+                    <td>{{employmentObj.status}}</td>
+                    <td>{{employmentObj.hourlyWagePay}}</td>
+                    <td>{{employmentObj.empAuthStatus}}</td>
+                  </tr>
+                </tbody>
+              </table>
+        </div>
+        <div id="d-container" >
+          <br>
+          <div class="card  text-dark shadow-lg p-3 mb-5 bg-muted rounded">
+            <div class="row justify-content-start">
+              <p class="col-12"><b> Job Status: </b>{{cur_employmentObj.status}}<p>
+                  <p class="col-6"><b>Start Date: </b>{{cur_employmentObj.startDate}}<p>
+                      <p class="col-6"><b>End Date: </b>{{cur_employmentObj.endDate}}<p>
+                          <p class="col-6"><b>Hourly Wage Receive: </b>{{cur_employmentObj.hourlyWageRecv}}<p>
+                              <p class="col-6"><b>Hourly Wage Pay: </b>{{cur_employmentObj.hourlyWagePay}}<p>
+                                  <p class="col-12"><b>Reason for termination:</b>{{cur_employmentObj.termntnReason}}<p>
+            </div>
+          </div>
+      
+          <div class="card  text-dark shadow-lg p-3 mb-5 bg-muted rounded">
+            <div class="row justify-content-start">
+              <p class="col-12"><b>Employment Authorization Status: </b>{{cur_employmentObj.empAuthStatus}}<p>
+                  <p class="col-6"><b>Employment Authorization Start Date: </b>{{cur_employmentObj.empAuthStart}}<p>
+                      <p class="col-6"><b>Employment Authorization Expire Date:</b>{{cur_employmentObj.empAuthEnd}}<p>
+            </div>
+          </div>
+      
+      
+              <div class="card  text-dark shadow-lg p-3 mb-5 bg-muted rounded">
+                  <div class="row justify-content-start">
+                    <p  *ngIf="cur_VendorObj" class="col-12"><b>Current Vendor: </b>{{cur_VendorObj.vendorName}}<p>
+                          <p *ngIf="cur_VendorAddressObj" class="col-12"><b>Address: </b>{{cur_VendorAddressObj.addressLine1}}<p>
+                              <p *ngIf="cur_VendorAddressObj" class="col-12"><b>Address 2: </b>{{cur_VendorAddressObj.addressLine2}}<p>
+                                  <p *ngIf="cur_VendorAddressObj" class="col-4"><b>State: </b>{{cur_VendorAddressObj.state}}<p>
+                                      <p *ngIf="cur_VendorAddressObj" class="col-4"><b>City: </b>{{cur_VendorAddressObj.city}}<p>
+                                          <p *ngIf="cur_VendorAddressObj" class="col-4"><b>Zip: </b>{{cur_VendorAddressObj.zipCode}}<p>      
+                                            <p  *ngIf="cur_VendorObj" class="col-4"><b>Vendor Manager/HR: </b>{{cur_VendorObj.vendorHrName}}<p>
+                                                <p  *ngIf="cur_VendorObj" class="col-4"><b>Vendor HR Email: </b>{{cur_VendorObj.vendorHrEmail}}<p>
+                                                    <p  *ngIf="cur_VendorObj" class="col-4"><b>Vendor HR Phone: </b>{{cur_VendorObj.vendorHrPhone}}<p>
+                  </div>
+                </div>
+      
+              <div class="card  text-dark shadow-lg p-3 mb-5 bg-muted rounded">
+                  <div class="row justify-content-start">
+                    <p  *ngIf="cur_ClientObj" class="col-12"><b>Current Client: </b>{{cur_ClientObj.clientName}}<p>
+                          <p  *ngIf="cur_ClientAddressObj" class="col-12"><b>Address: </b>{{cur_ClientAddressObj.addressLine1}}<p>
+                              <p  *ngIf="cur_ClientAddressObj" class="col-12"><b>Address 2: </b>{{cur_ClientAddressObj.addressLine2}}<p>
+                                  <p *ngIf="cur_ClientAddressObj" class="col-4"><b>State: </b>{{cur_ClientAddressObj.state}}<p>
+                                      <p *ngIf="cur_ClientAddressObj" class="col-4"><b>City: </b>{{cur_ClientAddressObj.city}}<p>
+                                          <p *ngIf="cur_ClientAddressObj" class="col-4"><b>Zip: </b>{{cur_ClientAddressObj.zipCode}}<p>
+                                            <p  *ngIf="cur_ClientObj" class="col-4"><b>Client Manager/HR: </b>{{cur_ClientObj.clientHrName}}<p>
+                                                <p  *ngIf="cur_ClientObj" class="col-4"><b>Client HR Email: </b>{{cur_ClientObj.clientHrEmail}}<p>
+                                                    <p  *ngIf="cur_ClientObj" class="col-4"><b>Client HR Phone: </b>{{cur_ClientObj.clientHrPhone}}<p>
+                  </div>
+                </div>
+      
+          <div class="card  text-dark shadow-lg p-3 mb-5 bg-muted rounded">
+            <div class="row justify-content-start">
+      
+              <p class="col"><b>Job Title: </b>{{cur_employmentObj.jobTitle}}<p>
+                  <p class="col"><b>Technology: </b>{{cur_employmentObj.technology}}<p>
+                      <p class="col"><b>Job Description: </b>{{cur_employmentObj.jobDesc}}<p>
+            </div>
+      
+          </div>
+          <p style="color:gray">Last Updated: {{cur_employeeObj.lastUpdated}}</p>
+      
+        </div>
+</div>
+      </ng-container>
+      <div style="text-align:center">
+          <err-succ></err-succ>
+  </div>
+        <div id="no-data" *ngIf="cur_employmentObj == null">
+            <p></p>
+          </div>

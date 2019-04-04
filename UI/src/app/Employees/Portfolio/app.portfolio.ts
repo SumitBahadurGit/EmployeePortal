@@ -96,7 +96,7 @@ export class PortFolioComponent implements OnInit{
         if(type == "MASTER"){
             this.updateService.setEmployeeDetail(LoggedUser.getUser());
         }
-
+        
         this.employee = this.updateService.getEmployeeDetail();
         if(this.employee != null && this.employee.employmentObj != null){
             for(var i = 0; i < this.employee.employmentObj.length; i++){

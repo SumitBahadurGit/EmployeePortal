@@ -27,7 +27,7 @@ public class LoginController extends RestControllerImpl {
 	}
 	
 	login = (Login) manager.manageSave(login);
-	Long newId = Long.valueOf(login.getLoginId());
+	Long newId = Long.valueOf(login.getUserName());
 	if(!StringUtils.isEmpty(email)){
 		String subj = createNewSubject(email, newId);
 		sendEmail(email, subj);
@@ -35,7 +35,6 @@ public class LoginController extends RestControllerImpl {
 	login.setPw(null);
 	return login;	
 	}
-	
 	
 	@PostMapping("/check")
 	public Login check(@RequestBody Login login){

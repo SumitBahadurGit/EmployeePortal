@@ -12,6 +12,8 @@ import { UpdateBus } from 'src/app/Service/app.updateBus';
 import { LoggedUser } from 'src/app/Service/app.LoggedUser';
 import { ErrorSuccessComponent } from 'src/app/Templates/app.ERR_SUC';
 import { Message } from 'src/app/models/app.message';
+import { THIS_EXPR } from '@angular/compiler/src/output/output_ast';
+import { LogInService } from 'src/app/Service/app.loginService';
 
 
 
@@ -41,63 +43,95 @@ export class UpdateProfileComponent implements OnInit {
     this.education = new Education(null, null, null, null, null, null);
     this.work = new Work(null, null, null, null, null);
 
-    this.personalInfo = new PersonalInfo(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+    this.personalInfo = new PersonalInfo(this.loginService.getLoginId(), null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
       null, null, this.address, this.education, this.work, null, null);
 
     console.log(JSON.stringify(this.personalInfo));
   }
 
   ngOnInit() {      
-    this.retreiveProfile()
-        .subscribe((data : PersonalInfo) => {
-            this.personalInfo = data;
-            console.log(JSON.stringify(this.personalInfo));
-        },
-        (error) => {
-            this.statusTemplate.handleStatusMessage(Message.createErrorMessage("There was an error retreiving the profile."));
-        }, 
-        () => {
-            if(this.personalInfo == null || this.personalInfo.employeeId == null){
-                this.creteEmptyObj();                
-            }
-            this.showTab(this.currentTab);
-        });
-  }
+    var eid = this.loginService.getEid();
+    if(eid == null){
+      this.creteEmptyObj();                
+      this.statusTemplate.setErrorMessgae("Looks like you have not updated the profile. Please update your personal info.", 5000);
 
-
-  constructor(private dataService: WebService, private updateService: UpdateBus, private route: ActivatedRoute,
-    private router: Router) {
-
-  }
-
-  retreiveProfile(){
-      return  this.dataService.getSingle<PersonalInfo>(LoggedUser.getUser().employeeId);
-  }
-
-  submit() {
-    try {
-      console.log(JSON.stringify(this.personalInfo));
-      this.currentTab = 0;
       this.showTab(this.currentTab);
-      this.dataService
-        .updateEmployee(this.personalInfo)
-        .subscribe(
-          (data: PersonalInfo) => {
-            this.personalInfo = data;
-            console.log(data);
-          },
-          (error: any) => {
-            console.log("ERROR ADDING:" + error);
-            this.statusTemplate.handleStatusMessage(Message.createErrorMessage("There was an error updating the info."));
-          },
-          () => {
-            console.log("SUCCESSFULLY ADDED");
-            this.statusTemplate.handleStatusMessage(Message.createSuccessMessage("Successfully Updated."));
-          }
-        );
-    } catch (error){
-      console.log("ERROR SUBMITTING:" + error);
+    } else {
+      this.retreiveProfile(eid)
+      .subscribe((data : PersonalInfo) => {
+          this.personalInfo = data;
+      },
+      (error) => {
+          this.statusTemplate.handleStatusMessage(Message.createErrorMessage("There was an error retreiving the profile."));            
+        }, 
+      () => {
+          this.showTab(this.currentTab);
+      });
+    }
 
+  }
+
+
+  constructor(private dataService: WebService,
+     private updateService: UpdateBus, private route: ActivatedRoute,
+     private loginService: LogInService,
+     private router: Router) {
+
+  }
+
+  retreiveProfile(eid : string){
+
+      return  this.dataService.getSingle<PersonalInfo>(eid);
+  }
+
+  update(){
+    this.dataService
+    .updateEmployee(this.personalInfo)
+    .subscribe(
+      (data: PersonalInfo) => {
+        this.personalInfo = data;
+        console.log(data);
+      },
+      (error: any) => {
+        console.log("ERROR ADDING:" + error);
+        this.statusTemplate.handleStatusMessage(Message.createErrorMessage("There was an error updating the info."));
+      },
+      () => {
+        console.log("SUCCESSFULLY ADDED");
+        this.statusTemplate.handleStatusMessage(Message.createSuccessMessage("Successfully Updated."));
+      }
+    );
+  }
+  save(){
+
+    this.dataService
+    .add(this.personalInfo)
+    .subscribe(
+      (data: PersonalInfo) => {
+        this.personalInfo = data;
+        this.loginService.setEid(this.personalInfo.employeeId);
+        LoggedUser.createNew(this.personalInfo);
+        console.log(data);
+      },
+      (error: any) => {
+        console.log("ERROR ADDING:" + error);
+        this.statusTemplate.handleStatusMessage(Message.createErrorMessage("There was an error updating the info."));
+      },
+      () => {
+        console.log("SUCCESSFULLY ADDED");
+        this.statusTemplate.handleStatusMessage(Message.createSuccessMessage("Successfully Updated."));
+      }
+    );
+  }
+  submit() {
+
+    console.log(JSON.stringify(this.personalInfo));
+    this.currentTab = 0;
+    this.showTab(this.currentTab);
+    if(this.loginService.getEid() == null){
+      this.save();
+    } else {
+      this.update();
     }
 
   }

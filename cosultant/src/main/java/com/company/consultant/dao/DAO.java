@@ -16,6 +16,7 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Root;
 
+import org.assertj.core.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -30,6 +31,7 @@ import com.company.consultant.dto.DocumentsDTO;
 import com.company.consultant.dto.EmploymentHistoryDTO;
 import com.company.consultant.dto.LogInDTO;
 import com.company.consultant.dto.PersonalInfoDTO;
+import com.company.consultant.dto.SettingsDTO;
 import com.company.consultant.dto.TimesheetsDTO;
 import com.company.consultant.repository.AddressRepository;
 import com.company.consultant.repository.DocumentsRepo;
@@ -37,6 +39,7 @@ import com.company.consultant.repository.EducationRepository;
 import com.company.consultant.repository.EmploymentRepository;
 import com.company.consultant.repository.LoginRepository;
 import com.company.consultant.repository.PersonalInfoRepository;
+import com.company.consultant.repository.SettingsRepository;
 import com.company.consultant.repository.TimesheetsRepoImpl;
 import com.company.consultant.repository.TimeshseetsRepository;
 import com.company.consultant.repository.WorkRepository;
@@ -74,6 +77,9 @@ public class DAO implements DaoIF {
 	@Autowired
 	LoginRepository loginRepository;
 	
+	@Autowired
+	SettingsRepository settingsRepository;
+	
 	@Override
 	public List<PersonalInfoDTO> getFullNameAndId() {
 		return personalInfoRepository.findByNameAndId();
@@ -105,7 +111,7 @@ public class DAO implements DaoIF {
 	public PersonalInfoDTO searchById (Long id) {
 	
 		Optional<PersonalInfoDTO> personalInfoDTO = personalInfoRepository.findById(id);
-		if(personalInfoDTO != null){
+		if(personalInfoDTO.isPresent()){
 			return personalInfoDTO.get();
 		} else {
 			return null;
@@ -176,7 +182,7 @@ public class DAO implements DaoIF {
 	}
 
 	@Override
-	public Long findAllEmployeesCount(String filterBy, String filterByValue) throws CloneNotSupportedException {
+	public Long findAllEmployeesCount(String filterBy, String filterByValue){
 		return employmentRepository.findAllActiveCount(filterByValue);
 
 	}
@@ -201,6 +207,12 @@ public class DAO implements DaoIF {
 			documentsDTO = documentsRepo.findById(id);
 			if(documentsDTO != null){
 				return documentsDTO.get();
+			}
+		}else if (obj instanceof LogInDTO){
+			Optional<LogInDTO> loginDTO = null;
+			loginDTO = loginRepository.findById(id);
+			if(loginDTO != null){
+				return loginDTO.get();
 			}
 		}
 		
@@ -254,6 +266,12 @@ public class DAO implements DaoIF {
 			documentsDTO = documentsRepo.save(documentsDTO);
 			loginRepository.refresh(documentsDTO);
 			return documentsDTO;
+		} else if(obj instanceof SettingsDTO){
+			SettingsDTO settingsDTO = (SettingsDTO) obj;
+			settingsDTO = settingsRepository.save(settingsDTO);
+			settingsRepository.refresh(settingsDTO);
+			return settingsDTO;
+			
 		}
 		
 		return null;
@@ -275,8 +293,10 @@ public class DAO implements DaoIF {
 			
 		} else if(startDate != null && endDate != null){
 			return timeshseetsRepository.getAllTimesheets(eid, startDate, endDate,projectLocation);						
-		} else{
+		} else if(!StringUtils.isEmpty(projectLocation)){
 			return timeshseetsRepository.getAllTimesheets(eid,projectLocation);			
+		} else {
+			return timeshseetsRepository.getAllTimesheets(eid);			
 		}
 	}
 
@@ -292,6 +312,21 @@ public class DAO implements DaoIF {
 			DocumentsDTO documentsDTO = (DocumentsDTO) entity;
 			Example criteria = Example.of(documentsDTO, matcher);
 			return documentsRepo.findAll(criteria);
+		} else if (entity instanceof SettingsDTO){
+			ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues();
+			SettingsDTO settingsDTO = (SettingsDTO) entity;
+			Example criteria = Example.of(settingsDTO, matcher);
+			return settingsRepository.findAll(criteria);
+		} else if (entity instanceof PersonalInfoDTO){
+			ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues();
+			PersonalInfoDTO personalInfoDTO = (PersonalInfoDTO) entity;
+			Example criteria = Example.of(personalInfoDTO, matcher);
+			return personalInfoRepository.findAll(criteria);
+		} else if(entity instanceof TimesheetsDTO){
+			ExampleMatcher matcher = ExampleMatcher.matching().withIgnoreNullValues();
+			TimesheetsDTO timesheetsDTO = (TimesheetsDTO) entity;
+			Example criteria = Example.of(timesheetsDTO, matcher);
+			return timeshseetsRepository.findAll(criteria);
 		}
 		return null;
 		

@@ -42,6 +42,9 @@ body{
     overflow-y: scroll;
 }
 
+.center-text{
+    text-align: center;
+}
 .middle{
     position: fixed;
     top: 45%;
@@ -49,6 +52,19 @@ body{
     font-size: 2em;
 }
 
+.link{
+
+    cursor: pointer;
+}
+
+.link:hover{
+    text-decoration: underline;
+    color:blue;
+}
+
+.cursor{
+    cursor: pointer;
+}
 .gray{
     color: gray;
 }
@@ -63,7 +79,9 @@ body{
 .blue{
     color: rgb(0, 64, 160);
 }
-
+.round{
+    border-radius: 12px;
+}
 .green {
     color: rgb(17, 126, 17);
 }

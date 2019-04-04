@@ -16,6 +16,7 @@ import { ErrorSuccessComponent } from '../Templates/app.ERR_SUC';
 import { Message } from '../models/app.message';
 import { Login } from '../models/app.login';
 import { states } from '../models/app.states';
+import { LoggedUser } from '../Service/app.LoggedUser';
 
 
 @Component({
@@ -48,7 +49,7 @@ export class RegisterComponent implements OnInit {
     this.education = new Education(null, null, null, null, null, null);
     this.work = new Work(null, null, null, null, null);
 
-    this.personalInfo = new PersonalInfo(null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
+    this.personalInfo = new PersonalInfo(null,null, null, null, null, null, null, null, null, null, null, null, null, null, null, null,
       null, null, this.address, this.education, this.work, null, null);
 
     console.log(JSON.stringify(this.personalInfo));

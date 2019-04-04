@@ -23,7 +23,10 @@ public interface TimeshseetsRepository extends CustomRepository, JpaRepository<T
 
 	@Query("SELECT T FROM TimesheetsDTO T WHERE T.employeeId = ?1 AND T.projectLocation = ?2")
 	List<TimesheetsDTO> getAllTimesheets(Long eid, String projectLocation);
-	
+
+	@Query("SELECT T FROM TimesheetsDTO T WHERE T.employeeId = ?1")
+	List<TimesheetsDTO> getAllTimesheets(Long eid);
+
 	@Query("SELECT COUNT(T) FROM TimesheetsDTO T WHERE T.employeeId = ?1 AND  T.timeSheetDate = ?2 AND T.projectLocation = ?3")
 	Long checkIfExists(Long eid, Date date, String projectLocation);
 

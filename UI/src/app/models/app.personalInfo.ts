@@ -8,6 +8,7 @@ import { DocumentObj } from './app.documentObj';
 export class PersonalInfo{
 
     constructor(
+        public loginId : string,
         public employeeId: string,
         public firstName: string,
         public middleName: string,

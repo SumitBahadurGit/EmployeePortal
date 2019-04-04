@@ -5,14 +5,15 @@ import java.util.List;
 
 import org.springframework.web.multipart.MultipartFile;
 
+import com.company.consultant.exceptions.GcsException;
 import com.company.consultant.models.DocumentObj;
 
 public interface FileProcessorIF {
 	
 	public File download(String fileName);
 	public boolean delete(String fileName);
-	List<DocumentObj> processAndUpload(MultipartFile[] files) throws Exception;
-	DocumentObj processAndUpdate(DocumentObj documentObjs) throws Exception;
+	List<DocumentObj> processAndUpload(MultipartFile[] files) throws GcsException;
+	DocumentObj processAndUpdate(DocumentObj documentObjs) throws GcsException;
 	void processAndDelete(List<Long> ids);
-	public List<DocumentObj> processAndUpdates(List<DocumentObj> documentObjs) throws Exception;
+	public List<DocumentObj> processAndUpdates(List<DocumentObj> documentObjs) throws GcsException;
 }

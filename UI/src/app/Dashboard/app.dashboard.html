@@ -1,12 +1,13 @@
+
 <div *ngIf="!isLoadingComplete()">
   <div class="spinner-grow text-success middle" role="status">
     <span class="sr-only">Loading...</span>
   </div>
 </div>
 
-<div id="main-page" *ngIf="isLoadingComplete()">
+<div id="main-page" *ngIf="isLoadingComplete() && isLoggedIn">
 
-  <ng-container *ngIf="isLoggedIn">
+  <ng-container>
 
     <!-- Do not remove this or the panel responsiveness will be lost-->
     <div *ngIf="userRole != 'EMPLOYEE'" id="side-panel-support">
@@ -20,8 +21,8 @@
 
         <div id="breadcrumb" class="col-md-7">
           <ul class="bd">
-            <li *ngFor="let route of getRoutes()">
-              <a [routerLink]="route.url">{{route.label}}</a>
+            <li class="link" *ngFor="let route of getRoutes()">
+              <a (click)="navigate(route.url)" >{{route.label}}</a>
             </li>
           </ul>
         </div>
@@ -43,6 +44,11 @@
           </small>
 
         </div>
+        <ng-container *ngIf="getSettingsType()!=null">
+            <div id="settings" (click)="openSettings()">
+                <i class="cursor right fas fa-cog"></i>
+            </div>
+        </ng-container>        
       </div>
 
       <!-- Content-->
@@ -79,31 +85,33 @@
             </select>
           </div>
         </div>
-        <div class="row">
+        <div class="row" *ngIf="getUser()">
           <div class="col">
             <p class="blue bold" style="margin-bottom:0 !important;">
               {{getUser().firstName}} {{getUser().lastName}}
             </p>
-            <span class="gray small">Position: Employee </span>
+            <span class="gray small">{{getUserRole()}}</span>
             <br>
             <span class="gray small">Eid: {{getUser().employeeId}}</span>
           </div>
         </div>
       </div>
       <hr>
-      <ul class="nav flex-column nav-pills" id="v-pills-tab" role="tablist" aria-orientation="vertical">
+      <ul class="nav flex-column nav-pills"
+       id="v-pills-tab" role="tablist" aria-orientation="vertical">
 
+       <li [routerLink]="['profile']">
+        <a class="nav-link" id="profile" data-toggle="pill" href="" role="tab" aria-controls="profile"
+          aria-selected="false"><i class="fas fa-user left-icon"></i>
+          Profile</a>          
+      </li>
+      
         <!--
             Below nav is for the employees role
           -->
         <ng-container *ngIf="userRole == 'EMPLOYEE'">
 
-        <li [routerLink]="['portfolio']">
-          <a class="nav-link" id="portfolio" data-toggle="pill" href="" role="tab" aria-controls="portfolio"
-            aria-selected="false"><i class="fas fa-user left-icon"></i>
-            Profile</a>
-        </li>
-        <li [routerLink]="['experience']">
+        <li [routerLink]="['empHistory']">
           <a class="nav-link" id="employment" data-toggle="pill" href="" role="tab" aria-controls="employment"
             aria-selected="false">
             <i class="fas fa-briefcase left-icon"></i>
@@ -239,4 +247,7 @@
   </nav>
   <chat></chat>
   {{initJS()}}
+</div>
+<div style="text-align:center">
+  <err-succ></err-succ>
 </div>

@@ -1,0 +1,142 @@
+<div class="timeSheetsWrapper">
+        <div id="ts-options" class=" shadow-lg p-3 mb-1 bg-muted">
+            <form>
+                <div class="form-group row">
+                    <div class="col-md-3">
+                        <label for="clientName">Location</label>
+                        <select name="spj" [(ngModel)]="selectedProject" class="form-control no-bg bg-round" id="clientName">
+                            <option class="bg-round" *ngFor="let pl of projectLocation">{{pl}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-3">
+                        <label for="location">Project</label>
+                        <input type="text" class="form-control no-bg bg-round" name="dfddd" [(ngModel)]="projectDetails" id="loc"
+                            placeholder="Brief project details">
+                    </div>
+                    
+                    <div class="col-md-3">
+                        <label for="status">Status</label>
+                        <input disabled [ngModel]="curStatus" class="form-control no-bg bg-round" id="status" name="cst">
+                    </div>
+                    <div class="col-md-3">
+                            <label for="manName">Approver/Manager</label>
+                            <input type="text" [(ngModel)]="manager" class="form-control no-bg bg-round" id="manName" name="mn">                    </div>
+                </div>
+                <div class="form-group row">
+    
+                    <div class="col-md-4">
+                        <label for="clientName">Load Older</label>
+                        <select class="form-control no-bg bg-round" name="tsType" id="clientName" 
+                        (change)="getSpecificTimeSheets()"
+                            [(ngModel)]="tsWrapper">
+                            <option *ngFor="let ts of oldTsInfo" class="bg-round" [ngValue]="ts">
+                                {{ts.startDate}} - {{ts.endDate}}
+                            </option>
+                        </select>
+                    </div>
+    
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-4">
+                        <label for="clientName">Timesheets Type</label>
+                        <select class="form-control no-bg bg-round" name="tssType" [(ngModel)]="curTimesheetType" id="clientName">
+                            <option class="bg-round" *ngFor="let ts of timesheetTypes">{{ts}}</option>
+                        </select>
+                    </div>
+                    <div class="col-md-4">
+                        <label for="startDate">Start</label>
+                        <input class="form-control no-bg bg-round" id="startDate" name="stDate"
+                            [ngModel]="startDate | date:'yyyy-MM-dd'" (change)="parserStartDate($event)" type="date">
+                    </div>
+                    <div *ngIf="curTimesheetType == 'Custom'" class="col-md-4">
+                        <label for="endDate">End</label>
+                        <input [ngModel]="endDate  | date:'yyyy-MM-dd'" (change)="parserEndDate($event)"
+                            class="form-control no-bg bg-round" name="endDate" id="endDate" type="date">
+                    </div>
+                  
+                </div>
+                <div class="form-group row">
+                    <div class="col-md-4">
+                    <button id="ts-create" type="submit"
+                     [disabled]="!isSubmitReady()"
+                     (click)="validateAndCreate()" 
+                     class="btn btn-primary bg-round">
+                     New Timesheets</button>
+                </div>
+                </div>
+            </form>
+        </div> 
+       
+        <div  *ngIf="tsWrapper && tsWrapper.timesheets">
+            
+            <p style="font-weight: bolder">
+                {{tsWrapper != null ?  ' From ' + tsWrapper.startDate.toDateString() : ''}}
+
+                {{tsWrapper != null ?  ' To ' + tsWrapper.endDate.toDateString() : ''}}
+            </p>
+            <div class="form-group row">
+                    <div *ngIf ="tsWrapper.totalHours" class="col-md">
+                            <label class="gray" for="hoursW">Total Hours:</label>
+                            <p id="hoursW" class="form-control-static no-bg bg-round">{{tsWrapper.totalHours}}</p>                                        
+                    </div>
+                    <div *ngIf="tsWrapper.overTime" class="col-md">
+                            <label class="gray" for="hoursW">Overtime:</label>
+                            <p id="hoursW" class="form-control-static no-bg bg-round">{{tsWrapper.overTime}}</p>                                        
+                    </div>                
+            </div>
+            <div class="table-responsive">
+                <table class="table table-condensed  table-bordered table-hover table-striped">
+                    <thead>
+                        <tr>
+                            <th>Date</th>
+                            <th>Day</th>
+                            <th>Start</th>
+                            <th>End</th>
+                            <th>Hours</th>
+                            <th>Overtime</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let ts of tsWrapper.timesheets; let i = index">
+                            <td>{{months[tsWrapper.timesheets[i].timesheetDate.getMonth()] + "-" + tsWrapper.timesheets[i].timesheetDate.getDate()}}
+                            </td>
+                            <td>{{days[tsWrapper.timesheets[i].timesheetDate.getDay()]}}</td>
+                            <td>
+                                <select  name="st" [(ngModel)]="tsWrapper.timesheets[i].startTime">
+                                    <option *ngFor="let t of time">{{t}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <select  name="et"  [(ngModel)]="tsWrapper.timesheets[i].endTime">
+                                        <option *ngFor="let t of time">{{t}}</option>
+                                </select>
+                            </td>
+                            <td>
+                                <input name="th" [(ngModel)]="tsWrapper.timesheets[i].totalHours" type="number"
+                                    placeholder="Total Hours">
+                            </td>
+                            <td>
+                                <input name="ot" [(ngModel)]="tsWrapper.timesheets[i].overTime" type="number"
+                                    placeholder="Overtime">
+    
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <button type="submit" *ngIf="curStatus==tsStatus[1]" class="btn btn-primary"
+                (click)="submitTimeSheets()">Submit</button>
+            <button style="margin: 6px;" type="submit" *ngIf="curStatus==tsStatus[1]" (click)="saveTimeSheets()"
+                class="btn btn-primary">Save</button>
+            </div>
+
+
+
+        </div>
+
+        <div style="text-align:center">
+            <br>
+                <err-succ></err-succ>
+        </div>
+
+</div>
+    

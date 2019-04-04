@@ -1,0 +1,54 @@
+p, label{
+    color: gray;
+}
+
+.exp-form{
+    padding: 3px;
+    background-color:  #f2f2f2;
+    border: 1px solid  #f2f2f2;
+    border-radius: 6px;
+    margin-bottom:  5px;
+}
+
+label{
+    width: 100px;
+    text-align: left;    
+}
+
+tr{
+    cursor: pointer;   
+}
+
+table th {
+
+    background-color: beige;
+}
+
+
+
+.panel-title a {
+    border: 0px solid rgb(136, 130, 130);
+    padding: 1px;
+    margin-right: 10px;
+}
+
+
+#no-data{
+    background-image: url('/assets/img/no-data.png');
+    background-size: 100px 100px;
+    width: 100%;
+    min-height: 600px;
+    background-position: center;
+    background-repeat: no-repeat;
+   }
+
+input{
+    border: 1px solid gray;
+    background-color: #f8e3e3;
+}
+
+.active {background: rgb(90, 15, 15);}
+
+.card{
+    background: none !important;
+}

@@ -28,8 +28,6 @@ export class SendEmailComponent{
     @Input()
     message : string;
     
-
-    
     isFormValid(classes : string[]){
         for(var i = 0; i < classes.length; i++){
            if(!this.validateGroupInputsByClassName(classes[i])){
@@ -42,7 +40,6 @@ export class SendEmailComponent{
     validateGroupInputsByClassName(c: string) {
        return validateGroupInputsByClassName(c);
     }
-
 
     validateAndSubmit(val : string[]){       
 

@@ -30,6 +30,11 @@ import { UpdateProfileComponent } from './profile/update/app.update-profile';
 import { SendEmailComponent } from './diaglogues/app.sendEmail';
 import { NgbModalModule } from '@ng-bootstrap/ng-bootstrap';
 import { StatusService } from './Service/app.statusService';
+import { GlobalSettingsService } from './Service/app.globalSettings';
+import { SettingsDialogue } from './diaglogues/app.settings';
+import { EmpTimeSheetComponent } from './Dashboard/Timesheets/app.employee-timesheets';
+import { ProfileComponent } from './profile/app.profile';
+import { EmploymentHistComponent } from './Employment/app.employement';
 
 const routes: Routes = [
  {
@@ -40,6 +45,10 @@ const routes: Routes = [
     path: 'dashboard',
     component: DashboardComponent,
     children: [
+      {
+        path : 'profile',
+        component: ProfileComponent
+      },
       {
         path : 'update-profile',
         component: UpdateProfileComponent
@@ -66,8 +75,8 @@ const routes: Routes = [
         component: PortFolioComponent
       },
       {
-        path: 'experience',
-        component: ExperienceComponent
+        path: 'empHistory',
+        component: EmploymentHistComponent
       },
       {
         path: 'documents',
@@ -75,7 +84,7 @@ const routes: Routes = [
       },
       {
         path: 'timesheets',
-        component: TimeSheetComponent
+        component: EmpTimeSheetComponent
       },
       {
         path: 'employees',
@@ -140,7 +149,11 @@ const routes: Routes = [
     TimeSheetComponent,
     ErrorSuccessComponent,
     UpdateProfileComponent,
-    SendEmailComponent
+    SendEmailComponent,
+    SettingsDialogue,
+    EmpTimeSheetComponent,
+    ProfileComponent,
+    EmploymentHistComponent
   ],
   imports: [
     BrowserModule,
@@ -149,8 +162,10 @@ const routes: Routes = [
     HttpClientModule,
     NgbModalModule
   ],
-  entryComponents: [ SendEmailComponent ],
-  providers: [UpdateBus, MailService, WebServiceConfig, WebService, LogInService, TimesheetsService, StatusService],
+  entryComponents: [ SendEmailComponent,SettingsDialogue ],
+  providers: [UpdateBus, MailService, WebServiceConfig,
+      WebService, LogInService,
+      TimesheetsService, StatusService, GlobalSettingsService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

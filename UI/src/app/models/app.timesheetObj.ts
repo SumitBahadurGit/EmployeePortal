@@ -12,6 +12,7 @@ export class TimeSheetsObj{
         public projectDetails : string,
         public projectLocation : string,
         public isApproved: string,
+        public approvedBy : string,
         public lastUpdated : Date,
         public submittedDate : Date,
         public approvedDate : Date,

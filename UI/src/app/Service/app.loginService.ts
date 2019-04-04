@@ -14,6 +14,7 @@ export class LogInService{
     private isLoogedIn : boolean = false;
     private eid : string;
     private userRole : string;
+    private loginId : string;
  
     constructor(private http : HttpClient){
 
@@ -21,9 +22,22 @@ export class LogInService{
            
         
     }
+    
+    getLoginId(){
+        return this.loginId;        
+    }
+
+    setLoginId(id : string){
+        this.loginId = id;
+    }
 
     getEid(){
         return this.eid;
+    }
+
+    setEid(id : string){
+        this.eid = id;
+
     }
     
     logOut(){
@@ -33,7 +47,8 @@ export class LogInService{
         this.isLoogedIn = false;
     }
 
-    setLoggedIn(value : boolean, eid : string, role : string){
+    setLoggedIn(loginId : string,value : boolean, eid : string, role : string){
+        this.loginId = loginId;
         this.isLoogedIn = value;
         this.eid = eid;
         this.userRole = role;

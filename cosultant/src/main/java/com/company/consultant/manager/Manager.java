@@ -9,6 +9,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.multipart.MultipartFile;
 
 import com.company.consultant.dto.DocumentsDTO;
+import com.company.consultant.exceptions.GcsException;
 import com.company.consultant.models.DocumentObj;
 import com.company.consultant.models.EmploymentObj;
 import com.company.consultant.models.Login;
@@ -16,11 +17,13 @@ import com.company.consultant.models.PaginatedWrapper;
 import com.company.consultant.models.PersonalInfo;
 import com.company.consultant.models.SearchRequest;
 import com.company.consultant.models.SearchType;
+import com.company.consultant.models.Settings;
 import com.company.consultant.models.TimesheetsObjWrapper;
 import com.company.consultant.processor.EmployeeProcessorIF;
 import com.company.consultant.processor.FileProcessorIF;
 import com.company.consultant.processor.LoginProcessIf;
 import com.company.consultant.processor.LoginProcessor;
+import com.company.consultant.processor.SettingProcessor;
 import com.company.consultant.processor.TimesheetsProcessorIf;
 
 @Component
@@ -38,7 +41,10 @@ public class Manager {
 	@Autowired 
 	LoginProcessor loginProcessor;
 	
-	public Object manageSave(Object obj) {
+	@Autowired
+	SettingProcessor settingProcessor;
+	
+	public Object manageSave(Object obj) throws GcsException {
 
 		if(obj instanceof PersonalInfo){
 			return employeeProcessor.processAndSave((PersonalInfo) obj);
@@ -53,16 +59,18 @@ public class Manager {
 
 	}
 
-	public Object manageUpdate(Object obj) throws Exception {
+	public Object manageUpdate(Object obj) throws GcsException{
 		if(obj instanceof PersonalInfo){
 			return employeeProcessor.processAndUpdate((PersonalInfo) obj);
 		} else if(obj instanceof DocumentObj){
 			return fileProcessor.processAndUpdate((DocumentObj) obj);			
+		} else if (obj instanceof Settings){
+			return settingProcessor.processAndSave(obj);
 		}
 		return null;
 	}
 
-	public List<?> manageUpdates (List<DocumentObj> documentObjs) throws Exception {
+	public List<?> manageUpdates (List<DocumentObj> documentObjs) throws GcsException {
 
 		if(documentObjs instanceof List<?>){
 			if(documentObjs.size() > 0){
@@ -75,7 +83,7 @@ public class Manager {
 		return null;
 	}
 	
-	public List<?> manageUpload(Object[] obj) throws Exception {
+	public List<?> manageUpload(Object[] obj) throws GcsException {
 		
 		if(obj instanceof MultipartFile[]){
 			return fileProcessor.processAndUpload((MultipartFile[])obj);
@@ -85,7 +93,7 @@ public class Manager {
 
 	}
 
-	public List<?> manageSearch(Object obj) throws Exception {
+	public List<?> manageSearch(Object obj) throws GcsException {
 		if (obj == null) {
 			return employeeProcessor.processAndSearch();
 		} else if (obj instanceof SearchRequest) {
@@ -100,18 +108,20 @@ public class Manager {
 			return employeeProcessor.processAndSearch((PaginatedWrapper) obj);
 		} else if (obj instanceof TimesheetsObjWrapper){
 			return timesheetsProcessorIf.getAllTimesSheetsByEmpId((TimesheetsObjWrapper)obj);
+		} else if(obj instanceof Settings){
+			return new ArrayList<>(Arrays.asList(settingProcessor.search((Settings)obj)));
 		}
 		return null;
 
 	}
 	
-	public void manageDelete(Object obj) throws Exception{
+	public void manageDelete(Object obj) throws GcsException{
 		if (obj instanceof SearchRequest) {
 			employeeProcessor.processAndDelete((SearchRequest) obj);
 		}
 	}
 
-	public void manageDelete(List<Long> ids, Class className) throws Exception{
+	public void manageDelete(List<Long> ids, Class className) throws GcsException{
 		if (className.equals(DocumentsDTO.class)) {
 			fileProcessor.processAndDelete(ids);
 		}

@@ -11,12 +11,7 @@ import java.util.stream.Collectors;
 
 import javax.persistence.EntityManager;
 import javax.persistence.Query;
-import javax.persistence.TypedQuery;
-import javax.persistence.criteria.CriteriaBuilder;
-import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Root;
 
-import org.assertj.core.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
@@ -24,7 +19,6 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Component;
-import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
 
 import com.company.consultant.dto.DocumentsDTO;
@@ -40,11 +34,8 @@ import com.company.consultant.repository.EmploymentRepository;
 import com.company.consultant.repository.LoginRepository;
 import com.company.consultant.repository.PersonalInfoRepository;
 import com.company.consultant.repository.SettingsRepository;
-import com.company.consultant.repository.TimesheetsRepoImpl;
 import com.company.consultant.repository.TimeshseetsRepository;
 import com.company.consultant.repository.WorkRepository;
-
-import sun.util.logging.resources.logging;
 
 
 @Component

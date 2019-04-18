@@ -111,6 +111,7 @@ export class UpdateProfileComponent implements OnInit {
         this.personalInfo = data;
         this.loginService.setEid(this.personalInfo.employeeId);
         LoggedUser.createNew(this.personalInfo);
+        LoggedUser.setUserRole(this.loginService.getUserRole());
         console.log(data);
       },
       (error: any) => {
